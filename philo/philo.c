@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 00:52:01 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 01:08:30 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ void	*philosopher(void *arg)
 
 	gettimeofday(&me->start_time, NULL);
 	me->last_meal = me->start_time;
-	if (me->initial_think_us)
-		if (!philo_think(me, me->initial_think_us))
+	if (me->initial_time_to_think_us)
+		if (!philo_think(me, me->initial_time_to_think_us))
 			return (NULL);
 	while (true)
 	{

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 00:44:22 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 01:08:30 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ typedef struct s_philo
 	struct timeval	start_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	useconds_t		initial_think_us;
+	useconds_t		initial_time_to_think_us;
+	useconds_t		time_to_think_us;
 	struct timeval	last_meal;
 	bool			is_dead;
 	pthread_mutex_t is_dead_mutex;
