@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:22:13 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 12:39:16 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:02:37 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthrea
 	while (i < rules->number_of_philosophers)
 	{
 		pthread_mutex_destroy(&forks[i]);
-		pthread_mutex_destroy(&philos[i].is_dead_mutex);
+		pthread_mutex_destroy(&philos[i].state_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(global_death_mutex);

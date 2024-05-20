@@ -6,11 +6,10 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 13:16:30 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:59:52 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <bits/types/struct_timeval.h>
 #include <pthread.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -56,6 +55,13 @@
 
 #define DFLT_PRINT_DELAY_US	100
 
+typedef enum e_state
+{
+	ALIVE	= 0,
+	DYING	= 1,
+	DEAD	= 2
+}	t_state;
+
 typedef struct s_rules
 {
 	int				number_of_philosophers;
@@ -74,12 +80,14 @@ typedef struct s_philo
 	struct timeval	start_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	bool			locked_left_fork;
+	bool			locked_right_fork;
 	useconds_t		initial_time_to_think_us;
 	useconds_t		time_to_think_us;
 	struct timeval	last_meal;
-	bool			is_dead;
-	pthread_mutex_t is_dead_mutex;
-	pthread_mutex_t *global_death_mutex;
+	pthread_mutex_t state_mutex;
+	t_state			state;
+	pthread_mutex_t *global_death_mutex;	// not used atm, can rename and use for sth else
 }	t_philo;
 
 bool	allocate_memory(pthread_mutex_t **forks, t_philo **philos, const t_rules *rules);
@@ -95,4 +103,11 @@ void	*philosopher(void *arg);
 
 void	monitor(t_philo *philos, t_rules rules);
 
-unsigned long long	get_timestamp_ms(struct timeval start_time);
+unsigned long long	get_elapsed_time_ms(struct timeval start_time);
+unsigned long long	get_elapsed_time_us(struct timeval start_time);
+
+bool	print_if_alive(t_philo *me, useconds_t print_delay, const char *msg);
+bool	check_alive(t_philo *me);
+void	print_msg(t_philo *me, const char *msg);
+void	print_db(t_philo *me, const char *msg);
+void	print_db_death(t_philo *me);

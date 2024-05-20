@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:51:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/19 22:18:37 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:05:29 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	join_philo_threads(t_philo *philos, const t_rules *rules)
 	i = 0;
 	while (i < rules->number_of_philosophers)
 	{
+		print_db(&philos[i], "will be joined");
 		pthread_join(philos[i].thread, NULL);
+		print_db(&philos[i], "has been joined");
 		i++;
 	}
 }

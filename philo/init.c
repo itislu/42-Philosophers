@@ -6,13 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 12:44:11 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:40:03 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
-#include <unistd.h>
 
 bool	init_forks(pthread_mutex_t *forks, int number_of_philosophers)
 {
@@ -37,14 +35,14 @@ bool	init_forks(pthread_mutex_t *forks, int number_of_philosophers)
 	return (true);
 }
 
-static bool	init_is_dead_mutexes(t_philo *philos, int number_of_philosophers)
+static bool	init_state_mutexes(t_philo *philos, int number_of_philosophers)
 {
 	int	i;
 
 	i = 0;
 	while (i < number_of_philosophers)
 	{
-		if (pthread_mutex_init(&philos[i].is_dead_mutex, NULL) != 0)
+		if (pthread_mutex_init(&philos[i].state_mutex, NULL) != 0)
 			break;
 		i++;
 	}
@@ -52,7 +50,7 @@ static bool	init_is_dead_mutexes(t_philo *philos, int number_of_philosophers)
 	{
 		while (i >= 0)
 		{
-			pthread_mutex_destroy(&philos[i].is_dead_mutex);
+			pthread_mutex_destroy(&philos[i].state_mutex);
 			i--;
 		}
 		return (false);
@@ -99,7 +97,7 @@ bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, 
 
 	if (barrier_init(start_barrier, rules->number_of_philosophers) != 0)
 		return (false);
-	if (!init_is_dead_mutexes(philos, rules->number_of_philosophers))
+	if (!init_state_mutexes(philos, rules->number_of_philosophers))
 		return (false);
 	if (pthread_mutex_init(global_death_mutex, NULL) != 0)
 		return (false);
@@ -109,7 +107,9 @@ bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, 
 		philos[i].id = i + 1;
 		philos[i].left_fork = &forks[i];
 		philos[i].right_fork = &forks[(i + 1) % rules->number_of_philosophers];
-		philos[i].is_dead = false;
+		philos[i].locked_left_fork = false;
+		philos[i].locked_right_fork = false;
+		philos[i].state = ALIVE;
 		philos[i].global_death_mutex = global_death_mutex;
 		philos[i].initial_time_to_think_us = calc_initial_think(rules, i);
 		philos[i].time_to_think_us = calc_time_to_think(rules, i);

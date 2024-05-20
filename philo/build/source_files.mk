@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/05/19 22:41:38 by ldulling         ###   ########.fr        #
+#    Updated: 2024/05/20 13:20:17 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC		+=	$(addprefix $(DIR), \
             init.c \
             monitor.c \
             philo.c \
+            print.c \
             sleep.c \
             think.c \
             threads.c \
