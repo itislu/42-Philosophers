@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/05/20 00:51:01 by ldulling         ###   ########.fr        #
+#    Updated: 2024/05/20 12:42:00 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 
 # ***************************** BUILD PROCESS ******************************** #
 
-.PHONY			:	all test run val clean fclean ffclean re
+.PHONY			:	all test run db val clean fclean ffclean re
 
 
 #	Compilation
@@ -96,6 +96,9 @@ all				:
 							|| (echo $(MSG_FAILURE) && exit 42))
 
 run				:	all
+					"./$(NAME)" 2>/dev/null
+
+db				:	all
 					"./$(NAME)"
 
 val				:	all
@@ -191,11 +194,11 @@ STY_WHI_BRI_BG	:=	"\e[107m"
 MSG_INFO		:=	$(STY_ITA)$(STY_WHI)" Make version: $(MAKE_VERSION)\n\
 					Compiler version: $(CC_VERSION)\n"$(STY_RES)
 ################################################################################
-MSG_START		:=	$(STY_ITA)"Building Crash ... "$(STY_RES)
+MSG_START		:=	$(STY_ITA)"Building philo ... "$(STY_RES)
 ################################################################################
-MSG_PROGRESS	:=	$(STY_ITA)"🌊"$(STY_RES)
+MSG_PROGRESS	:=	"💭"
 ################################################################################
-MSG_SUCCESS		:=	$(STY_BOL)$(STY_ITA)$(STY_CYA)"\nDONE!"$(STY_RES)
+MSG_SUCCESS		:=	$(STY_BOL)$(STY_ITA)$(STY_WHI_BRI)"\nDONE!"$(STY_RES)
 ################################################################################
 MSG_NO_CHNG		:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)
 ################################################################################

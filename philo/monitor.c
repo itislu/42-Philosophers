@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 01:00:52 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:40:07 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	monitor(t_philo *philos, t_rules rules)
 		i = 0;
 		while (i < number_of_philosophers)
 		{
-			usleep(100);
+			// usleep(100);
 			pthread_mutex_lock(&philos[i].is_dead_mutex);
 			if (philos[i].is_dead)
 			{
