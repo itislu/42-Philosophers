@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:41 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 12:51:14 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:28:41 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 void	set_rules(t_rules *rules)
 {
-	rules->number_of_philosophers = 4;
-	rules->time_to_die_ms = 400;
+	rules->number_of_philosophers = 198;
+	rules->time_to_die_ms = 402;
 	rules->time_to_eat_ms = 200;
 	rules->time_to_sleep_ms = 200;
 	rules->number_of_times_each_philosopher_must_eat = 10;

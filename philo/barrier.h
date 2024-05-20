@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:22:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/19 16:28:11 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:34:36 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <errno.h>
 #include <unistd.h>
 
-#define BARRIER_BUSY_WAIT_USEC	100
+#define BARRIER_BUSY_WAIT_USEC	1000
 
 typedef struct s_barrier
 {

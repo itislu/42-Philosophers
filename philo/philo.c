@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 18:38:23 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 20:01:40 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ bool	check_alive(t_philo *me)
 	{
 		me->state = DYING;
 		pthread_mutex_unlock(&me->state_mutex);
-		// usleep(DFLT_PRINT_DELAY_US);
-		// print_msg(me, MSG_DEAD);
 		print_db_death(me);
 		return (false);
 	}
@@ -85,7 +83,7 @@ static bool	philo_eat(t_philo *me)
 	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_EAT))
 		return (false);
 	gettimeofday(&me->last_meal, NULL);
-	usleep(me->rules->time_to_eat_ms * 1000);
+	usleep_while_alive(me->rules->time_to_eat_ms * 1000, me);
 
 	philo_release_forks(me);
 	print_db(me, "has released forks");
@@ -96,14 +94,14 @@ static bool	philo_sleep(t_philo *me)
 {
 	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_SLEEP))
 		return (false);
-	usleep(me->rules->time_to_sleep_ms * 1000);
+	usleep_while_alive(me->rules->time_to_sleep_ms * 1000, me);
 	return (true);
 }
 
 static bool	philo_think(t_philo *me, useconds_t thinking_time_us)
 {
 	if (thinking_time_us)
-		usleep(thinking_time_us);
+		usleep_while_alive(thinking_time_us, me);
 	return (print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_THINK));
 }
 

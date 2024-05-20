@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 18:38:23 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:37:50 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	print_msg_time(t_philo *me, const char *msg)
 	 	printf("%s", buffer);
 }
 
+// Might have impact on performance
 void	print_db(t_philo *me, const char *msg)
 {
 	if (me->id % 2 == 1)
@@ -53,6 +54,7 @@ void	print_db(t_philo *me, const char *msg)
 		dprintf(2, "%llu %d %s\n", get_elapsed_time_ms(me->start_time), me->id, msg);
 }
 
+// Might have impact on performance
 void	print_db_death(t_philo *me)
 {
 	if (me->id % 2 == 1)

@@ -6,9 +6,12 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 18:59:52 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:32:53 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef PHILO_H
+# define PHILO_H
 
 #include <pthread.h>
 #include <stdlib.h>
@@ -73,8 +76,8 @@ typedef struct s_rules
 
 typedef struct s_philo
 {
-	int				id;
 	pthread_t		thread;
+	int				id;
 	const t_rules	*rules;
 	t_barrier		*start_barrier;
 	struct timeval	start_time;
@@ -111,3 +114,7 @@ bool	check_alive(t_philo *me);
 void	print_msg(t_philo *me, const char *msg);
 void	print_db(t_philo *me, const char *msg);
 void	print_db_death(t_philo *me);
+
+bool	usleep_while_alive(useconds_t us, t_philo *philo);
+
+#endif
