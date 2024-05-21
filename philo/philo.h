@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 21:32:53 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:27:12 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ typedef struct s_philo
 	t_state			state;
 	pthread_mutex_t *global_death_mutex;	// not used atm, can rename and use for sth else
 }	t_philo;
+
+bool	parse_rules(t_rules *rules, int argc, char *argv[]);
 
 bool	allocate_memory(pthread_mutex_t **forks, t_philo **philos, const t_rules *rules);
 void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *global_death_mutex);

@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/05/20 12:42:00 by ldulling         ###   ########.fr        #
+#    Updated: 2024/05/21 18:30:36 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME 			:=	philo
 #	Directories
 
 SRC_DIR			:=	./
-INC_DIR			:=	./
+INC_DIR			:=	./ ./utils
 BUILD_DIR		:=	./build
 OBJ_DIR			:=	$(BUILD_DIR)/_obj
 DEP_DIR			:=	$(BUILD_DIR)/_dep
@@ -71,7 +71,8 @@ TERMINALFLAGS	:=	--title="$(TERMINALTITLE)" -- /bin/sh -c
 
 #	Files
 
-include				$(BUILD_DIR)/source_files.mk
+SRC				:=	$(wildcard ./*.c ./**/*.c)	#TODO temporary
+# include				$(BUILD_DIR)/source_files.mk
 OBJ 			:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 DEP				:=	$(SRC:%.c=$(DEP_DIR)/%.d)
 
@@ -95,11 +96,11 @@ all				:
 							&& ($(MAKE) $(NAME) && echo $(MSG_SUCCESS)) \
 							|| (echo $(MSG_FAILURE) && exit 42))
 
-run				:	all
-					"./$(NAME)" 2>/dev/null
+# run				:	all
+# 					"./$(NAME)" 2>/dev/null
 
-db				:	all
-					"./$(NAME)"
+# db				:	all
+# 					"./$(NAME)"
 
 val				:	all
 					$(VALGRIND) $(VALGRINDFLAGS) "./$(NAME)"

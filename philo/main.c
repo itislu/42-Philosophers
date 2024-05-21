@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:41 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 21:28:41 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:27:12 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,6 @@
 //    int timerisset(struct timeval *tvp);
 //    int timercmp(struct timeval *a, struct timeval *b, CMP);
 
-void	set_rules(t_rules *rules)
-{
-	rules->number_of_philosophers = 198;
-	rules->time_to_die_ms = 402;
-	rules->time_to_eat_ms = 200;
-	rules->time_to_sleep_ms = 200;
-	rules->number_of_times_each_philosopher_must_eat = 10;
-}
-
 int	main(int argc, char *argv[])
 {
 	pthread_mutex_t	global_death_mutex;
@@ -38,11 +29,11 @@ int	main(int argc, char *argv[])
 	t_barrier		start_barrier;
 
 	// Parse arguments
-	((void)argc, (void)argv);
 	// number_of_philosophers time_to_die_ms time_to_eat_ms time_to_sleep_ms [number_of_times_each_philosopher_must_eat]
 	//  -> I will get global rules, and the number of philos
 	// For now I can set the rules manually
-	set_rules(&rules);
+	if (!parse_rules(&rules, argc, argv))
+		return (1);
 
 	if (!allocate_memory(&forks, &philos, &rules))
 		return (1);
