@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/21 19:27:12 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/22 01:13:42 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 #include <sys/time.h>
 #include <errno.h>
 #include "barrier.h"
+
+# ifndef __useconds_t_defined
+typedef __useconds_t useconds_t;
+# endif
 
 /* Text-Style Escape Codes */
 # define STY_RES			"\e[0m"
