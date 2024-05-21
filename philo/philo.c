@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/21 20:29:42 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/22 00:19:53 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	check_alive(t_philo *me)
 {
-	print_db(me, "is checking if alive");
+	// print_db(me, "is checking if alive");
 	pthread_mutex_lock(&me->state_mutex);
 	if (me->state != ALIVE)
 	{
@@ -50,6 +50,7 @@ static bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
 {
 	// if (!check_alive(me))
 	// 	return (false);
+	//! The too late death time is bc it is stuck in this mutex
 	if (pthread_mutex_lock(fork) != 0)
 		return (false);
 	// dprintf(2, "%llu %d has locked fork\n", get_elapsed_time_ms(me->start_time), me->id);
@@ -132,7 +133,7 @@ void	*philosopher(void *arg)
 			break;
 		if (!philo_sleep(me))
 			break;
-		if (!philo_think(me, 0))
+		if (!philo_think(me, me->time_to_think_us))
 			break;
 	}
 	philo_release_forks(me);

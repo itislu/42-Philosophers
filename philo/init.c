@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 18:40:03 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/22 00:22:08 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,8 @@ useconds_t	calc_initial_think(const t_rules *rules, int i)
 
 useconds_t	calc_time_to_think(const t_rules *rules, int i)
 {
-	(void)rules;
 	(void)i;
-	return (100);
+	return ((rules->time_to_eat_ms - rules->time_to_sleep_ms) * 1000);
 }
 
 bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *global_death_mutex)
