@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 20:01:40 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/21 20:29:42 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,11 @@ static bool	philo_sleep(t_philo *me)
 
 static bool	philo_think(t_philo *me, useconds_t thinking_time_us)
 {
+	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_THINK))
+		return (false);
 	if (thinking_time_us)
 		usleep_while_alive(thinking_time_us, me);
-	return (print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_THINK));
+	return (true);
 }
 
 // Need a value in the philo struct that tell me how long to think in the beginning
