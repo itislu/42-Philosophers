@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/24 19:30:04 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/25 01:36:21 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <string.h>
 #include <sys/time.h>
 #include <errno.h>
 #include "barrier.h"
@@ -60,7 +61,7 @@ typedef __useconds_t useconds_t;
 #define MSG_THINK	STY_BOL STY_MAG "%llu %d is thinking" STY_RES "\n"
 #define MSG_DEAD	STY_BOL STY_RED "%llu %d died" STY_RES "\n"
 
-#define DFLT_PRINT_DELAY_US			100
+#define DFLT_PRINT_DELAY_US			0
 
 #define USLEEP_LONG_US				1000
 #define USLEEP_SHORT_THRESHOLD_US	2000
@@ -69,9 +70,10 @@ typedef __useconds_t useconds_t;
 
 typedef enum e_state
 {
-	ALIVE	= 0,
-	DYING	= 1,
-	DEAD	= 2
+	ALIVE	= 0b000,
+	FULL	= 0b001,
+	DYING	= 0b010,
+	DEAD	= 0b100
 }	t_state;
 
 typedef struct s_rules
@@ -97,6 +99,7 @@ typedef struct s_philo
 	useconds_t		initial_time_to_think_us;
 	useconds_t		time_to_think_us;
 	struct timeval	last_meal;
+	int				meals_remaining;
 	pthread_mutex_t state_mutex;
 	t_state			state;
 	pthread_mutex_t *global_death_mutex;	// not used atm, can rename and use for sth else

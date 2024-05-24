@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/24 19:25:33 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/25 01:24:56 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ bool	check_alive(t_philo *me)
 {
 	// print_db(me, "is checking if alive");
 	pthread_mutex_lock(&me->state_mutex);
-	if (me->state != ALIVE)
+	if (me->state & (DYING | DEAD))
 	{
 		pthread_mutex_unlock(&me->state_mutex);
 		return (false);
 	}
 	if (get_elapsed_time_ms(me->last_meal) > (unsigned long long)me->rules->time_to_die_ms)
 	{
-		me->state = DYING;
+		me->state |= DYING;
 		pthread_mutex_unlock(&me->state_mutex);
 		print_db_death(me);
 		return (false);
@@ -88,6 +88,17 @@ static bool	philo_eat(t_philo *me)
 
 	philo_release_forks(me);
 	print_db(me, "has released forks");
+	if (me->meals_remaining > 0)
+	{
+		if (--me->meals_remaining == 0)
+		{
+			pthread_mutex_lock(&me->state_mutex);
+			me->state |= FULL;
+			pthread_mutex_unlock(&me->state_mutex);
+			print_db(me, "got full");
+			usleep(100);
+		}
+	}
 	return (true);
 }
 
@@ -138,7 +149,7 @@ void	*philosopher(void *arg)
 	}
 	philo_release_forks(me);
 	pthread_mutex_lock(&me->state_mutex);
-	me->state = DEAD;
+	me->state |= DEAD;
 	pthread_mutex_unlock(&me->state_mutex);
 	print_db(me, "has exited routine");
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/22 00:22:08 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:57:15 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,12 @@ bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, 
 		philos[i].id = i + 1;
 		philos[i].left_fork = &forks[i];
 		philos[i].right_fork = &forks[(i + 1) % rules->number_of_philosophers];
-		philos[i].locked_left_fork = false;
-		philos[i].locked_right_fork = false;
 		philos[i].state = ALIVE;
 		philos[i].global_death_mutex = global_death_mutex;
 		philos[i].initial_time_to_think_us = calc_initial_think(rules, i);
 		philos[i].time_to_think_us = calc_time_to_think(rules, i);
 		philos[i].rules = rules;
+		philos[i].meals_remaining = rules->number_of_times_each_philosopher_must_eat;
 		philos[i].start_barrier = start_barrier;
 		i++;
 	}

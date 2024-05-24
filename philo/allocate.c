@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:22:13 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 18:02:37 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:43:49 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ bool	allocate_memory(pthread_mutex_t **forks, t_philo **philos, const t_rules *r
 		free(*forks);
 		return (false);
 	}
+	memset(*philos, 0, sizeof(t_philo) * rules->number_of_philosophers);
 	return (true);
 }
 

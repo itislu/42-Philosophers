@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 21:37:50 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/25 01:30:40 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 bool	print_if_alive(t_philo *me, useconds_t print_delay, const char *msg)
 {
 	(void)print_delay;
-	// if (print_delay > 0)
-	// 	usleep(print_delay);
+	if (print_delay > 0)
+		usleep(print_delay);
 	if (!check_alive(me))
 		return (false);
 	print_msg(me, msg);
