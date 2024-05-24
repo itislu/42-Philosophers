@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/22 00:19:53 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:25:33 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
 {
 	// if (!check_alive(me))
 	// 	return (false);
-	//! The too late death time is bc it is stuck in this mutex
+	//* The too late death time was bc it was stuck in this mutex
 	if (pthread_mutex_lock(fork) != 0)
 		return (false);
 	// dprintf(2, "%llu %d has locked fork\n", get_elapsed_time_ms(me->start_time), me->id);
@@ -116,11 +116,11 @@ void	*philosopher(void *arg)
 	me = (t_philo *)arg;
 
 	gettimeofday(&me->start_time, NULL);
-	print_db(me, "waits at barrier");
+	// print_db(me, "waits at barrier");
 
-	if (barrier_wait(me->start_barrier) != 0)
-		return (NULL);	// IDK yet
-	print_db(me, "passed the barrier");
+	// if (barrier_wait(me->start_barrier) != 0)
+	// 	return (NULL);	// IDK yet
+	// print_db(me, "passed the barrier");
 
 	gettimeofday(&me->start_time, NULL);
 	me->last_meal = me->start_time;

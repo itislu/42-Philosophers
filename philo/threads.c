@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:51:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/20 14:05:29 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:26:33 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 bool	create_philo_threads(t_philo *philos, const t_rules *rules)
 {
 	int	i;
+	int	number_of_philosophers;
 
+	number_of_philosophers = rules->number_of_philosophers;
 	i = 0;
-	while (i < rules->number_of_philosophers)
+	while (i < number_of_philosophers)
 	{
 		if (pthread_create(&philos[i].thread, NULL, &philosopher, &philos[i]) != 0)
 			return (false);
