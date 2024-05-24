@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/22 01:13:42 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:30:04 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,12 @@ typedef __useconds_t useconds_t;
 #define MSG_THINK	STY_BOL STY_MAG "%llu %d is thinking" STY_RES "\n"
 #define MSG_DEAD	STY_BOL STY_RED "%llu %d died" STY_RES "\n"
 
-#define DFLT_PRINT_DELAY_US	100
+#define DFLT_PRINT_DELAY_US			100
+
+#define USLEEP_LONG_US				1000
+#define USLEEP_SHORT_THRESHOLD_US	2000
+#define USLEEP_SHORT_US				100
+#define BUSY_WAIT_THRESHOLD_US		100
 
 typedef enum e_state
 {
@@ -122,5 +127,7 @@ void	print_db(t_philo *me, const char *msg);
 void	print_db_death(t_philo *me);
 
 bool	usleep_while_alive(useconds_t us, t_philo *philo);
+
+void	print_actual_slept_time(struct timeval *start, struct timeval *end, useconds_t us, t_philo *philo);
 
 #endif
