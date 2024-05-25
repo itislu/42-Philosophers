@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/25 01:36:21 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:02:25 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_philo
 	bool			locked_right_fork;
 	useconds_t		initial_time_to_think_us;
 	useconds_t		time_to_think_us;
-	struct timeval	last_meal;
+	struct timeval	last_meal_time;
 	int				meals_remaining;
 	pthread_mutex_t state_mutex;
 	t_state			state;

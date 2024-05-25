@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/25 15:12:58 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:04:36 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	check_alive(t_philo *me)
 		return (false);
 	}
 	pthread_mutex_unlock(&me->state_mutex);
-	if (get_elapsed_time_ms(me->last_meal) > (unsigned long long)me->rules->time_to_die_ms)
+	if (get_elapsed_time_ms(me->last_meal_time) > (unsigned long long)me->rules->time_to_die_ms)
 	{
 		pthread_mutex_lock(&me->state_mutex);
 		me->state |= DYING;
@@ -84,7 +84,7 @@ static bool	philo_eat(t_philo *me)
 
 	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_EAT))
 		return (false);
-	gettimeofday(&me->last_meal, NULL);
+	gettimeofday(&me->last_meal_time, NULL);
 	usleep_while_alive(me->rules->time_to_eat_ms * 1000, me);
 
 	philo_release_forks(me);
@@ -135,7 +135,7 @@ void	*philosopher(void *arg)
 	// print_db(me, "passed the barrier");
 
 	gettimeofday(&me->start_time, NULL);
-	me->last_meal = me->start_time;
+	me->last_meal_time = me->start_time;
 	if (me->initial_time_to_think_us)
 		if (!philo_think(me, me->initial_time_to_think_us))
 			return (NULL);
