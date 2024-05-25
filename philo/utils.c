@@ -63,7 +63,7 @@ void	busy_wait(useconds_t us)
 
 	dprintf(2, "Busy wait for %u us\n", us);
 	gettimeofday(&start_time, NULL);
-	while (get_elapsed_time_us(start_time) < us)
+	while (get_elapsed_time_us(&start_time) < us)
 		;
 }
 
@@ -79,14 +79,14 @@ bool	usleep_while_alive(useconds_t us, t_philo *philo)
 		if (!check_alive(philo))
 			return (false);
 		usleep_and_print(USLEEP_LONG_US, philo);
-		slept_time_us = get_elapsed_time_us(start_time);
+		slept_time_us = get_elapsed_time_us(&start_time);
 	}
 	while (slept_time_us + BUSY_WAIT_THRESHOLD_US < us)
 	{
 		// if (!check_alive(philo))
 		// 	return (false);
 		usleep_and_print(USLEEP_SHORT_US, philo);
-		slept_time_us = get_elapsed_time_us(start_time);
+		slept_time_us = get_elapsed_time_us(&start_time);
 	}
 	if (slept_time_us < us)
 	{
@@ -159,12 +159,12 @@ bool	usleep_while_alive_old(useconds_t us, t_philo *philo)
 		if (!check_alive(philo))
 			return (false);
 		usleep_and_print(sleep_time_us, philo);
-		slept_time_us = get_elapsed_time_us(start_time);
+		slept_time_us = get_elapsed_time_us(&start_time);
 	}
 	while (slept_time_us + 110 < us)
 	{
 		usleep_and_print(sleep_time_us, philo);
-		slept_time_us = get_elapsed_time_us(start_time);
+		slept_time_us = get_elapsed_time_us(&start_time);
 	}
 
 	if (!check_alive(philo))
@@ -178,9 +178,9 @@ bool	usleep_while_alive_old(useconds_t us, t_philo *philo)
 	// 	// 	return (false);
 	// 	// usleep(sleep_time_us);
 	// 	usleep(sleep_time_us / 10);
-	// 	slept_time_us = get_elapsed_time_us(start_time);
+	// 	slept_time_us = get_elapsed_time_us(&start_time);
 	// }
-	slept_time_us = get_elapsed_time_us(start_time);
+	slept_time_us = get_elapsed_time_us(&start_time);
 	if (slept_time_us < us)
 		usleep_and_print(us - slept_time_us, philo);
 

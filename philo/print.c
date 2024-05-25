@@ -58,7 +58,7 @@ void	print_db(t_philo *me, const char *msg)
 void	print_db_death(t_philo *me)
 {
 	if (me->id % 2 == 1)
-		dprintf(2, SPACING "  - %d died %llums after last meal" STY_RES "\n", me->id, get_elapsed_time_ms(me->last_meal_time));
+		dprintf(2, SPACING "  - %d died %llums after last meal" STY_RES "\n", me->id, get_elapsed_time_ms(&me->last_meal_time));
 	else
-		dprintf(2, "  - %d died %llums after last meal\n", me->id, get_elapsed_time_ms(me->last_meal_time));
+		dprintf(2, "  - %d died %llums after last meal\n", me->id, get_elapsed_time_ms(&me->last_meal_time));
 }

@@ -92,7 +92,7 @@ typedef struct s_philo
 	int				id;
 	const t_rules	*rules;
 	t_barrier		*start_barrier;
-	struct timeval	start_time;
+	struct timeval	*start_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	bool			locked_left_fork;
@@ -112,7 +112,7 @@ bool	allocate_memory(pthread_mutex_t **forks, t_philo **philos, const t_rules *r
 void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *global_death_mutex);
 
 bool	init_forks(pthread_mutex_t *forks, int number_of_philosophers);
-bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *global_death_mutex);
+bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *global_death_mutex, struct timeval *start_time);
 
 bool	create_philo_threads(t_philo *philos, const t_rules *rules);
 void	join_philo_threads(t_philo *philos, const t_rules *rules);
@@ -121,8 +121,8 @@ void	*philosopher(void *arg);
 
 void	monitor(t_philo *philos, t_rules rules);
 
-unsigned long long	get_elapsed_time_ms(struct timeval start_time);
-unsigned long long	get_elapsed_time_us(struct timeval start_time);
+unsigned long long	get_elapsed_time_ms(struct timeval *start_time);
+unsigned long long	get_elapsed_time_us(struct timeval *start_time);
 
 bool	print_if_alive(t_philo *me, useconds_t print_delay, const char *msg);
 bool	check_alive(t_philo *me);

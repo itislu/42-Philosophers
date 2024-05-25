@@ -12,22 +12,22 @@
 
 #include "philo.h"
 
-unsigned long long	get_elapsed_time_ms(struct timeval start_time)
+unsigned long long	get_elapsed_time_ms(struct timeval *start_time)
 {
 	struct timeval		current_time;
 	struct timeval		result;
 
 	gettimeofday(&current_time, NULL);
-	timersub(&current_time, &start_time, &result);
+	timersub(&current_time, start_time, &result);
 	return ((unsigned long long)result.tv_sec * 1000 + result.tv_usec / 1000);
 }
 
-unsigned long long	get_elapsed_time_us(struct timeval start_time)
+unsigned long long	get_elapsed_time_us(struct timeval *start_time)
 {
 	struct timeval		current_time;
 	struct timeval		result;
 
 	gettimeofday(&current_time, NULL);
-	timersub(&current_time, &start_time, &result);
+	timersub(&current_time, start_time, &result);
 	return ((unsigned long long)result.tv_sec * 1000000 + result.tv_usec);
 }

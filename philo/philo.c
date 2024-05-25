@@ -22,7 +22,7 @@ bool	check_alive(t_philo *me)
 		return (false);
 	}
 	pthread_mutex_unlock(&me->state_mutex);
-	if (get_elapsed_time_us(me->last_meal_time) > me->rules->time_to_die_us)
+	if (get_elapsed_time_us(&me->last_meal_time) > me->rules->time_to_die_us)
 	{
 		pthread_mutex_lock(&me->state_mutex);
 		me->state |= DYING;
@@ -127,15 +127,15 @@ void	*philosopher(void *arg)
 
 	me = (t_philo *)arg;
 
-	gettimeofday(&me->start_time, NULL);
+	// gettimeofday(&me->start_time, NULL);
 	// print_db(me, "waits at barrier");
 
 	// if (barrier_wait(me->start_barrier) != 0)
 	// 	return (NULL);	// IDK yet
 	// print_db(me, "passed the barrier");
 
-	gettimeofday(&me->start_time, NULL);
-	me->last_meal_time = me->start_time;
+	// gettimeofday(&me->start_time, NULL);
+	me->last_meal_time = *me->start_time;
 	if (me->initial_time_to_think_us)
 		if (!philo_think(me, me->initial_time_to_think_us))
 			return (NULL);

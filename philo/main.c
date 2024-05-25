@@ -22,6 +22,7 @@
 
 int	main(int argc, char *argv[])
 {
+	struct timeval	start_time;
 	pthread_mutex_t	global_death_mutex;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
@@ -40,9 +41,10 @@ int	main(int argc, char *argv[])
 
 	if (!init_forks(forks, rules.number_of_philosophers))
 		return (1);
-	if (!init_philos(philos, forks, &rules, &start_barrier, &global_death_mutex))
+	if (!init_philos(philos, forks, &rules, &start_barrier, &global_death_mutex, &start_time))
 		return (1);
 
+	gettimeofday(&start_time, NULL);
 	if (!create_philo_threads(philos, &rules))
 		return (1);
 

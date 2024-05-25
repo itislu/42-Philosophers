@@ -90,7 +90,7 @@ useconds_t	calc_time_to_think(const t_rules *rules, int i)
 	return ((rules->time_to_eat_ms - rules->time_to_sleep_ms) * 1000);
 }
 
-bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *global_death_mutex)
+bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *global_death_mutex, struct timeval *start_time)
 {
 	int	i;
 
@@ -104,6 +104,7 @@ bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, 
 	while (i < rules->number_of_philosophers)
 	{
 		philos[i].id = i + 1;
+		philos[i].start_time = start_time;
 		philos[i].left_fork = &forks[i];
 		philos[i].right_fork = &forks[(i + 1) % rules->number_of_philosophers];
 		philos[i].state = ALIVE;
