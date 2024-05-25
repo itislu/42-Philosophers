@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/25 01:24:56 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/25 15:12:58 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ bool	check_alive(t_philo *me)
 		pthread_mutex_unlock(&me->state_mutex);
 		return (false);
 	}
+	pthread_mutex_unlock(&me->state_mutex);
 	if (get_elapsed_time_ms(me->last_meal) > (unsigned long long)me->rules->time_to_die_ms)
 	{
+		pthread_mutex_lock(&me->state_mutex);
 		me->state |= DYING;
 		pthread_mutex_unlock(&me->state_mutex);
 		print_db_death(me);
 		return (false);
 	}
-	pthread_mutex_unlock(&me->state_mutex);
 	return (true);
 }
 
@@ -110,12 +111,12 @@ static bool	philo_sleep(t_philo *me)
 	return (true);
 }
 
-static bool	philo_think(t_philo *me, useconds_t thinking_time_us)
+static bool	philo_think(t_philo *me, useconds_t time_to_think_us)
 {
 	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_THINK))
 		return (false);
-	if (thinking_time_us)
-		usleep_while_alive(thinking_time_us, me);
+	if (time_to_think_us)
+		usleep_while_alive(time_to_think_us, me);
 	return (true);
 }
 
