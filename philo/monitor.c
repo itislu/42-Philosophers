@@ -82,6 +82,7 @@ void	monitor(t_philo *philos, t_rules rules)
 			}
 			else
 				pthread_mutex_unlock(&philos[i].state_mutex);
+			// usleep(100); // Just for helgrind
 			i++;
 		}
 		if (all_full)

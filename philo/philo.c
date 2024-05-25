@@ -33,17 +33,35 @@ bool	check_alive(t_philo *me)
 	return (true);
 }
 
+static void	set_fork_order(t_philo *me, pthread_mutex_t **first, pthread_mutex_t **second)
+{
+	if (me->id % 2 == 0)
+	{
+		*first = me->right_fork;
+		*second = me->left_fork;
+	}
+	else
+	{
+		*first = me->left_fork;
+		*second = me->right_fork;
+	}
+}
+
 static void	philo_release_forks(t_philo *me)
 {
-	if (me->locked_left_fork)
+	pthread_mutex_t *first;
+	pthread_mutex_t *second;
+
+	set_fork_order(me, &first, &second);
+	if (me->locked_second_fork)
 	{
-		pthread_mutex_unlock(me->left_fork);
-		me->locked_left_fork = false;
+		pthread_mutex_unlock(second);
+		me->locked_second_fork = false;
 	}
-	if (me->locked_right_fork)
+	if (me->locked_first_fork)
 	{
-		pthread_mutex_unlock(me->right_fork);
-		me->locked_right_fork = false;
+		pthread_mutex_unlock(first);
+		me->locked_first_fork = false;
 	}
 }
 
@@ -65,15 +83,19 @@ static bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
 
 static bool	philo_take_forks(t_philo *me)
 {
+	pthread_mutex_t *first;
+	pthread_mutex_t *second;
+
+	set_fork_order(me, &first, &second);
 	print_db(me, "is trying to take forks");
-	if (!philo_take_fork(me, me->left_fork))
+	if (!philo_take_fork(me, first))
 		return (false);
-	me->locked_left_fork = true;
-	print_db(me, "has taken left fork");
-	if (!philo_take_fork(me, me->right_fork))
+	me->locked_first_fork = true;
+	print_db(me, "has taken first fork");
+	if (!philo_take_fork(me, second))
 		return (false);
-	me->locked_right_fork = true;
-	print_db(me, "has taken right fork");
+	me->locked_second_fork = true;
+	print_db(me, "has taken second fork");
 	return (true);
 }
 

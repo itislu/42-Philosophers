@@ -37,7 +37,7 @@ BUILDFILES		:=	Makefile \
 
 CC 				:=	cc
 CC_VERSION		:=	$(shell $(CC) --version | head -1)
-CFLAGS 			:=	-Wall -Wextra -Werror -ggdb3 -pthread
+CFLAGS 			:=	-Wall -Wextra -Werror -ggdb3 -pthread# -fsanitize=thread
 INCFLAGS 		:=	$(addprefix -I,$(INC_DIR))
 MAKEFLAGS		:=	-j -s
 

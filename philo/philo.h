@@ -96,8 +96,8 @@ typedef struct s_philo
 	struct timeval	*start_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	bool			locked_left_fork;
-	bool			locked_right_fork;
+	bool			locked_first_fork;
+	bool			locked_second_fork;
 	useconds_t		initial_time_to_think_us;
 	useconds_t		time_to_think_us;
 	struct timeval	last_meal_time;
