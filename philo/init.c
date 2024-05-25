@@ -90,7 +90,7 @@ useconds_t	calc_time_to_think(const t_rules *rules, int i)
 	return ((rules->time_to_eat_ms - rules->time_to_sleep_ms) * 1000);
 }
 
-bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *global_death_mutex, struct timeval *start_time)
+bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *start_mutex, struct timeval *start_time)
 {
 	int	i;
 
@@ -98,7 +98,7 @@ bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, 
 		return (false);
 	if (!init_state_mutexes(philos, rules->number_of_philosophers))
 		return (false);
-	if (pthread_mutex_init(global_death_mutex, NULL) != 0)
+	if (pthread_mutex_init(start_mutex, NULL) != 0)
 		return (false);
 	i = 0;
 	while (i < rules->number_of_philosophers)
@@ -108,7 +108,7 @@ bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, 
 		philos[i].left_fork = &forks[i];
 		philos[i].right_fork = &forks[(i + 1) % rules->number_of_philosophers];
 		philos[i].state = ALIVE;
-		philos[i].global_death_mutex = global_death_mutex;
+		philos[i].start_mutex = start_mutex;
 		philos[i].initial_time_to_think_us = calc_initial_think(rules, i);
 		philos[i].time_to_think_us = calc_time_to_think(rules, i);
 		philos[i].rules = rules;

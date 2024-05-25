@@ -126,15 +126,9 @@ void	*philosopher(void *arg)
 	t_philo			*me;
 
 	me = (t_philo *)arg;
+	pthread_mutex_lock(me->start_mutex);
+	pthread_mutex_unlock(me->start_mutex);
 
-	// gettimeofday(&me->start_time, NULL);
-	// print_db(me, "waits at barrier");
-
-	// if (barrier_wait(me->start_barrier) != 0)
-	// 	return (NULL);	// IDK yet
-	// print_db(me, "passed the barrier");
-
-	// gettimeofday(&me->start_time, NULL);
 	me->last_meal_time = *me->start_time;
 	if (me->initial_time_to_think_us)
 		if (!philo_think(me, me->initial_time_to_think_us))

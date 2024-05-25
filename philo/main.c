@@ -23,7 +23,7 @@
 int	main(int argc, char *argv[])
 {
 	struct timeval	start_time;
-	pthread_mutex_t	global_death_mutex;
+	pthread_mutex_t	start_mutex;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 	t_rules			rules;
@@ -41,16 +41,17 @@ int	main(int argc, char *argv[])
 
 	if (!init_forks(forks, rules.number_of_philosophers))
 		return (1);
-	if (!init_philos(philos, forks, &rules, &start_barrier, &global_death_mutex, &start_time))
+	if (!init_philos(philos, forks, &rules, &start_barrier, &start_mutex, &start_time))
 		return (1);
 
-	gettimeofday(&start_time, NULL);
+	pthread_mutex_lock(&start_mutex);
 	if (!create_philo_threads(philos, &rules))
 		return (1);
-
+	gettimeofday(&start_time, NULL);
+	pthread_mutex_unlock(&start_mutex);
 	monitor(philos, rules);
 
 	join_philo_threads(philos, &rules);
-	clean(philos, forks, &rules, &global_death_mutex);
+	clean(philos, forks, &rules, &start_mutex);
 	return (0);
 }

@@ -92,6 +92,7 @@ typedef struct s_philo
 	int				id;
 	const t_rules	*rules;
 	t_barrier		*start_barrier;
+	pthread_mutex_t *start_mutex;
 	struct timeval	*start_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -103,16 +104,15 @@ typedef struct s_philo
 	int				meals_remaining;
 	pthread_mutex_t state_mutex;
 	t_state			state;
-	pthread_mutex_t *global_death_mutex;	// not used atm, can rename and use for sth else
 }	t_philo;
 
 bool	parse_rules(t_rules *rules, int argc, char *argv[]);
 
 bool	allocate_memory(pthread_mutex_t **forks, t_philo **philos, const t_rules *rules);
-void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *global_death_mutex);
+void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *start_mutex);
 
 bool	init_forks(pthread_mutex_t *forks, int number_of_philosophers);
-bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *global_death_mutex, struct timeval *start_time);
+bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *start_mutex, struct timeval *start_time);
 
 bool	create_philo_threads(t_philo *philos, const t_rules *rules);
 void	join_philo_threads(t_philo *philos, const t_rules *rules);

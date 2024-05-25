@@ -27,7 +27,7 @@ bool	allocate_memory(pthread_mutex_t **forks, t_philo **philos, const t_rules *r
 	return (true);
 }
 
-void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *global_death_mutex)
+void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *start_mutex)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthrea
 		pthread_mutex_destroy(&philos[i].state_mutex);
 		i++;
 	}
-	pthread_mutex_destroy(global_death_mutex);
+	pthread_mutex_destroy(start_mutex);
 	free(forks);
 	free(philos);
 }
