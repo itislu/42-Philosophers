@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:07:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/21 19:27:12 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:45:00 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ bool	parse_rules(t_rules *rules, int argc, char *argv[])
 		// 0 does nothing
 	if (!set_rule(&rules->time_to_die_ms, "Time to die", argv[2]))
 		ret = false;
+	rules->time_to_die_us = rules->time_to_die_ms * 1000;
 
 	// Time to eat
 	if (!set_rule(&rules->time_to_eat_ms, "Time to eat", argv[3]))

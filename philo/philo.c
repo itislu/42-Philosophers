@@ -22,7 +22,7 @@ bool	check_alive(t_philo *me)
 		return (false);
 	}
 	pthread_mutex_unlock(&me->state_mutex);
-	if (get_elapsed_time_ms(me->last_meal_time) > (unsigned long long)me->rules->time_to_die_ms)
+	if (get_elapsed_time_us(me->last_meal_time) > me->rules->time_to_die_us)
 	{
 		pthread_mutex_lock(&me->state_mutex);
 		me->state |= DYING;

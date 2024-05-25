@@ -78,11 +78,12 @@ typedef enum e_state
 
 typedef struct s_rules
 {
-	int				number_of_philosophers;
-	int				time_to_die_ms;
-	int				time_to_eat_ms;
-	int				time_to_sleep_ms;
-	int				number_of_times_each_philosopher_must_eat;
+	int					number_of_philosophers;
+	int					time_to_die_ms;
+	unsigned long long	time_to_die_us;
+	int					time_to_eat_ms;
+	int					time_to_sleep_ms;
+	int					number_of_times_each_philosopher_must_eat;
 }	t_rules;
 
 typedef struct s_philo
