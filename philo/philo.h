@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 16:00:36 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:17:29 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ typedef __useconds_t useconds_t;
 
 typedef enum e_state
 {
-	ALIVE	= 0b000,
-	FULL	= 0b001,
-	DYING	= 0b010,
-	DEAD	= 0b100
+	ALIVE		= 0b000,
+	FULL		= 0b001,
+	DEAD		= 0b010,
+	CONFIRMED	= 0b100
 }	t_state;
 
 typedef struct s_rules

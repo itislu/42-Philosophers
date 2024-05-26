@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 18:13:00 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:39:59 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,20 @@
 static void	wait_all_dead(t_philo *philos, int number_of_philosophers)
 {
 	int		i;
-	bool	all_dead;
+	t_state	state;
 
 	while (true)
 	{
 		i = 0;
-		all_dead = true;
+		state = ALIVE;
 		while (i < number_of_philosophers)
 		{
 			pthread_mutex_lock(&philos[i].state_mutex);
-			if (!(philos[i].state & DEAD))
-				all_dead = false;
+			state |= philos[i].state;
 			pthread_mutex_unlock(&philos[i].state_mutex);
 			i++;
 		}
-		if (all_dead)
+		if (state & (DEAD | CONFIRMED))
 			break ;
 	}
 }
@@ -48,7 +47,7 @@ static void	broadcast_death(t_philo *philos, int number_of_philosophers)
 	while (i < number_of_philosophers)
 	{
 		pthread_mutex_lock(&philos[i].state_mutex);
-		philos[i].state |= DYING;
+		philos[i].state |= DEAD;
 		pthread_mutex_unlock(&philos[i].state_mutex);
 		i++;
 	}
@@ -56,35 +55,29 @@ static void	broadcast_death(t_philo *philos, int number_of_philosophers)
 
 void	monitor(t_philo *philos, t_rules rules)
 {
-	int	number_of_philosophers;
-	int	i;
-	bool	all_full;
+	int		number_of_philosophers;
+	int		i;
+	t_state	state;
 
 	number_of_philosophers = rules.number_of_philosophers;
 	while (true)
 	{
 		i = 0;
-		all_full = true;
+		state = ALIVE;
 		while (i < number_of_philosophers)
 		{
 			pthread_mutex_lock(&philos[i].state_mutex);
-			if (philos[i].state & DEAD)
+			state |= philos[i].state;
+			pthread_mutex_unlock(&philos[i].state_mutex);
+			if (state & DEAD)
 			{
-				pthread_mutex_unlock(&philos[i].state_mutex);
 				broadcast_death(philos, number_of_philosophers);
 				print_death(philos, number_of_philosophers, i);
 				return ;
 			}
-			else if (!(philos[i].state & FULL))
-			{
-				pthread_mutex_unlock(&philos[i].state_mutex);
-				all_full = false;
-			}
-			else
-				pthread_mutex_unlock(&philos[i].state_mutex);
 			i++;
 		}
-		if (all_full)
+		if (state & FULL)
 		{
 			dprintf(2, "FUUUUUUUUUUUUUUUUUUUUUUUULLLLLLLLLLLLLLLLLLL\n");
 			break ;

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 18:09:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:16:51 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 bool	check_alive(t_philo *me)
 {
 	pthread_mutex_lock(&me->state_mutex);
-	if (me->state & DYING)
+	if (me->state & DEAD)
 	{
-		me->state |= DEAD;
+		me->state |= CONFIRMED;
 		pthread_mutex_unlock(&me->state_mutex);
 		return (false);
 	}
@@ -26,7 +26,7 @@ bool	check_alive(t_philo *me)
 	if (me->latest_timestamp - me->last_meal_timestamp > (unsigned long long)me->rules->time_to_die_ms)
 	{
 		pthread_mutex_lock(&me->state_mutex);
-		me->state |= DEAD;
+		me->state |= (DEAD | CONFIRMED);
 		pthread_mutex_unlock(&me->state_mutex);
 		print_db_death(me);
 		return (false);
