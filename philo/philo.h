@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/25 21:06:36 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 16:00:36 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,25 @@ typedef struct s_rules
 
 typedef struct s_philo
 {
-	pthread_t		thread;
-	int				id;
-	const t_rules	*rules;
-	t_barrier		*start_barrier;
-	pthread_mutex_t *start_mutex;
-	struct timeval	*start_time;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
-	bool			locked_left_fork;
-	bool			locked_right_fork;
-	bool			(*take_forks)(struct s_philo *me);
-	void			(*release_forks)(struct s_philo *me);
-	useconds_t		initial_time_to_think_us;
-	useconds_t		time_to_think_us;
-	struct timeval	last_meal_time;
-	int				meals_remaining;
-	pthread_mutex_t state_mutex;
-	t_state			state;
+	pthread_t			thread;
+	int					id;
+	const t_rules		*rules;
+	t_barrier			*start_barrier;
+	pthread_mutex_t 	*start_mutex;
+	struct timeval		*start_time;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
+	bool				locked_left_fork;
+	bool				locked_right_fork;
+	bool				(*take_forks)(struct s_philo *me);
+	void				(*release_forks)(struct s_philo *me);
+	useconds_t			initial_time_to_think_us;
+	useconds_t			time_to_think_us;
+	unsigned long long	latest_timestamp;
+	unsigned long long	last_meal_timestamp;
+	int					meals_remaining;
+	pthread_mutex_t 	state_mutex;
+	t_state				state;
 }	t_philo;
 
 bool	parse_rules(t_rules *rules, int argc, char *argv[]);

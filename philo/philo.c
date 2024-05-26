@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/25 20:46:00 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 15:56:16 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool	check_alive(t_philo *me)
 {
-	// print_db(me, "is checking if alive");
 	pthread_mutex_lock(&me->state_mutex);
 	if (me->state & (DYING | DEAD))
 	{
@@ -22,7 +21,8 @@ bool	check_alive(t_philo *me)
 		return (false);
 	}
 	pthread_mutex_unlock(&me->state_mutex);
-	if (get_elapsed_time_us(&me->last_meal_time) > me->rules->time_to_die_us)
+	me->latest_timestamp = get_elapsed_time_ms(me->start_time);
+	if (me->latest_timestamp - me->last_meal_timestamp > (unsigned long long)me->rules->time_to_die_ms)
 	{
 		pthread_mutex_lock(&me->state_mutex);
 		me->state |= DYING;
@@ -40,7 +40,7 @@ static bool	philo_eat(t_philo *me)
 
 	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_EAT))
 		return (false);
-	gettimeofday(&me->last_meal_time, NULL);
+	me->last_meal_timestamp = me->latest_timestamp;
 	usleep_while_alive(me->rules->time_to_eat_ms * 1000, me);
 
 	me->release_forks(me);
@@ -85,7 +85,6 @@ void	*philosopher(void *arg)
 	pthread_mutex_lock(me->start_mutex);
 	pthread_mutex_unlock(me->start_mutex);
 
-	me->last_meal_time = *me->start_time;
 	if (me->initial_time_to_think_us)
 		if (!philo_think(me, me->initial_time_to_think_us))
 			return (NULL);
