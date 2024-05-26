@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/24 23:42:56 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 18:13:00 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	monitor(t_philo *philos, t_rules rules)
 		while (i < number_of_philosophers)
 		{
 			pthread_mutex_lock(&philos[i].state_mutex);
-			if (philos[i].state & (DYING | DEAD))
+			if (philos[i].state & DEAD)
 			{
 				pthread_mutex_unlock(&philos[i].state_mutex);
 				broadcast_death(philos, number_of_philosophers);
@@ -82,13 +82,11 @@ void	monitor(t_philo *philos, t_rules rules)
 			}
 			else
 				pthread_mutex_unlock(&philos[i].state_mutex);
-			// usleep(100); // Just for helgrind
 			i++;
 		}
 		if (all_full)
 		{
-			printf("FUUUUUUUUUUUUUUUUUUUUUUUULLLLLLLLLLLLLLLLLLL\n");
-			broadcast_death(philos, number_of_philosophers);
+			dprintf(2, "FUUUUUUUUUUUUUUUUUUUUUUUULLLLLLLLLLLLLLLLLLL\n");
 			break ;
 		}
 	}
