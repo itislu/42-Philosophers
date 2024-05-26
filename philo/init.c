@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 21:51:55 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:13:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static bool	init_state_mutexes(t_philo *philos, int number_of_philosophers)
 	return (true);
 }
 
-static useconds_t	calc_even(const t_rules *rules, int i)
+static useconds_t	calc_even_us(const t_rules *rules, int i)
 {
 	(void)rules;
 	if (i % 2 == 0)
@@ -67,7 +67,7 @@ static useconds_t	calc_even(const t_rules *rules, int i)
 		return (10 * 1000);
 }
 
-static useconds_t	calc_odd(const t_rules *rules, int i)
+static useconds_t	calc_odd_us(const t_rules *rules, int i)
 {
 	(void)rules;
 	if (i % 2 == 0)
@@ -76,17 +76,17 @@ static useconds_t	calc_odd(const t_rules *rules, int i)
 		return (10 * 1000);
 }
 
-useconds_t	calc_initial_think(const t_rules *rules, int i)
+useconds_t	calc_initial_think_us(const t_rules *rules, int i)
 {
 	if (rules->number_of_philosophers < 2)
 		return (rules->time_to_die_us + USLEEP_LONG_US);
 	else if (rules->number_of_philosophers % 2 == 0)
-		return (calc_even(rules, i));
+		return (calc_even_us(rules, i));
 	else
-		return (calc_odd(rules, i));
+		return (calc_odd_us(rules, i));
 }
 
-useconds_t	calc_time_to_think(const t_rules *rules, int i)
+useconds_t	calc_time_to_think_us(const t_rules *rules, int i)
 {
 	(void)i;
 	if (rules->time_to_eat_ms > rules->time_to_sleep_ms)
@@ -129,8 +129,8 @@ bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, 
 		philos[i].state = ALIVE;
 		philos[i].start_mutex = start_mutex;
 		set_forks(philos, forks, rules, i);
-		philos[i].initial_time_to_think_us = calc_initial_think(rules, i);
-		philos[i].time_to_think_us = calc_time_to_think(rules, i);
+		philos[i].initial_time_to_think_us = calc_initial_think_us(rules, i);
+		philos[i].time_to_think_us = calc_time_to_think_us(rules, i);
 		philos[i].rules = rules;
 		philos[i].meals_remaining = rules->number_of_times_each_philosopher_must_eat;
 		philos[i].start_barrier = start_barrier;
