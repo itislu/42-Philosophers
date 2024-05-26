@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 16:34:02 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:54:03 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	print_actual_slept_time(struct timeval *start, struct timeval *end, usecond
 	{
 		if (philo->id % 2 == 1)
 		{
-			dprintf(2, STY_BOL STY_RED SPACING "%llu %d Target sleep time: %u us" STY_RES "\n", get_elapsed_time_ms(philo->start_time), philo->id, us);
-			dprintf(2, STY_BOL STY_RED SPACING "%llu %d Actual sleep time: %llu us" STY_RES "\n", get_elapsed_time_ms(philo->start_time), philo->id, actual_slept_time_us);
+			dprintf(2, STY_BOL STY_RED "%llu %d Target sleep time: %u us" STY_RES "\n", get_elapsed_time_ms(philo->start_time), philo->id, us);
+			dprintf(2, STY_BOL STY_RED "%llu %d Actual sleep time: %llu us" STY_RES "\n", get_elapsed_time_ms(philo->start_time), philo->id, actual_slept_time_us);
 		}
 		else
 		{
-			dprintf(2, STY_BOL STY_RED "%llu %d Target sleep time: %u us" STY_RES "\n", get_elapsed_time_ms(philo->start_time), philo->id, us);
-			dprintf(2, STY_BOL STY_RED "%llu %d Actual sleep time: %llu us" STY_RES "\n", get_elapsed_time_ms(philo->start_time), philo->id, actual_slept_time_us);
+			dprintf(2, STY_BOL STY_RED SPACING "%llu %d Target sleep time: %u us" STY_RES "\n", get_elapsed_time_ms(philo->start_time), philo->id, us);
+			dprintf(2, STY_BOL STY_RED SPACING "%llu %d Actual sleep time: %llu us" STY_RES "\n", get_elapsed_time_ms(philo->start_time), philo->id, actual_slept_time_us);
 		}
 	}
 }
