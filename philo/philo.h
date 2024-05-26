@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 21:17:29 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 23:33:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef __useconds_t useconds_t;
 
 #define DFLT_PRINT_DELAY_US			0
 
+#define MONITOR_INTERVAL_US			100
 #define USLEEP_LONG_US				1000
 #define USLEEP_SHORT_THRESHOLD_US	2000
 #define USLEEP_SHORT_US				100

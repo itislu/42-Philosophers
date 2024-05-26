@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 21:39:59 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 23:33:13 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ void	monitor(t_philo *philos, t_rules rules)
 			dprintf(2, "FUUUUUUUUUUUUUUUUUUUUUUUULLLLLLLLLLLLLLLLLLL\n");
 			break ;
 		}
+		usleep(MONITOR_INTERVAL_US);
 	}
 }
