@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/24 19:32:56 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/26 16:34:02 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_actual_slept_time(struct timeval *start, struct timeval *end, usecond
 	unsigned long long	actual_slept_time_us;
 
 	timersub(end, start, &result);
-	actual_slept_time_us = result.tv_sec * 1000000 + result.tv_usec;
+	actual_slept_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
 
 	if (actual_slept_time_us - us >= 50)
 	{
