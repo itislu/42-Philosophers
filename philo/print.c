@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 21:53:43 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/27 01:41:47 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	print_msg(t_philo *me, const char *msg)
 void	print_db(t_philo *me, const char *msg)
 {
 	if (me->id % 2 == 1)
-		dprintf(2, "%llu %d %s\n", get_elapsed_time_ms(me->start_time), me->id, msg);
+		dprintf(2, "%llu %d %s\n", get_elapsed_time_ms((struct timeval *)me->start_time), me->id, msg);
 	else
-		dprintf(2, SPACING "%llu %d %s" STY_RES "\n", get_elapsed_time_ms(me->start_time), me->id, msg);
+		dprintf(2, SPACING "%llu %d %s" STY_RES "\n", get_elapsed_time_ms((struct timeval *)me->start_time), me->id, msg);
 }
 
 // Might have impact on performance

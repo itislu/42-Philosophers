@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 21:16:51 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/27 01:41:32 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	check_alive(t_philo *me)
 		return (false);
 	}
 	pthread_mutex_unlock(&me->state_mutex);
-	me->latest_timestamp = get_elapsed_time_ms(me->start_time);
+	me->latest_timestamp = get_elapsed_time_ms((struct timeval *)me->start_time);
 	if (me->latest_timestamp - me->last_meal_timestamp > (unsigned long long)me->rules->time_to_die_ms)
 	{
 		pthread_mutex_lock(&me->state_mutex);
@@ -83,8 +83,8 @@ void	*philosopher(void *arg)
 	t_philo			*me;
 
 	me = (t_philo *)arg;
-	pthread_mutex_lock(me->start_mutex);
-	pthread_mutex_unlock(me->start_mutex);
+	pthread_mutex_lock(me->sync_mutex);
+	pthread_mutex_unlock(me->sync_mutex);
 
 	if (me->initial_time_to_think_us)
 		if (!philo_think(me, me->initial_time_to_think_us))

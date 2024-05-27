@@ -6,56 +6,39 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 22:13:18 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/27 01:20:38 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	init_forks(pthread_mutex_t *forks, int number_of_philosophers)
+bool	init_mutexes(void *ptr, int count, size_t obj_size, size_t offset)
 {
 	int	i;
 
 	i = 0;
-	while (i < number_of_philosophers)
+	while (i < count)
 	{
-		if (pthread_mutex_init(&forks[i], NULL) != 0)
-			return (false);
-		i++;
-	}
-	if (i < number_of_philosophers)
-	{
-		while (i >= 0)
+		if (pthread_mutex_init(ptr + i * obj_size + offset, NULL) != 0)
 		{
-			pthread_mutex_destroy(&forks[i]);
-			i--;
+			destroy_mutexes(ptr, i, obj_size, offset);
+			return (false);
 		}
-		return (false);
+		i++;
 	}
 	return (true);
 }
 
-static bool	init_state_mutexes(t_philo *philos, int number_of_philosophers)
+void	destroy_mutexes(void *ptr, int count, size_t obj_size, size_t offset)
 {
 	int	i;
 
 	i = 0;
-	while (i < number_of_philosophers)
+	while (i < count)
 	{
-		if (pthread_mutex_init(&philos[i].state_mutex, NULL) != 0)
-			break;
+		pthread_mutex_destroy(ptr + i * obj_size + offset);
 		i++;
 	}
-	if (i < number_of_philosophers)
-	{
-		while (i >= 0)
-		{
-			pthread_mutex_destroy(&philos[i].state_mutex);
-			i--;
-		}
-		return (false);
-	}
-	return (true);
 }
 
 static useconds_t	calc_even_us(const t_rules *rules, int i)
@@ -111,29 +94,26 @@ static void	set_forks(t_philo *philos, pthread_mutex_t *forks, const t_rules *ru
 	}
 }
 
-bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, t_barrier *start_barrier, pthread_mutex_t *start_mutex, struct timeval *start_time)
+bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *sync_mutex, struct timeval *start_time)
 {
 	int	i;
 
-	if (barrier_init(start_barrier, rules->number_of_philosophers) != 0)
+	if (pthread_mutex_init(sync_mutex, NULL) != 0)
 		return (false);
-	if (!init_state_mutexes(philos, rules->number_of_philosophers))
-		return (false);
-	if (pthread_mutex_init(start_mutex, NULL) != 0)
-		return (false);
+	if (!init_mutexes(philos, rules->number_of_philosophers, sizeof(t_philo), offsetof(t_philo, state_mutex)))
+		return (pthread_mutex_destroy(sync_mutex), false);
 	i = 0;
 	while (i < rules->number_of_philosophers)
 	{
 		philos[i].id = i + 1;
 		philos[i].start_time = start_time;
 		philos[i].state = ALIVE;
-		philos[i].start_mutex = start_mutex;
+		philos[i].sync_mutex = sync_mutex;
 		set_forks(philos, forks, rules, i);
 		philos[i].initial_time_to_think_us = calc_initial_think_us(rules, i);
 		philos[i].time_to_think_us = calc_time_to_think_us(rules, i);
 		philos[i].rules = rules;
 		philos[i].meals_remaining = rules->number_of_times_each_philosopher_must_eat;
-		philos[i].start_barrier = start_barrier;
 		i++;
 	}
 	return (true);

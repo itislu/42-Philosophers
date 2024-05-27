@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:22:13 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/24 19:43:49 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/27 00:08:10 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,26 @@
 
 bool	allocate_memory(pthread_mutex_t **forks, t_philo **philos, const t_rules *rules)
 {
-	*forks = malloc(sizeof(pthread_mutex_t) * rules->number_of_philosophers);
+	*forks = malloc(rules->number_of_philosophers * sizeof(pthread_mutex_t));
 	if (!*forks)
 		return (false);
-	*philos = malloc(sizeof(t_philo) * rules->number_of_philosophers);
+	*philos = malloc(rules->number_of_philosophers * sizeof(t_philo));
 	if (!*philos)
 	{
 		free(*forks);
 		return (false);
 	}
-	memset(*philos, 0, sizeof(t_philo) * rules->number_of_philosophers);
+	memset(*philos, 0, rules->number_of_philosophers * sizeof(t_philo));
 	return (true);
 }
 
-void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *start_mutex)
+void	free_memory(pthread_mutex_t *forks, t_philo *philos)
+{
+	free(forks);
+	free(philos);
+}
+
+void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *sync_mutex)
 {
 	int	i;
 
@@ -38,7 +44,6 @@ void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthrea
 		pthread_mutex_destroy(&philos[i].state_mutex);
 		i++;
 	}
-	pthread_mutex_destroy(start_mutex);
-	free(forks);
-	free(philos);
+	pthread_mutex_destroy(sync_mutex);
+	free_memory(forks, philos);
 }

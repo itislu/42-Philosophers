@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 23:33:13 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/27 01:09:19 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	print_death(t_philo *philos, int number_of_philosophers, int dead_ph
 	print_msg(&philos[dead_philo], MSG_DEAD);
 }
 
-static void	broadcast_death(t_philo *philos, int number_of_philosophers)
+void	broadcast_death(t_philo *philos, int number_of_philosophers)
 {
 	int	i;
 
