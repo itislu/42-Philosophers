@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/27 01:20:38 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:48:37 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,39 +41,41 @@ void	destroy_mutexes(void *ptr, int count, size_t obj_size, size_t offset)
 	}
 }
 
-static useconds_t	calc_even_us(const t_rules *rules, int i)
+static useconds_t	calc_even_us(const t_rules *rules, int id)
 {
 	(void)rules;
-	if (i % 2 == 0)
-		return (0);
+	if (id % 2 == 0)
+		return (MARGIN_MS / 2 * 1000);
 	else
-		return (10 * 1000);
+		return (0);
 }
 
-static useconds_t	calc_odd_us(const t_rules *rules, int i)
+static useconds_t	calc_odd_us(const t_rules *rules, int id)
 {
 	(void)rules;
-	if (i % 2 == 0)
-		return (0);
+	if (id % 2 == 0)
+		return (MARGIN_MS / 2 * 1000);
+	else if (id == rules->number_of_philosophers)
+		return ((rules->time_to_eat_ms * 2 - MARGIN_MS / 2) * 1000U);
 	else
-		return (10 * 1000);
+		return (0);
 }
 
-useconds_t	calc_initial_think_us(const t_rules *rules, int i)
+useconds_t	calc_initial_think_us(const t_rules *rules, int id)
 {
 	if (rules->number_of_philosophers < 2)
 		return (rules->time_to_die_us + USLEEP_LONG_US);
 	else if (rules->number_of_philosophers % 2 == 0)
-		return (calc_even_us(rules, i));
+		return (calc_even_us(rules, id));
 	else
-		return (calc_odd_us(rules, i));
+		return (calc_odd_us(rules, id));
 }
 
-useconds_t	calc_time_to_think_us(const t_rules *rules, int i)
+useconds_t	calc_time_to_think_us(const t_rules *rules, int id)
 {
-	(void)i;
-	if (rules->time_to_eat_ms > rules->time_to_sleep_ms)
-		return ((rules->time_to_eat_ms - rules->time_to_sleep_ms) * 1000U);
+	(void)id;
+	if (rules->time_to_eat_ms > rules->time_to_sleep_ms + MARGIN_MS / 2)
+		return ((rules->time_to_eat_ms - rules->time_to_sleep_ms - MARGIN_MS / 2) * 1000U);
 	else
 		return (0);
 }
@@ -110,8 +112,8 @@ bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, 
 		philos[i].state = ALIVE;
 		philos[i].sync_mutex = sync_mutex;
 		set_forks(philos, forks, rules, i);
-		philos[i].initial_time_to_think_us = calc_initial_think_us(rules, i);
-		philos[i].time_to_think_us = calc_time_to_think_us(rules, i);
+		philos[i].initial_time_to_think_us = calc_initial_think_us(rules, philos[i].id);
+		philos[i].time_to_think_us = calc_time_to_think_us(rules, philos[i].id);
 		philos[i].rules = rules;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/28 21:27:07 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:38:58 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef __useconds_t useconds_t;
 #define USLEEP_SHORT_THRESHOLD_US	2000
 #define USLEEP_SHORT_US				100
 #define BUSY_WAIT_THRESHOLD_US		100
+#define MARGIN_MS					10
 
 typedef enum e_state
 {
