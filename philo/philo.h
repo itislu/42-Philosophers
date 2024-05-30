@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/27 01:46:47 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:27:07 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_philo
 	useconds_t				time_to_think_us;	//TODO Rename to thinking_time_us
 	unsigned long long		latest_timestamp;
 	unsigned long long		last_meal_timestamp;
-	int						meals_remaining;
+	unsigned long long		meals_eaten;
 }	t_philo;
 
 bool	parse_rules(t_rules *rules, int argc, char *argv[]);

@@ -113,7 +113,6 @@ bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, 
 		philos[i].initial_time_to_think_us = calc_initial_think_us(rules, i);
 		philos[i].time_to_think_us = calc_time_to_think_us(rules, i);
 		philos[i].rules = rules;
-		philos[i].meals_remaining = rules->number_of_times_each_philosopher_must_eat;
 		i++;
 	}
 	return (true);

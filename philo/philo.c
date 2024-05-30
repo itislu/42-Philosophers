@@ -46,16 +46,15 @@ static bool	philo_eat(t_philo *me)
 
 	me->release_forks(me);
 	print_db(me, "has released forks");
-	if (me->meals_remaining > 0)
+	me->meals_eaten++;
+	if (me->rules->number_of_times_each_philosopher_must_eat > 0
+		&& (int)me->meals_eaten == me->rules->number_of_times_each_philosopher_must_eat)
 	{
-		if (--me->meals_remaining == 0)
-		{
-			pthread_mutex_lock(&me->state_mutex);
-			me->state |= FULL;
-			pthread_mutex_unlock(&me->state_mutex);
-			print_db(me, "got full");
-			return (false);
-		}
+		pthread_mutex_lock(&me->state_mutex);
+		me->state |= FULL;
+		pthread_mutex_unlock(&me->state_mutex);
+		print_db(me, "got full");
+		return (false);
 	}
 	return (true);
 }
