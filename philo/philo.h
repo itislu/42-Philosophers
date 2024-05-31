@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/31 00:38:58 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:11:40 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void	print_db(t_philo *me, const char *msg);
 void	print_db_death(t_philo *me);
 
 bool	usleep_while_alive(useconds_t us, t_philo *philo);
+bool	usleep_while_alive_precise(useconds_t us, t_philo *philo);
 
 void	print_actual_slept_time(struct timeval *start, struct timeval *end, useconds_t us, t_philo *philo);
 

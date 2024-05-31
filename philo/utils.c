@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/27 01:40:00 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:11:32 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,23 @@ void	busy_wait(useconds_t us)
 }
 
 bool	usleep_while_alive(useconds_t us, t_philo *philo)
+{
+	struct timeval	start_time;
+	useconds_t		slept_time_us;
+
+	gettimeofday(&start_time, NULL);
+	slept_time_us = 0;
+	while (slept_time_us < us)
+	{
+		if (!check_alive(philo))
+			return (false);
+		usleep_and_print(USLEEP_LONG_US, philo);
+		slept_time_us = get_elapsed_time_us(&start_time);
+	}
+	return (true);
+}
+
+bool	usleep_while_alive_precise(useconds_t us, t_philo *philo)
 {
 	struct timeval	start_time;
 	useconds_t		slept_time_us;
