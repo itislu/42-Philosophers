@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/31 21:11:50 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 23:22:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static useconds_t	calc_odd_us(const t_rules *rules, int id)
 useconds_t	calc_initial_think_us(const t_rules *rules, int id)
 {
 	if (rules->number_of_philosophers < 2)
-		return (rules->time_to_die_us + USLEEP_LONG_US);
+		return (rules->time_to_die_us + 1000);
 	else if (rules->number_of_philosophers % 2 == 0)
 		return (calc_even_us(rules, id));
 	else
