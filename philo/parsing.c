@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:07:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 16:35:38 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 23:27:05 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	report_wrong_arg_num(int argc)
 {
-	ft_putstr_fd("Error: Wrong number of arguments\n", STDERR_FILENO);
+	ft_putstr_fd("Input error: Wrong number of arguments\n", STDERR_FILENO);
 
 	if (argc < 2)
 		ft_putstr_fd("  - Number of philosophers is missing\n", STDERR_FILENO);
@@ -56,7 +56,7 @@ bool	is_negative(char *arg)
 
 void	print_invalid_arg(char *target, char *msg)
 {
-	ft_putstr_fd("Error: ", STDERR_FILENO);
+	ft_putstr_fd("Input error: ", STDERR_FILENO);
 	ft_putstr_fd(target, STDERR_FILENO);
 	ft_putstr_fd(" ", STDERR_FILENO);
 	ft_putstr_fd(msg, STDERR_FILENO);
