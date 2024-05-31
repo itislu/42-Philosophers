@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/31 18:11:40 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:05:55 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,37 +89,40 @@ typedef struct s_rules
 	int					number_of_times_each_philosopher_must_eat;
 }	t_rules;
 
+typedef struct s_mutexes
+{
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	*state_mutexes;
+	pthread_mutex_t	*sync_mutex;
+}	t_mutexes;
+
 typedef struct s_philo
 {
 	pthread_t				thread;
 	int						id;
-	const t_rules			*rules;
-	const struct timeval	*start_time;
-	pthread_mutex_t 		state_mutex;
+	struct timeval const	*start_time;
 	t_state					state;
+	pthread_mutex_t 		state_mutex;
+	pthread_mutex_t 		*sync_mutex;
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
 	bool					locked_left_fork;
 	bool					locked_right_fork;
 	bool					(*take_forks)(struct s_philo *me);
 	void					(*release_forks)(struct s_philo *me);
-	pthread_mutex_t 		*sync_mutex;
 	useconds_t				initial_time_to_think_us;
 	useconds_t				time_to_think_us;	//TODO Rename to thinking_time_us
 	unsigned long long		latest_timestamp;
 	unsigned long long		last_meal_timestamp;
 	unsigned long long		meals_eaten;
+	t_rules const			*rules;
 }	t_philo;
 
 bool	parse_rules(t_rules *rules, int argc, char *argv[]);
 
-bool	allocate_memory(pthread_mutex_t **forks, t_philo **philos, const t_rules *rules);
-void	free_memory(pthread_mutex_t *forks, t_philo *philos);
-void	clean(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *sync_mutex);
-
-bool	init_mutexes(void *ptr, int count, size_t obj_size, size_t offset);
-void	destroy_mutexes(void *ptr, int count, size_t obj_size, size_t offset);
-bool	init_philos(t_philo *philos, pthread_mutex_t *forks, const t_rules *rules, pthread_mutex_t *sync_mutex, struct timeval *start_time);
+bool	init_mutexes(t_mutexes *mutexes, t_rules *rules);
+void	destroy_mutexes(t_mutexes *mutexes, t_rules *rules);
+bool	init_philos(t_philo **philos, t_mutexes *mutexes, const t_rules *rules, struct timeval *start_time);
 
 bool	take_forks_left_first(t_philo *me);
 bool	take_forks_right_first(t_philo *me);

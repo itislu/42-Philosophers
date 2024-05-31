@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:41 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/27 01:20:25 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:09:08 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,27 @@
 int	main(int argc, char *argv[])
 {
 	struct timeval	start_time;
-	pthread_mutex_t	sync_mutex;
-	pthread_mutex_t	*forks;
+	t_mutexes		mutexes;
 	t_philo			*philos;
 	t_rules			rules;
 
 	if (!parse_rules(&rules, argc, argv))
 		return (1);
 
-	if (!allocate_memory(&forks, &philos, &rules))
+	if (!init_mutexes(&mutexes, &rules))
 		return (2);
+	if (!init_philos(&philos, &mutexes, &rules, &start_time))
+		return (destroy_mutexes(&mutexes, &rules), free(philos), 3);
 
-	if (!init_mutexes(forks, rules.number_of_philosophers, sizeof(pthread_mutex_t), 0))
-		return (free_memory(forks, philos), 3);
-	if (!init_philos(philos, forks, &rules, &sync_mutex, &start_time))
-		return (destroy_mutexes(forks, rules.number_of_philosophers, sizeof(pthread_mutex_t), 0), free_memory(forks, philos), 4);
-
-	pthread_mutex_lock(&sync_mutex);
+	pthread_mutex_lock(mutexes.sync_mutex);
 	if (!create_philo_threads(philos, &rules))
-		return (clean(philos, forks, &rules, &sync_mutex), 5);
+		return (destroy_mutexes(&mutexes, &rules), free(philos), 4);
 	gettimeofday(&start_time, NULL);
-	pthread_mutex_unlock(&sync_mutex);
+	pthread_mutex_unlock(mutexes.sync_mutex);
 	monitor(philos, rules);
 
 	join_philo_threads(philos, rules.number_of_philosophers);
-	clean(philos, forks, &rules, &sync_mutex);
+	destroy_mutexes(&mutexes, &rules);
+	free(philos);
 	return (0);
 }
