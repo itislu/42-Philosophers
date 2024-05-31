@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/31 21:05:55 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:51:16 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ typedef __useconds_t useconds_t;
 
 # define SPACING			"                                   "
 
-#define MSG_FORK	STY_BOL STY_YEL "%llu %d has taken a fork" STY_RES "\n"
-#define MSG_EAT		STY_BOL STY_GRE "%llu %d is eating" STY_RES "\n"
-#define MSG_SLEEP	STY_BOL STY_BLU "%llu %d is sleeping" STY_RES "\n"
-#define MSG_THINK	STY_BOL STY_MAG "%llu %d is thinking" STY_RES "\n"
-#define MSG_DEAD	STY_BOL STY_RED "%llu %d died" STY_RES "\n"
+#define MSG_FORK			"\e[1;33m%s%llu %d has taken a fork\e[0m\n"
+#define MSG_EAT				"\e[1;32m%s%llu %d is eating\e[0m\n"
+#define MSG_SLEEP			"\e[1;34m%s%llu %d is sleeping\e[0m\n"
+#define MSG_THINK			"\e[1;35m%s%llu %d is thinking\e[0m\n"
+#define MSG_DEAD			"\e[1;31m%s%llu %d died\e[0m\n"
 
 #define DFLT_PRINT_DELAY_US			0
 
@@ -94,6 +94,7 @@ typedef struct s_mutexes
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*state_mutexes;
 	pthread_mutex_t	*sync_mutex;
+	pthread_mutex_t	*print_mutex;
 }	t_mutexes;
 
 typedef struct s_philo
@@ -104,6 +105,7 @@ typedef struct s_philo
 	t_state					state;
 	pthread_mutex_t 		state_mutex;
 	pthread_mutex_t 		*sync_mutex;
+	pthread_mutex_t			*print_mutex;
 	pthread_mutex_t			*left_fork;
 	pthread_mutex_t			*right_fork;
 	bool					locked_left_fork;

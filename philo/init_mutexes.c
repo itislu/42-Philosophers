@@ -38,11 +38,16 @@ bool	init_mutexes(t_mutexes *mutexes, t_rules *rules)
 	mutexes->sync_mutex = malloc(sizeof(pthread_mutex_t));
 	if (!mutexes->sync_mutex)
 		return (destroy_mutexes(mutexes, rules), false);
+	mutexes->print_mutex = malloc(sizeof(pthread_mutex_t));
+	if (!mutexes->print_mutex)
+		return (destroy_mutexes(mutexes, rules), false);
 	if (!iter_init_mutexes(mutexes->forks, rules->number_of_philosophers))
 		return (destroy_mutexes(mutexes, rules), false);
 	if (!iter_init_mutexes(mutexes->state_mutexes, rules->number_of_philosophers))
 		return (destroy_mutexes(mutexes, rules), false);
 	if (pthread_mutex_init(mutexes->sync_mutex, NULL) != 0)
+		return (destroy_mutexes(mutexes, rules), false);
+	if (pthread_mutex_init(mutexes->print_mutex, NULL) != 0)
 		return (destroy_mutexes(mutexes, rules), false);
 	return (true);
 }
@@ -75,5 +80,10 @@ void	destroy_mutexes(t_mutexes *mutexes, t_rules *rules)
 	{
 		pthread_mutex_destroy(mutexes->sync_mutex);
 		free(mutexes->sync_mutex);
+	}
+	if (mutexes->print_mutex)
+	{
+		pthread_mutex_destroy(mutexes->print_mutex);
+		free(mutexes->print_mutex);
 	}
 }

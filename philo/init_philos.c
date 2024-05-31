@@ -83,6 +83,7 @@ bool	init_philos(t_philo **philos, t_mutexes *mutexes, const t_rules *rules, str
 		(*philos)[i].state = ALIVE;
 		(*philos)[i].state_mutex = mutexes->state_mutexes[i];
 		(*philos)[i].sync_mutex = mutexes->sync_mutex;
+		(*philos)[i].print_mutex = mutexes->print_mutex;
 		set_forks(*philos, mutexes->forks, rules, i);
 		(*philos)[i].initial_time_to_think_us = calc_initial_think_us(rules, (*philos)[i].id);
 		(*philos)[i].time_to_think_us = calc_time_to_think_us(rules, (*philos)[i].id);
