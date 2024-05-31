@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:41 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/31 21:09:08 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/05/31 23:25:11 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	main(int argc, char *argv[])
 
 	if (!parse_rules(&rules, argc, argv))
 		return (1);
+	if (rules.number_of_philosophers < 1)
+		return (0);
 
 	if (!init_mutexes(&mutexes, &rules))
 		return (2);
