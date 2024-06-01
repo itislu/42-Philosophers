@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/27 01:09:19 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:51:34 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	monitor(t_philo *philos, t_rules rules)
 		}
 		if (state & FULL)
 		{
-			dprintf(2, "FUUUUUUUUUUUUUUUUUUUUUUUULLLLLLLLLLLLLLLLLLL\n");
+			if (DEBUG)
+				dprintf(2, "One philosopher has eaten enough meals.\n");
 			break ;
 		}
 		usleep(MONITOR_INTERVAL_US);

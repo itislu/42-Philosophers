@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/05/21 18:30:36 by ldulling         ###   ########.fr        #
+#    Updated: 2024/06/01 20:50:42 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,14 @@ CC_VERSION		:=	$(shell $(CC) --version | head -1)
 CFLAGS 			:=	-Wall -Wextra -Werror -ggdb3 -pthread# -fsanitize=thread
 INCFLAGS 		:=	$(addprefix -I,$(INC_DIR))
 MAKEFLAGS		:=	-j -s
+
+
+#	Macro definitions
+
+export				MACROS
+ifeq ($(filter debug,$(MAKECMDGOALS)),debug)
+MACROS			:=	-D DEBUG=1
+endif
 
 
 #	Valgrind
@@ -85,7 +93,7 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 
 # ***************************** BUILD PROCESS ******************************** #
 
-.PHONY			:	all test run db val clean fclean ffclean re
+.PHONY			:	all test run debug val clean fclean ffclean re
 
 
 #	Compilation
@@ -96,11 +104,8 @@ all				:
 							&& ($(MAKE) $(NAME) && echo $(MSG_SUCCESS)) \
 							|| (echo $(MSG_FAILURE) && exit 42))
 
-# run				:	all
-# 					"./$(NAME)" 2>/dev/null
-
-# db				:	all
-# 					"./$(NAME)"
+debug			:	re
+					$(MAKE) clean
 
 val				:	all
 					$(VALGRIND) $(VALGRINDFLAGS) "./$(NAME)"

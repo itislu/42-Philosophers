@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/01 13:45:52 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 00:12:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 
 # ifndef __useconds_t_defined
 typedef __useconds_t useconds_t;
+# endif
+
+# ifndef DEBUG
+#  define DEBUG 0
 # endif
 
 /* Text-Style Escape Codes */
@@ -63,6 +67,7 @@ typedef __useconds_t useconds_t;
 #define MSG_DEAD			"\e[1;31m%s%llu %d died\e[0m\n"
 
 #define DFLT_PRINT_DELAY_US			0
+#define DEBUG_USLEEP_DELAY_THRESHOLD_US	50
 
 #define MONITOR_INTERVAL_US			100
 #define USLEEP_LONG_US				1000
