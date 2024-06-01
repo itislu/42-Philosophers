@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/31 21:51:53 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:48:25 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_msg(t_philo *me, const char *msg)
 }
 
 // Might have impact on performance
-void	print_db(t_philo *me, const char *msg)
+void	print_debug(t_philo *me, const char *msg)
 {
 	char	*spacing;
 
@@ -51,7 +51,7 @@ void	print_db(t_philo *me, const char *msg)
 }
 
 // Might have impact on performance
-void	print_db_death(t_philo *me)
+void	print_debug_death(t_philo *me)
 {
 	char	*spacing;
 

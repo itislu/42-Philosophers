@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/31 21:51:16 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:45:52 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ unsigned long long	get_elapsed_time_us(struct timeval *start_time);
 bool	print_if_alive(t_philo *me, useconds_t print_delay, const char *msg);
 bool	check_alive(t_philo *me);
 void	print_msg(t_philo *me, const char *msg);
-void	print_db(t_philo *me, const char *msg);
-void	print_db_death(t_philo *me);
+void	print_debug(t_philo *me, const char *msg);
+void	print_debug_death(t_philo *me);
 
 bool	usleep_while_alive(useconds_t us, t_philo *philo);
 bool	usleep_while_alive_precise(useconds_t us, t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 20:27:30 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/27 01:13:43 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:48:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,29 @@ static bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
 
 bool	take_forks_left_first(t_philo *me)
 {
-	print_db(me, "is trying to take forks");
+	print_debug(me, "is trying to take forks");
 	if (!philo_take_fork(me, me->left_fork))
 		return (false);
 	me->locked_left_fork = true;
-	print_db(me, "has taken left fork");
+	print_debug(me, "has taken left fork");
 	if (!philo_take_fork(me, me->right_fork))
 		return (false);
 	me->locked_right_fork = true;
-	print_db(me, "has taken right fork");
+	print_debug(me, "has taken right fork");
 	return (true);
 }
 
 bool	take_forks_right_first(t_philo *me)
 {
-	print_db(me, "is trying to take forks");
+	print_debug(me, "is trying to take forks");
 	if (!philo_take_fork(me, me->right_fork))
 		return (false);
 	me->locked_right_fork = true;
-	print_db(me, "has taken right fork");
+	print_debug(me, "has taken right fork");
 	if (!philo_take_fork(me, me->left_fork))
 		return (false);
 	me->locked_left_fork = true;
-	print_db(me, "has taken left fork");
+	print_debug(me, "has taken left fork");
 	return (true);
 }
 

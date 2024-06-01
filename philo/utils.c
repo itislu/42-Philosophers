@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/31 18:11:32 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:54:31 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ bool	usleep_while_alive_precise(useconds_t us, t_philo *philo)
 	}
 	if (slept_time_us < us)
 	{
-		print_db(philo, "busy waits");
+		print_debug(philo, "busy waits");
 		busy_wait(us - slept_time_us);
 	}
 
@@ -148,7 +148,7 @@ bool	usleep_while_alive_precise(useconds_t us, t_philo *philo)
 // 	slept_time_us = get_elapsed_time_us(start_time);
 // 	if (slept_time_us < us)
 // 	{
-// 		print_db(philo, "busy waits");
+// 		print_debug(philo, "busy waits");
 // 		busy_wait(us - slept_time_us);
 // 	}
 
