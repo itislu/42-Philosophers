@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/01 13:44:04 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 00:24:11 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	check_alive(t_philo *me)
 		pthread_mutex_lock(&me->state_mutex);
 		me->state |= (DEAD | CONFIRMED);
 		pthread_mutex_unlock(&me->state_mutex);
-		print_debug_death(me);
+		print_verbose_death(me);
 		return (false);
 	}
 	return (true);
@@ -45,7 +45,7 @@ static bool	philo_eat(t_philo *me)
 	usleep_while_alive_precise(me->rules->time_to_eat_ms * 1000U, me);
 
 	me->release_forks(me);
-	print_debug(me, "has released forks");
+	print_verbose(me, "has released forks");
 	me->meals_eaten++;
 	if (me->rules->number_of_times_each_philosopher_must_eat > 0
 		&& (int)me->meals_eaten == me->rules->number_of_times_each_philosopher_must_eat)
@@ -53,7 +53,7 @@ static bool	philo_eat(t_philo *me)
 		pthread_mutex_lock(&me->state_mutex);
 		me->state |= FULL;
 		pthread_mutex_unlock(&me->state_mutex);
-		print_debug(me, "got full");
+		print_verbose(me, "got full");
 		return (false);
 	}
 	return (true);
@@ -124,6 +124,6 @@ void	*philosopher(void *arg)
 			break;
 	}
 	me->release_forks(me);
-	print_debug(me, "has exited routine");
+	print_verbose(me, "has exited routine");
 	return (NULL);
 }

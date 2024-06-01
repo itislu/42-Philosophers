@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 00:12:14 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 00:25:54 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 typedef __useconds_t useconds_t;
 # endif
 
-# ifndef DEBUG
-#  define DEBUG 0
+# ifndef VERBOSE
+#  define VERBOSE 0
 # endif
 
 /* Text-Style Escape Codes */
@@ -67,7 +67,7 @@ typedef __useconds_t useconds_t;
 #define MSG_DEAD			"\e[1;31m%s%llu %d died\e[0m\n"
 
 #define DFLT_PRINT_DELAY_US			0
-#define DEBUG_USLEEP_DELAY_THRESHOLD_US	50
+#define VERBOSE_USLEEP_DELAY_THRESHOLD_US	50
 
 #define MONITOR_INTERVAL_US			100
 #define USLEEP_LONG_US				1000
@@ -150,8 +150,8 @@ unsigned long long	get_elapsed_time_us(struct timeval *start_time);
 bool	print_if_alive(t_philo *me, useconds_t print_delay, const char *msg);
 bool	check_alive(t_philo *me);
 void	print_msg(t_philo *me, const char *msg);
-void	print_debug(t_philo *me, const char *msg);
-void	print_debug_death(t_philo *me);
+void	print_verbose(t_philo *me, const char *msg);
+void	print_verbose_death(t_philo *me);
 
 bool	usleep_while_alive(useconds_t us, t_philo *philo);
 bool	usleep_while_alive_precise(useconds_t us, t_philo *philo);

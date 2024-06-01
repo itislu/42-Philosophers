@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/06/01 20:50:42 by ldulling         ###   ########.fr        #
+#    Updated: 2024/06/02 00:22:10 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,8 @@ MAKEFLAGS		:=	-j -s
 #	Macro definitions
 
 export				MACROS
-ifeq ($(filter debug,$(MAKECMDGOALS)),debug)
-MACROS			:=	-D DEBUG=1
+ifeq ($(filter verbose,$(MAKECMDGOALS)),verbose)
+MACROS			:=	-D VERBOSE=1
 endif
 
 
@@ -93,7 +93,7 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 
 # ***************************** BUILD PROCESS ******************************** #
 
-.PHONY			:	all test run debug val clean fclean ffclean re
+.PHONY			:	all test run verbose val clean fclean ffclean re
 
 
 #	Compilation
@@ -104,7 +104,7 @@ all				:
 							&& ($(MAKE) $(NAME) && echo $(MSG_SUCCESS)) \
 							|| (echo $(MSG_FAILURE) && exit 42))
 
-debug			:	re
+verbose			:	re
 					$(MAKE) clean
 
 val				:	all

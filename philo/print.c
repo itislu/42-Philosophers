@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/01 20:50:11 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 00:24:45 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	print_msg(t_philo *me, const char *msg)
 }
 
 // Might have impact on performance
-void	print_debug(t_philo *me, const char *msg)
+void	print_verbose(t_philo *me, const char *msg)
 {
 	char	*spacing;
 
-	if (!DEBUG)
+	if (!VERBOSE)
 		return ;
 	if (me->id % 2 == 1)
 		spacing = "";
@@ -53,11 +53,11 @@ void	print_debug(t_philo *me, const char *msg)
 }
 
 // Might have impact on performance
-void	print_debug_death(t_philo *me)
+void	print_verbose_death(t_philo *me)
 {
 	char	*spacing;
 
-	if (!DEBUG)
+	if (!VERBOSE)
 		return ;
 	if (me->id % 2 == 1)
 		spacing = "";
