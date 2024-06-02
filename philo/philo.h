@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 02:54:50 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 03:01:13 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ typedef __useconds_t useconds_t;
 
 #define MSG_FORK			"\e[1;33m%s%llu %d has taken a fork\e[0m\n"
 #define MSG_EAT				"\e[1;32m%s%llu %d is eating\e[0m\n"
-#define MSG_SLEEP			"\e[1;34m%s%llu %d is sleeping\e[0m\n"
-#define MSG_THINK			"\e[1;35m%s%llu %d is thinking\e[0m\n"
+#define MSG_SLEEP			"\e[1;35m%s%llu %d is sleeping\e[0m\n"
+#define MSG_THINK			"\e[1;34m%s%llu %d is thinking\e[0m\n"
 #define MSG_DEAD			"\e[1;31m%s%llu %d died\e[0m\n"
 
 #define DFLT_PRINT_DELAY_US			0
