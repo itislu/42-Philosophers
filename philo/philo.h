@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 00:25:54 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 02:31:21 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,11 @@ typedef __useconds_t useconds_t;
 # define STY_GRA_BG			"\e[100m"
 # define STY_WHI_BRI_BG		"\e[107m"
 
-# define SPACING			"                                   "
+# if VERBOSE
+#  define SPACING			"                                   "
+# else
+#  define SPACING			""
+# endif
 
 #define MSG_FORK			"\e[1;33m%s%llu %d has taken a fork\e[0m\n"
 #define MSG_EAT				"\e[1;32m%s%llu %d is eating\e[0m\n"
