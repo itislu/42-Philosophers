@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 00:24:11 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 01:10:13 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 bool	check_alive(t_philo *me)
 {
-	pthread_mutex_lock(&me->state_mutex);
+	pthread_mutex_lock(me->state_mutex);
 	if (me->state & DEAD)
 	{
 		me->state |= CONFIRMED;
-		pthread_mutex_unlock(&me->state_mutex);
+		pthread_mutex_unlock(me->state_mutex);
 		return (false);
 	}
-	pthread_mutex_unlock(&me->state_mutex);
+	pthread_mutex_unlock(me->state_mutex);
 	me->latest_timestamp = get_elapsed_time_ms((struct timeval *)me->start_time);
 	if (me->latest_timestamp - me->last_meal_timestamp > (unsigned long long)me->rules->time_to_die_ms)
 	{
-		pthread_mutex_lock(&me->state_mutex);
+		pthread_mutex_lock(me->state_mutex);
 		me->state |= (DEAD | CONFIRMED);
-		pthread_mutex_unlock(&me->state_mutex);
+		pthread_mutex_unlock(me->state_mutex);
 		print_verbose_death(me);
 		return (false);
 	}
@@ -50,9 +50,9 @@ static bool	philo_eat(t_philo *me)
 	if (me->rules->number_of_times_each_philosopher_must_eat > 0
 		&& (int)me->meals_eaten == me->rules->number_of_times_each_philosopher_must_eat)
 	{
-		pthread_mutex_lock(&me->state_mutex);
+		pthread_mutex_lock(me->state_mutex);
 		me->state |= FULL;
-		pthread_mutex_unlock(&me->state_mutex);
+		pthread_mutex_unlock(me->state_mutex);
 		print_verbose(me, "got full");
 		return (false);
 	}

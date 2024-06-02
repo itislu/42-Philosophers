@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 00:24:45 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 01:10:04 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static void	wait_all_dead(t_philo *philos, int number_of_philosophers)
 		state = ALIVE;
 		while (i < number_of_philosophers)
 		{
-			pthread_mutex_lock(&philos[i].state_mutex);
+			pthread_mutex_lock(philos[i].state_mutex);
 			state |= philos[i].state;
-			pthread_mutex_unlock(&philos[i].state_mutex);
+			pthread_mutex_unlock(philos[i].state_mutex);
 			i++;
 		}
 		if (state & (DEAD | CONFIRMED))
@@ -46,9 +46,9 @@ void	broadcast_death(t_philo *philos, int number_of_philosophers)
 	i = 0;
 	while (i < number_of_philosophers)
 	{
-		pthread_mutex_lock(&philos[i].state_mutex);
+		pthread_mutex_lock(philos[i].state_mutex);
 		philos[i].state |= DEAD;
-		pthread_mutex_unlock(&philos[i].state_mutex);
+		pthread_mutex_unlock(philos[i].state_mutex);
 		i++;
 	}
 }
@@ -66,9 +66,9 @@ void	monitor(t_philo *philos, t_rules rules)
 		state = ALIVE;
 		while (i < number_of_philosophers)
 		{
-			pthread_mutex_lock(&philos[i].state_mutex);
+			pthread_mutex_lock(philos[i].state_mutex);
 			state |= philos[i].state;
-			pthread_mutex_unlock(&philos[i].state_mutex);
+			pthread_mutex_unlock(philos[i].state_mutex);
 			if (state & DEAD)
 			{
 				broadcast_death(philos, number_of_philosophers);
