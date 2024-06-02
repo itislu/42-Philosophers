@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 01:10:13 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 02:48:39 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static useconds_t	calc_think_us(t_philo *me, useconds_t time_to_think_us)
 {
 	if (me->rules->number_of_philosophers % 2 == 1)
 	{
-		if ((me->meals_eaten - 1) % (me->rules->number_of_philosophers / 2) == (me->id - 1) / 2
-			|| (me->id == me->rules->number_of_philosophers && (me->meals_eaten - 1) % (me->rules->number_of_philosophers / 2) == (me->id - 2) / 2))
+		if ((me->meals_eaten - 1) % (me->rules->number_of_philosophers / 2) == (me->id - 1) / 2ULL
+			|| (me->id == me->rules->number_of_philosophers && (me->meals_eaten - 1) % (me->rules->number_of_philosophers / 2) == (me->id - 2) / 2ULL))
 			return ((me->rules->time_to_eat_ms * 2 - me->rules->time_to_sleep_ms - MARGIN_MS / 2) * 1000U);
 		else if (me->rules->time_to_eat_ms - me->rules->time_to_sleep_ms > MARGIN_MS / 2)
 			return ((me->rules->time_to_eat_ms - me->rules->time_to_sleep_ms - MARGIN_MS / 2) * 1000U);
