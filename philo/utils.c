@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 00:26:35 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 02:54:50 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 
 #if VERBOSE
 
-void	print_actual_slept_time(struct timeval *start, struct timeval *end, useconds_t us, t_philo *philo)
+void	print_actual_elapsed_time(struct timeval *start, struct timeval *end, useconds_t target_time_us, t_philo *philo)
 {
 	struct timeval		result;
-	unsigned long long	actual_slept_time_us;
+	unsigned long long	actual_time_us;
 	char				verbose_msg1[100];
 	char				verbose_msg2[100];
 
 	timersub(end, start, &result);
-	actual_slept_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
-	if (actual_slept_time_us - us >= VERBOSE_USLEEP_DELAY_THRESHOLD_US)
+	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
+	if (actual_time_us - target_time_us >= VERBOSE_USLEEP_DELAY_THRESHOLD_US)
 	{
 		snprintf(verbose_msg1, 100,
-			STY_BOL STY_RED "Target sleep time: %uus" STY_RES, us);
+			STY_BOL STY_RED "Target sleep time: %uus" STY_RES, target_time_us);
 		snprintf(verbose_msg2, 100,
-			STY_BOL STY_RED "Actual sleep time: %lluus" STY_RES,
-			actual_slept_time_us);
+			STY_BOL STY_RED "Actual sleep time: %lluus" STY_RES, actual_time_us);
 		print_verbose(philo, verbose_msg1);
 		print_verbose(philo, verbose_msg2);
 	}
@@ -93,7 +92,7 @@ bool	usleep_while_alive_precise(useconds_t us, t_philo *philo)
 	if (VERBOSE)
 	{
 		gettimeofday(&end_time, NULL);
-		print_actual_slept_time(&start_time, &end_time, us, philo);
+		print_actual_elapsed_time(&start_time, &end_time, us, philo);
 	}
 	return (true);
 }
