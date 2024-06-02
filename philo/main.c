@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 	if (!parse_rules(&rules, argc, argv))
 		return (1);
 	if (rules.number_of_philosophers == 0 || rules.number_of_times_each_philosopher_must_eat == 0)
-		return (0);
+		return (print_nothing_to_do(&rules), 0);
 
 	if (!init_mutexes(&mutexes, &rules))
 		return (2);

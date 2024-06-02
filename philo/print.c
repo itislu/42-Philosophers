@@ -6,11 +6,19 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 16:05:44 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/03 00:10:09 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	print_nothing_to_do(t_rules *rules)
+{
+	if (rules->number_of_philosophers == 0)
+		printf("No philosophers at the table.\n");
+	if (rules->number_of_times_each_philosopher_must_eat == 0)
+		printf("No meals to serve.\n");
+}
 
 bool	print_if_alive(t_philo *me, useconds_t print_delay, const char *msg)
 {

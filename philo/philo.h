@@ -152,6 +152,7 @@ void	monitor(t_philo *philos, t_rules rules);
 unsigned long long	get_elapsed_time_ms(struct timeval *start_time);
 unsigned long long	get_elapsed_time_us(struct timeval *start_time);
 
+void	print_nothing_to_do(t_rules *rules);
 bool	print_if_alive(t_philo *me, useconds_t print_delay, const char *msg);
 bool	check_alive(t_philo *me);
 void	print_msg(t_philo *me, const char *msg);

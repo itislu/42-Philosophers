@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:07:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/31 23:27:05 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/03 00:08:25 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 
 void	report_wrong_arg_num(int argc)
 {
-	ft_putstr_fd("Input error: Wrong number of arguments\n", STDERR_FILENO);
+	ft_putstr_fd("Input error: Wrong number of arguments.\n", STDERR_FILENO);
 
 	if (argc < 2)
-		ft_putstr_fd("  - Number of philosophers is missing\n", STDERR_FILENO);
+		ft_putstr_fd("  - Number of philosophers is missing.\n", STDERR_FILENO);
 	if (argc < 3)
-		ft_putstr_fd("  - Time to die is missing\n", STDERR_FILENO);
+		ft_putstr_fd("  - Time to die is missing.\n", STDERR_FILENO);
 	if (argc < 4)
-		ft_putstr_fd("  - Time to eat is missing\n", STDERR_FILENO);
+		ft_putstr_fd("  - Time to eat is missing.\n", STDERR_FILENO);
 	if (argc < 5)
-		ft_putstr_fd("  - Time to sleep is missing\n", STDERR_FILENO);
-	ft_putstr_fd("  - Optional: Number of times each philosopher must eat\n", STDERR_FILENO);
+		ft_putstr_fd("  - Time to sleep is missing.\n", STDERR_FILENO);
+	ft_putstr_fd("  - Optional: Number of times each philosopher must eat.\n", STDERR_FILENO);
 	ft_putstr_fd("\nUsage: ./philo number_of_philosophers time_to_die_in_ms time_to_eat_in_ms time_to_sleep_in_ms [number_of_times_each_philosopher_must_eat]\n", STDERR_FILENO);
 	ft_putstr_fd("Example: ./philo 5 610 200 200\n", STDERR_FILENO);
 }
@@ -67,17 +67,17 @@ bool	set_rule(int *rule, char *target, char *arg)
 {
 	if (!is_number(arg))
 	{
-		print_invalid_arg(target, "is not a number");
+		print_invalid_arg(target, "is not a number.");
 		return (false);
 	}
 	if (is_negative(arg))
 	{
-		print_invalid_arg(target, "must be positive");
+		print_invalid_arg(target, "must be positive.");
 		return (false);
 	}
 	if (ft_isoverflow_int(arg))
 	{
-		print_invalid_arg(target, "is too large");
+		print_invalid_arg(target, "is too large.");
 		return (false);
 	}
 	*rule = ft_atoi(arg);
