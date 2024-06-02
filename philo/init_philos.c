@@ -6,11 +6,20 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 01:09:37 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 16:28:48 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+bool	is_outsider(const t_rules *rules, int id)
+{
+	if (rules->number_of_philosophers % 2 == 1
+		&& rules->number_of_philosophers > 1
+		&& id == rules->number_of_philosophers)
+		return (true);
+	return (false);
+}
 
 static useconds_t	calc_even_us(const t_rules *rules, int id)
 {
@@ -23,11 +32,10 @@ static useconds_t	calc_even_us(const t_rules *rules, int id)
 
 static useconds_t	calc_odd_us(const t_rules *rules, int id)
 {
-	(void)rules;
-	if (id % 2 == 0)
-		return (MARGIN_MS / 2 * 1000);
-	else if (id == rules->number_of_philosophers)
+	if (is_outsider(rules, id))
 		return ((rules->time_to_eat_ms * 2 - MARGIN_MS / 2) * 1000U);
+	else if (id % 2 == 0)
+		return (MARGIN_MS / 2 * 1000);
 	else
 		return (0);
 }
@@ -85,6 +93,7 @@ bool	init_philos(t_philo **philos, t_mutexes *mutexes, const t_rules *rules, str
 		(*philos)[i].sync_mutex = mutexes->sync_mutex;
 		(*philos)[i].print_mutex = mutexes->print_mutex;
 		set_forks(*philos, mutexes->forks, rules, i);
+		(*philos)[i].is_outsider = is_outsider(rules, (*philos)[i].id);
 		(*philos)[i].initial_time_to_think_us = calc_initial_think_us(rules, (*philos)[i].id);
 		(*philos)[i].time_to_think_us = calc_time_to_think_us(rules, (*philos)[i].id);
 		(*philos)[i].rules = rules;

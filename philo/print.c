@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 00:24:45 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 16:05:44 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +27,46 @@ void	print_msg(t_philo *me, const char *msg)
 {
 	char	*spacing;
 
-	if (me->id % 2 == 1)
-		spacing = "";
-	else
+	if (me->is_outsider)
+		spacing = SPACING SPACING;
+	else if (me->id % 2 == 0)
 		spacing = SPACING;
+	else
+		spacing = "";
 	pthread_mutex_lock(me->print_mutex);
 	printf(msg, spacing, me->latest_timestamp, me->id);
 	pthread_mutex_unlock(me->print_mutex);
 }
 
-// Might have impact on performance
 void	print_verbose(t_philo *me, const char *msg)
 {
 	char	*spacing;
 
 	if (!VERBOSE)
 		return ;
-	if (me->id % 2 == 1)
-		spacing = "";
-	else
+	if (me->is_outsider)
+		spacing = SPACING SPACING;
+	else if (me->id % 2 == 0)
 		spacing = SPACING;
+	else
+		spacing = "";
 	pthread_mutex_lock(me->print_mutex);
 	dprintf(2, "%s%llu %d %s\n", spacing, get_elapsed_time_ms((struct timeval *)me->start_time), me->id, msg);
 	pthread_mutex_unlock(me->print_mutex);
 }
 
-// Might have impact on performance
 void	print_verbose_death(t_philo *me)
 {
 	char	*spacing;
 
 	if (!VERBOSE)
 		return ;
-	if (me->id % 2 == 1)
-		spacing = "";
-	else
+	if (me->is_outsider)
+		spacing = SPACING SPACING;
+	else if (me->id % 2 == 0)
 		spacing = SPACING;
+	else
+		spacing = "";
 	pthread_mutex_lock(me->print_mutex);
 	dprintf(2, "%s  - %d died %llums after last meal\n", spacing, me->id, me->latest_timestamp - me->last_meal_timestamp);
 	pthread_mutex_unlock(me->print_mutex);

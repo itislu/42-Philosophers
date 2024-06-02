@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 13:10:18 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 16:01:05 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,12 @@ static useconds_t	calc_think_us(t_philo *me, useconds_t time_to_think_us)
 	if (me->rules->number_of_philosophers % 2 == 1)
 	{
 		if ((me->meals_eaten - 1) % (me->rules->number_of_philosophers / 2) == (me->id - 1 - (me->id == me->rules->number_of_philosophers)) / 2ULL)
+		{
+			me->is_outsider = true;
 			return ((me->rules->time_to_eat_ms * 2 - me->rules->time_to_sleep_ms - MARGIN_MS / 2) * 1000U);
-		else if (me->rules->time_to_eat_ms - me->rules->time_to_sleep_ms > MARGIN_MS / 2)
+		}
+		me->is_outsider = false;
+		if (me->rules->time_to_eat_ms - me->rules->time_to_sleep_ms > MARGIN_MS / 2)
 			return ((me->rules->time_to_eat_ms - me->rules->time_to_sleep_ms - MARGIN_MS / 2) * 1000U);
 		else
 			return (0);

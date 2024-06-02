@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 03:01:13 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 16:29:01 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_philo
 	bool					locked_right_fork;
 	bool					(*take_forks)(struct s_philo *me);
 	void					(*release_forks)(struct s_philo *me);
+	bool					is_outsider;
 	useconds_t				initial_time_to_think_us;
 	useconds_t				time_to_think_us;	//TODO Rename to thinking_time_us
 	unsigned long long		latest_timestamp;
