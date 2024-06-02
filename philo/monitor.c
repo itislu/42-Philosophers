@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 01:10:04 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:53:35 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,27 +57,29 @@ void	monitor(t_philo *philos, t_rules rules)
 {
 	int		number_of_philosophers;
 	int		i;
-	t_state	state;
+	t_state	total_state;
+	t_state	philo_state;
 
 	number_of_philosophers = rules.number_of_philosophers;
+	total_state = ALIVE;
 	while (true)
 	{
 		i = 0;
-		state = ALIVE;
 		while (i < number_of_philosophers)
 		{
 			pthread_mutex_lock(philos[i].state_mutex);
-			state |= philos[i].state;
+			philo_state = philos[i].state;
 			pthread_mutex_unlock(philos[i].state_mutex);
-			if (state & DEAD)
+			if (philo_state & DEAD)
 			{
 				broadcast_death(philos, number_of_philosophers);
 				print_death(philos, number_of_philosophers, i);
 				return ;
 			}
+			total_state = (total_state | philo_state) & (~FULL | philo_state);
 			i++;
 		}
-		if (state & FULL)
+		if (total_state & FULL)
 		{
 			if (VERBOSE)
 				dprintf(2, "One philosopher has eaten enough meals.\n");
