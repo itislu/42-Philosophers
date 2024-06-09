@@ -36,11 +36,11 @@ void	print_msg(t_philo *me, const char *msg)
 	char	*spacing;
 
 	if (me->is_outsider)
-		spacing = SPACING SPACING;
+		spacing = COLUMN3;
 	else if (me->id % 2 == 0)
-		spacing = SPACING;
+		spacing = COLUMN2;
 	else
-		spacing = "";
+		spacing = COLUMN1;
 	pthread_mutex_lock(me->print_mutex);
 	me->latest_timestamp = get_elapsed_time_ms((struct timeval *)me->start_time);
 	printf(msg, spacing, me->latest_timestamp, me->id);
@@ -54,11 +54,11 @@ void	print_verbose(t_philo *me, const char *msg)
 	if (!VERBOSE)
 		return ;
 	if (me->is_outsider)
-		spacing = SPACING SPACING;
+		spacing = COLUMN3;
 	else if (me->id % 2 == 0)
-		spacing = SPACING;
+		spacing = COLUMN2;
 	else
-		spacing = "";
+		spacing = COLUMN1;
 	pthread_mutex_lock(me->print_mutex);
 	dprintf(2, "%s%llu %d %s\n", spacing, get_elapsed_time_ms((struct timeval *)me->start_time), me->id, msg);
 	pthread_mutex_unlock(me->print_mutex);
@@ -71,11 +71,11 @@ void	print_verbose_death(t_philo *me)
 	if (!VERBOSE)
 		return ;
 	if (me->is_outsider)
-		spacing = SPACING SPACING;
+		spacing = COLUMN3;
 	else if (me->id % 2 == 0)
-		spacing = SPACING;
+		spacing = COLUMN2;
 	else
-		spacing = "";
+		spacing = COLUMN1;
 	pthread_mutex_lock(me->print_mutex);
 	dprintf(2, "%s  - %d died %llums after last meal\n", spacing, me->id, me->latest_timestamp - me->last_meal_timestamp);
 	pthread_mutex_unlock(me->print_mutex);

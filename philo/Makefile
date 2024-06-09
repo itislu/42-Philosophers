@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/06/02 00:22:10 by ldulling         ###   ########.fr        #
+#    Updated: 2024/06/10 01:22:36 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,26 @@ MAKEFLAGS		:=	-j -s
 
 #	Macro definitions
 
+COLUMN1			:=	'""'
+COLUMN2			:=	'"                                   "'
+COLUMN3			:=	'"                                                                      "'
+
 export				MACROS
-ifeq ($(filter verbose,$(MAKECMDGOALS)),verbose)
+ifneq (,$(filter verbose%,$(MAKECMDGOALS)))
 MACROS			:=	-D VERBOSE=1
+endif
+ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS)))
+MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
+					-D COLUMN2='"$(COLUMN1)"' \
+					-D COLUMN3='"$(COLUMN1)"'
+else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS)))
+MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
+					-D COLUMN2='"$(COLUMN2)"' \
+					-D COLUMN3='"$(COLUMN2)"'
+else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS)))
+MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
+					-D COLUMN2='"$(COLUMN2)"' \
+					-D COLUMN3='"$(COLUMN3)"'
 endif
 
 
@@ -93,7 +110,8 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 
 # ***************************** BUILD PROCESS ******************************** #
 
-.PHONY			:	all test run verbose val clean fclean ffclean re
+.PHONY			:	all verbose verbose1 verbose2 verbose3 column1 column2 column3 \
+					val clean fclean ffclean re
 
 
 #	Compilation
@@ -104,7 +122,10 @@ all				:
 							&& ($(MAKE) $(NAME) && echo $(MSG_SUCCESS)) \
 							|| (echo $(MSG_FAILURE) && exit 42))
 
-verbose			:	re
+verbose	verbose1 verbose2 verbose3 column1 column2 column3:
+					echo -n $(MSG_MODE)
+					echo -n $(MSG_COLUMN)
+					$(MAKE) re
 					$(MAKE) clean
 
 val				:	all
@@ -209,6 +230,22 @@ MSG_SUCCESS		:=	$(STY_BOL)$(STY_ITA)$(STY_WHI_BRI)"\nDONE!"$(STY_RES)
 MSG_NO_CHNG		:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)
 ################################################################################
 MSG_FAILURE		:=	$(STY_BOL)$(STY_ITA)$(STY_RED)"BUILD FAILED!"$(STY_RES)
+################################################################################
+MSG_VERBOSE_MODE:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_YEL)"-------------- VERBOSE MODE --------------\n"$(STY_RES)
+ifneq (,$(filter verbose%,$(MAKECMDGOALS)))
+MSG_MODE		:=	$(MSG_VERBOSE_MODE)
+endif
+################################################################################
+MSG_COLUMN1_MODE:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"--------- PRINTOUTS IN 1 COLUMN ----------\n"$(STY_RES)
+MSG_COLUMN2_MODE:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"--------- PRINTOUTS IN 2 COLUMNS ---------\n"$(STY_RES)
+MSG_COLUMN3_MODE:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"--------- PRINTOUTS IN 3 COLUMNS ---------\n"$(STY_RES)
+ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS)))
+MSG_COLUMN		:=	$(MSG_COLUMN1_MODE)
+else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS)))
+MSG_COLUMN		:=	$(MSG_COLUMN2_MODE)
+else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS)))
+MSG_COLUMN		:=	$(MSG_COLUMN3_MODE)
+endif
 ################################################################################
 
 
