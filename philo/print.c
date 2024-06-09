@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/03 00:10:09 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 00:18:13 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	print_msg(t_philo *me, const char *msg)
 	else
 		spacing = "";
 	pthread_mutex_lock(me->print_mutex);
+	me->latest_timestamp = get_elapsed_time_ms((struct timeval *)me->start_time);
 	printf(msg, spacing, me->latest_timestamp, me->id);
 	pthread_mutex_unlock(me->print_mutex);
 }
