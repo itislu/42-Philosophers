@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 20:27:30 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 00:24:11 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 02:12:09 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
 	//* The too late death time was bc it was stuck in this mutex
 	if (pthread_mutex_lock(fork) != 0)
 		return (false);
-	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_FORK))
+	if (!print_if_alive(me, MSG_FORK))
 	{
 		pthread_mutex_unlock(fork);
 		return (false);

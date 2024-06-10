@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 00:31:16 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 02:12:16 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static bool	philo_eat(t_philo *me)
 	if (!me->take_forks(me))
 		return (false);
 
-	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_EAT))
+	if (!print_if_alive(me, MSG_EAT))
 		return (false);
 	me->last_meal_timestamp = me->latest_timestamp;
 	usleep_while_alive_precise(me->rules->time_to_eat_ms * 1000U, me);
@@ -61,7 +61,7 @@ static bool	philo_eat(t_philo *me)
 
 static bool	philo_sleep(t_philo *me)
 {
-	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_SLEEP))
+	if (!print_if_alive(me, MSG_SLEEP))
 		return (false);
 	usleep_while_alive_precise(me->rules->time_to_sleep_ms * 1000U, me);
 	return (true);
@@ -94,7 +94,7 @@ static useconds_t	calc_think_us(t_philo *me, useconds_t time_to_think_us)
 
 static bool	philo_think(t_philo *me, useconds_t time_to_think_us)
 {
-	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_THINK))
+	if (!print_if_alive(me, MSG_THINK))
 		return (false);
 	time_to_think_us = calc_think_us(me, time_to_think_us);
 	if (time_to_think_us)
@@ -104,7 +104,7 @@ static bool	philo_think(t_philo *me, useconds_t time_to_think_us)
 
 static bool	philo_think_initial(t_philo *me, useconds_t time_to_think_us)
 {
-	if (!print_if_alive(me, DFLT_PRINT_DELAY_US, MSG_THINK))
+	if (!print_if_alive(me, MSG_THINK))
 		return (false);
 	if (time_to_think_us)
 		usleep_while_alive(time_to_think_us, me);
@@ -114,7 +114,7 @@ static bool	philo_think_initial(t_philo *me, useconds_t time_to_think_us)
 // Need a value in the philo struct that tell me how long to think in the beginning
 void	*philosopher(void *arg)
 {
-	t_philo			*me;
+	t_philo	*me;
 
 	me = (t_philo *)arg;
 	pthread_mutex_lock(me->sync_mutex);

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 00:18:13 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 02:11:56 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ void	print_nothing_to_do(t_rules *rules)
 		printf("No meals to serve.\n");
 }
 
-bool	print_if_alive(t_philo *me, useconds_t print_delay, const char *msg)
+bool	print_if_alive(t_philo *me, const char *msg)
 {
-	(void)print_delay;
-	if (print_delay > 0)
-		usleep(print_delay);
 	if (!check_alive(me))
 		return (false);
 	print_msg(me, msg);
