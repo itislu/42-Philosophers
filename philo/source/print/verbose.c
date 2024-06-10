@@ -1,48 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   print_verbose.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 02:11:56 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 02:26:22 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 02:27:56 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	print_nothing_to_do(t_rules *rules)
-{
-	if (rules->number_of_philosophers == 0)
-		printf("No philosophers at the table.\n");
-	if (rules->number_of_times_each_philosopher_must_eat == 0)
-		printf("No meals to serve.\n");
-}
-
-bool	print_if_alive(t_philo *me, const char *msg)
-{
-	if (!check_alive(me))
-		return (false);
-	print_msg(me, msg);
-	return (true);
-}
-
-void	print_msg(t_philo *me, const char *msg)
-{
-	char	*spacing;
-
-	if (me->is_outsider)
-		spacing = COLUMN3;
-	else if (me->id % 2 == 0)
-		spacing = COLUMN2;
-	else
-		spacing = COLUMN1;
-	pthread_mutex_lock(me->print_mutex);
-	me->latest_timestamp = get_elapsed_time_ms((struct timeval *)me->start_time);
-	printf(msg, spacing, me->latest_timestamp, me->id);
-	pthread_mutex_unlock(me->print_mutex);
-}
 
 void	print_verbose(t_philo *me, const char *msg)
 {
@@ -77,3 +45,27 @@ void	print_verbose_death(t_philo *me)
 	dprintf(2, "%s  - %d died %llums after last meal\n", spacing, me->id, me->latest_timestamp - me->last_meal_timestamp);
 	pthread_mutex_unlock(me->print_mutex);
 }
+
+#if VERBOSE
+
+void	print_actual_elapsed_time(struct timeval *start, struct timeval *end, useconds_t target_time_us, t_philo *philo)
+{
+	struct timeval		result;
+	unsigned long long	actual_time_us;
+	char				verbose_msg1[100];
+	char				verbose_msg2[100];
+
+	timersub(end, start, &result);
+	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
+	if (actual_time_us - target_time_us >= VERBOSE_USLEEP_DELAY_THRESHOLD_US)
+	{
+		snprintf(verbose_msg1, 100,
+			STY_BOL STY_RED "Target sleep time: %uus" STY_RES, target_time_us);
+		snprintf(verbose_msg2, 100,
+			STY_BOL STY_RED "Actual sleep time: %lluus" STY_RES, actual_time_us);
+		print_verbose(philo, verbose_msg1);
+		print_verbose(philo, verbose_msg2);
+	}
+}
+
+#endif

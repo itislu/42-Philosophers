@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 02:12:25 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 03:16:47 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@
 #include <string.h>
 #include <sys/time.h>
 #include <errno.h>
-#include "barrier.h"
-
-# ifndef __useconds_t_defined
-typedef __useconds_t useconds_t;
-# endif
 
 # ifndef VERBOSE
 #  define VERBOSE 0
@@ -82,6 +77,12 @@ typedef __useconds_t useconds_t;
 #define USLEEP_SHORT_US				100
 #define BUSY_WAIT_THRESHOLD_US		100
 #define MARGIN_MS					10
+
+// It's possible to do these with a static struct in a function and access immediately, like func().func_ptr
+#define LONG_THINKING_TIME_US		(me->rules->time_to_eat_ms * 2 - me->rules->time_to_sleep_ms - 5)
+#define SHORT_THINKING_TIME_US		(me->rules->time_to_eat_ms - me->rules->time_to_sleep_ms - 5)
+#define IS_EVEN						% 2 == 0
+#define IS_ODD						% 2 == 1
 
 typedef enum e_state
 {
@@ -148,6 +149,11 @@ bool	create_philo_threads(t_philo *philos, const t_rules *rules);
 void	join_philo_threads(t_philo *philos, int count);
 
 void	*philosopher(void *arg);
+
+bool	philo_eat(t_philo *me);
+bool	philo_sleep(t_philo *me);
+bool	philo_think(t_philo *me, useconds_t time_to_think_us);
+bool	philo_think_initial(t_philo *me, useconds_t time_to_think_us);
 
 void	broadcast_death(t_philo *philos, int number_of_philosophers);
 void	monitor(t_philo *philos, t_rules rules);

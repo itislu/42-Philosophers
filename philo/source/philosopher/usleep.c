@@ -1,40 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   usleep.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 20:17:59 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 02:41:45 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-#if VERBOSE
-
-void	print_actual_elapsed_time(struct timeval *start, struct timeval *end, useconds_t target_time_us, t_philo *philo)
-{
-	struct timeval		result;
-	unsigned long long	actual_time_us;
-	char				verbose_msg1[100];
-	char				verbose_msg2[100];
-
-	timersub(end, start, &result);
-	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
-	if (actual_time_us - target_time_us >= VERBOSE_USLEEP_DELAY_THRESHOLD_US)
-	{
-		snprintf(verbose_msg1, 100,
-			STY_BOL STY_RED "Target sleep time: %uus" STY_RES, target_time_us);
-		snprintf(verbose_msg2, 100,
-			STY_BOL STY_RED "Actual sleep time: %lluus" STY_RES, actual_time_us);
-		print_verbose(philo, verbose_msg1);
-		print_verbose(philo, verbose_msg2);
-	}
-}
-
-#endif
 
 static __attribute__((always_inline))
 useconds_t	usleep_return(useconds_t us, struct timeval *start_time)

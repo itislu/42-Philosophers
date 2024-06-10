@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   barrier.h                                          :+:      :+:    :+:   */
+/*   philo_sleep.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 16:22:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/24 19:21:02 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 02:19:42 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 02:19:58 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include <errno.h>
-#include <unistd.h>
+#include "philo.h"
 
-#define BARRIER_BUSY_WAIT_USEC	100
-
-typedef struct s_barrier
+bool	philo_sleep(t_philo *me)
 {
-	pthread_mutex_t			mutex;
-	unsigned int			needed;
-	volatile unsigned int	waiting;
-}	t_barrier;
-
-int	barrier_init(t_barrier *barrier, unsigned int needed);
-int	barrier_destroy(t_barrier *barrier);
-int	barrier_wait(t_barrier *barrier);
+	if (!print_if_alive(me, MSG_SLEEP))
+		return (false);
+	usleep_while_alive_precise(me->rules->time_to_sleep_ms * 1000U, me);
+	return (true);
+}

@@ -6,12 +6,12 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:07:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/03 00:08:25 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 03:00:34 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "utils/utils.h"
+#include "utils.h"
 
 void	report_wrong_arg_num(int argc)
 {

@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/06/10 01:22:36 by ldulling         ###   ########.fr        #
+#    Updated: 2024/06/10 03:14:19 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ NAME 			:=	philo
 
 #	Directories
 
-SRC_DIR			:=	./
-INC_DIR			:=	./ ./utils
-BUILD_DIR		:=	./build
+SRC_DIR			:=	source
+INC_DIR			:=	include
+BUILD_DIR		:=	build
 OBJ_DIR			:=	$(BUILD_DIR)/_obj
 DEP_DIR			:=	$(BUILD_DIR)/_dep
 
@@ -96,8 +96,7 @@ TERMINALFLAGS	:=	--title="$(TERMINALTITLE)" -- /bin/sh -c
 
 #	Files
 
-SRC				:=	$(wildcard ./*.c ./**/*.c)	#TODO temporary
-# include				$(BUILD_DIR)/source_files.mk
+include				$(BUILD_DIR)/source_files.mk
 OBJ 			:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 DEP				:=	$(SRC:%.c=$(DEP_DIR)/%.d)
 
