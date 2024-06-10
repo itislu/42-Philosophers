@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:41 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:13:56 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:40:47 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	main(int argc, char *argv[])
 
 	if (!parse_rules(&rules, argc, argv))
 		return (1);
-	if (rules.number_of_philosophers == 0
-		|| rules.number_of_times_each_philosopher_must_eat == 0)
+	if (rules.num_of_philos == 0 || rules.num_each_philo_must_eat == 0)
 		return (print_nothing_to_do(&rules), 0);
 	if (!init_mutexes(&mutexes, &rules))
 		return (2);
@@ -34,7 +33,7 @@ int	main(int argc, char *argv[])
 	gettimeofday(&start_time, NULL);
 	pthread_mutex_unlock(mutexes.sync_mutex);
 	monitor(philos, rules);
-	join_philo_threads(philos, rules.number_of_philosophers);
+	join_philo_threads(philos, rules.num_of_philos);
 	destroy_mutexes(&mutexes, &rules);
 	free(philos);
 	return (0);

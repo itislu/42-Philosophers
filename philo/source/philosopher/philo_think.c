@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:24:04 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:34:36 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ unsigned int	calc_think_us(t_philo *me, unsigned int thinking_time_us)
 {
 	int	thinking_time_ms;
 
-	if (me->rules->number_of_philosophers % 2 == 1)
+	if (me->rules->num_of_philos % 2 == 1)
 	{
-		if ((me->meals_eaten - 1) % (me->rules->number_of_philosophers / 2) == (me->id - 1 - (me->id == me->rules->number_of_philosophers)) / 2ULL)
+		if ((me->meals_eaten - 1) % (me->rules->num_of_philos / 2) == (me->id - 1 - (me->id == me->rules->num_of_philos)) / 2ULL)
 		{
 			me->is_outsider = true;
 			thinking_time_ms = me->rules->time_to_eat_ms * 2 - me->rules->time_to_sleep_ms;

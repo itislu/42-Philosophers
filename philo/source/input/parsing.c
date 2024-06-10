@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:07:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 05:10:05 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:40:47 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ bool	parse_rules(t_rules *rules, int argc, char *argv[])
 	if (argc != 5 && argc != 6)
 		return (print_wrong_arg_num(argc), false);
 	ret = true;
-	if (!set_rule(&rules->number_of_philosophers,
-			"Number of philosophers", argv[1]))
+	if (!set_rule(&rules->num_of_philos, "Number of philosophers", argv[1]))
 		ret = false;
 	if (!set_rule(&rules->time_to_die_ms, "Time to die", argv[2]))
 		ret = false;
@@ -37,12 +36,12 @@ bool	parse_rules(t_rules *rules, int argc, char *argv[])
 		ret = false;
 	if (argc == 6)
 	{
-		if (!set_rule(&rules->number_of_times_each_philosopher_must_eat,
+		if (!set_rule(&rules->num_each_philo_must_eat,
 				"Number of times each philosopher must eat", argv[5]))
 			ret = false;
 	}
 	else
-		rules->number_of_times_each_philosopher_must_eat = -1;
+		rules->num_each_philo_must_eat = -1;
 	return (ret);
 }
 

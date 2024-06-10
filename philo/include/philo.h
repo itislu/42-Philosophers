@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:24:13 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:40:47 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ typedef enum e_state
 
 typedef struct s_rules
 {
-	int					number_of_philosophers;
+	int					num_of_philos;
 	int					time_to_die_ms;
 	unsigned long long	time_to_die_us;
 	int					time_to_eat_ms;
 	int					time_to_sleep_ms;
-	int					number_of_times_each_philosopher_must_eat;
+	int					num_each_philo_must_eat;
 }	t_rules;
 
 typedef struct s_mutexes
@@ -155,7 +155,7 @@ bool	philo_sleep(t_philo *me);
 bool	philo_think(t_philo *me, unsigned int thinking_time_us);
 bool	philo_think_initial(t_philo *me, unsigned int thinking_time_us);
 
-void	broadcast_death(t_philo *philos, int number_of_philosophers);
+void	broadcast_death(t_philo *philos, int num_of_philos);
 void	monitor(t_philo *philos, t_rules rules);
 
 unsigned long long	get_elapsed_time_ms(struct timeval *start_time);

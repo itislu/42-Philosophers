@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 04:40:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 04:46:15 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:40:47 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	print_invalid_arg(char *target, char *msg)
 
 void	print_nothing_to_do(t_rules *rules)
 {
-	if (rules->number_of_philosophers == 0)
+	if (rules->num_of_philos == 0)
 		printf("No philosophers at the table.\n");
-	if (rules->number_of_times_each_philosopher_must_eat == 0)
+	if (rules->num_each_philo_must_eat == 0)
 		printf("No meals to serve.\n");
 }

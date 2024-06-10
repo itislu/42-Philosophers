@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:20:12 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 04:56:30 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:36:46 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ static void	iter_destroy_mutexes(pthread_mutex_t *mutexes, int count);
 bool	init_mutexes(t_mutexes *mutexes, t_rules *rules)
 {
 	memset(mutexes, 0, sizeof(t_mutexes));
-	mutexes->forks = malloc(
-			rules->number_of_philosophers * sizeof(pthread_mutex_t));
+	mutexes->forks = malloc(rules->num_of_philos * sizeof(pthread_mutex_t));
 	if (!mutexes->forks)
 		return (false);
 	mutexes->state_mutexes = malloc(
-			rules->number_of_philosophers * sizeof(pthread_mutex_t));
+			rules->num_of_philos * sizeof(pthread_mutex_t));
 	if (!mutexes->state_mutexes)
 		return (destroy_mutexes(mutexes, rules), false);
 	mutexes->sync_mutex = malloc(sizeof(pthread_mutex_t));
@@ -32,10 +31,9 @@ bool	init_mutexes(t_mutexes *mutexes, t_rules *rules)
 	mutexes->print_mutex = malloc(sizeof(pthread_mutex_t));
 	if (!mutexes->print_mutex)
 		return (destroy_mutexes(mutexes, rules), false);
-	if (!iter_init_mutexes(mutexes->forks, rules->number_of_philosophers))
+	if (!iter_init_mutexes(mutexes->forks, rules->num_of_philos))
 		return (destroy_mutexes(mutexes, rules), false);
-	if (!iter_init_mutexes(
-			mutexes->state_mutexes, rules->number_of_philosophers))
+	if (!iter_init_mutexes(mutexes->state_mutexes, rules->num_of_philos))
 		return (destroy_mutexes(mutexes, rules), false);
 	if (pthread_mutex_init(mutexes->sync_mutex, NULL) != 0)
 		return (destroy_mutexes(mutexes, rules), false);
@@ -62,13 +60,12 @@ void	destroy_mutexes(t_mutexes *mutexes, t_rules *rules)
 {
 	if (mutexes->forks)
 	{
-		iter_destroy_mutexes(mutexes->forks, rules->number_of_philosophers);
+		iter_destroy_mutexes(mutexes->forks, rules->num_of_philos);
 		free(mutexes->forks);
 	}
 	if (mutexes->state_mutexes)
 	{
-		iter_destroy_mutexes(
-			mutexes->state_mutexes, rules->number_of_philosophers);
+		iter_destroy_mutexes(mutexes->state_mutexes, rules->num_of_philos);
 		free(mutexes->state_mutexes);
 	}
 	if (mutexes->sync_mutex)

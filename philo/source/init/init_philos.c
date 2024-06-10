@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 05:21:12 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:34:36 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ bool	init_philos(
 {
 	int	i;
 
-	*philos = malloc(rules->number_of_philosophers * sizeof(t_philo));
+	*philos = malloc(rules->num_of_philos * sizeof(t_philo));
 	if (!*philos)
 		return (false);
-	memset(*philos, 0, rules->number_of_philosophers * sizeof(t_philo));
+	memset(*philos, 0, rules->num_of_philos * sizeof(t_philo));
 	i = 0;
-	while (i < rules->number_of_philosophers)
+	while (i < rules->num_of_philos)
 	{
 		(*philos)[i].id = i + 1;
 		(*philos)[i].start_time = start_time;
@@ -59,7 +59,7 @@ static void	set_forks(
 				int i)
 {
 	philos[i].left_fork = &forks[i];
-	philos[i].right_fork = &forks[(i + 1) % rules->number_of_philosophers];
+	philos[i].right_fork = &forks[(i + 1) % rules->num_of_philos];
 	if (i % 2 == 0)
 	{
 		philos[i].take_forks = &take_forks_left_first;
