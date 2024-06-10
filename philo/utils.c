@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 02:54:50 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/02 20:17:59 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ void	print_actual_elapsed_time(struct timeval *start, struct timeval *end, useco
 
 #endif
 
+static __attribute__((always_inline))
 useconds_t	usleep_return(useconds_t us, struct timeval *start_time)
 {
 	usleep(us);
 	return (get_elapsed_time_us(start_time));
 }
 
+static __attribute__((always_inline))
 void	busy_wait(useconds_t us, useconds_t duration_us, struct timeval *start_time, t_philo *philo)
 {
 	char	verbose_msg[100];

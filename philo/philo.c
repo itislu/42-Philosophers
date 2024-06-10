@@ -67,7 +67,8 @@ static bool	philo_sleep(t_philo *me)
 	return (true);
 }
 
-static useconds_t	calc_think_us(t_philo *me, useconds_t time_to_think_us)
+static __attribute__((always_inline))
+useconds_t	calc_think_us(t_philo *me, useconds_t time_to_think_us)
 {
 	int	time_to_think_ms;
 

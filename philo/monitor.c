@@ -53,6 +53,7 @@ void	broadcast_death(t_philo *philos, int number_of_philosophers)
 	}
 }
 
+static __attribute__((always_inline))
 t_state	monitor_cycle(t_philo *philos, int number_of_philosophers)
 {
 	int		i;
