@@ -6,21 +6,21 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 02:41:45 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:25:04 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 static __attribute__((always_inline))
-useconds_t	usleep_return(useconds_t us, struct timeval *start_time)
+unsigned int	usleep_return(unsigned int us, struct timeval *start_time)
 {
 	usleep(us);
 	return (get_elapsed_time_us(start_time));
 }
 
 static __attribute__((always_inline))
-void	busy_wait(useconds_t us, useconds_t duration_us, struct timeval *start_time, t_philo *philo)
+void	busy_wait(unsigned int us, unsigned int duration_us, struct timeval *start_time, t_philo *philo)
 {
 	char	verbose_msg[100];
 
@@ -33,10 +33,10 @@ void	busy_wait(useconds_t us, useconds_t duration_us, struct timeval *start_time
 		;
 }
 
-bool	usleep_while_alive(useconds_t us, t_philo *philo)
+bool	usleep_while_alive(unsigned int us, t_philo *philo)
 {
 	struct timeval	start_time;
-	useconds_t		slept_time_us;
+	unsigned int	slept_time_us;
 
 	gettimeofday(&start_time, NULL);
 	slept_time_us = 0;
@@ -49,11 +49,11 @@ bool	usleep_while_alive(useconds_t us, t_philo *philo)
 	return (true);
 }
 
-bool	usleep_while_alive_precise(useconds_t us, t_philo *philo)
+bool	usleep_while_alive_precise(unsigned int us, t_philo *philo)
 {
 	struct timeval	start_time;
 	struct timeval	end_time;
-	useconds_t		slept_time_us;
+	unsigned int	slept_time_us;
 
 	gettimeofday(&start_time, NULL);
 	slept_time_us = 0;

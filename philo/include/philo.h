@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 04:17:18 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:24:13 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ typedef struct s_philo
 	bool					(*take_forks)(struct s_philo *me);
 	void					(*release_forks)(struct s_philo *me);
 	bool					is_outsider;
-	useconds_t				initial_thinking_time_us;
-	useconds_t				thinking_time_us;
+	unsigned int			initial_thinking_time_us;
+	unsigned int			thinking_time_us;
 	unsigned long long		latest_timestamp;
 	unsigned long long		last_meal_timestamp;
 	unsigned long long		meals_eaten;
@@ -152,8 +152,8 @@ void	*philosopher(void *arg);
 
 bool	philo_eat(t_philo *me);
 bool	philo_sleep(t_philo *me);
-bool	philo_think(t_philo *me, useconds_t thinking_time_us);
-bool	philo_think_initial(t_philo *me, useconds_t thinking_time_us);
+bool	philo_think(t_philo *me, unsigned int thinking_time_us);
+bool	philo_think_initial(t_philo *me, unsigned int thinking_time_us);
 
 void	broadcast_death(t_philo *philos, int number_of_philosophers);
 void	monitor(t_philo *philos, t_rules rules);
@@ -168,9 +168,9 @@ void	print_msg(t_philo *me, const char *msg);
 void	print_verbose(t_philo *me, const char *msg);
 void	print_verbose_death(t_philo *me);
 
-bool	usleep_while_alive(useconds_t us, t_philo *philo);
-bool	usleep_while_alive_precise(useconds_t us, t_philo *philo);
+bool	usleep_while_alive(unsigned int us, t_philo *philo);
+bool	usleep_while_alive_precise(unsigned int us, t_philo *philo);
 
-void	print_actual_elapsed_time(struct timeval *start, struct timeval *end, useconds_t target_time_us, t_philo *philo);
+void	print_actual_elapsed_time(struct timeval *start, struct timeval *end, unsigned int target_time_us, t_philo *philo);
 
 #endif

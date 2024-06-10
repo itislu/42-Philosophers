@@ -6,14 +6,14 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 04:17:16 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:24:04 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 static __attribute__((always_inline))
-useconds_t	calc_think_us(t_philo *me, useconds_t thinking_time_us)
+unsigned int	calc_think_us(t_philo *me, unsigned int thinking_time_us)
 {
 	int	thinking_time_ms;
 
@@ -38,7 +38,7 @@ useconds_t	calc_think_us(t_philo *me, useconds_t thinking_time_us)
 		return (thinking_time_us);
 }
 
-bool	philo_think(t_philo *me, useconds_t thinking_time_us)
+bool	philo_think(t_philo *me, unsigned int thinking_time_us)
 {
 	if (!print_if_alive(me, MSG_THINK))
 		return (false);
@@ -48,7 +48,7 @@ bool	philo_think(t_philo *me, useconds_t thinking_time_us)
 	return (true);
 }
 
-bool	philo_think_initial(t_philo *me, useconds_t thinking_time_us)
+bool	philo_think_initial(t_philo *me, unsigned int thinking_time_us)
 {
 	if (!print_if_alive(me, MSG_THINK))
 		return (false);

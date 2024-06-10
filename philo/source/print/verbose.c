@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:26:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:12:45 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:24:04 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	print_verbose_death(t_philo *me)
 void	print_actual_elapsed_time(
 			struct timeval *start,
 			struct timeval *end,
-			useconds_t target_time_us,
+			unsigned int target_time_us,
 			t_philo *philo)
 {
 	struct timeval		result;
