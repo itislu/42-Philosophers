@@ -6,64 +6,47 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:07:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 03:00:34 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 05:10:05 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include "utils.h"
+#include "feedback.h"
 
-void	report_wrong_arg_num(int argc)
+static bool	set_rule(int *rule, char *target, char *arg);
+static bool	is_number(char *arg);
+static bool	is_negative(char *arg);
+
+bool	parse_rules(t_rules *rules, int argc, char *argv[])
 {
-	ft_putstr_fd("Input error: Wrong number of arguments.\n", STDERR_FILENO);
+	bool	ret;
 
-	if (argc < 2)
-		ft_putstr_fd("  - Number of philosophers is missing.\n", STDERR_FILENO);
-	if (argc < 3)
-		ft_putstr_fd("  - Time to die is missing.\n", STDERR_FILENO);
-	if (argc < 4)
-		ft_putstr_fd("  - Time to eat is missing.\n", STDERR_FILENO);
-	if (argc < 5)
-		ft_putstr_fd("  - Time to sleep is missing.\n", STDERR_FILENO);
-	ft_putstr_fd("  - Optional: Number of times each philosopher must eat.\n", STDERR_FILENO);
-	ft_putstr_fd("\nUsage: ./philo number_of_philosophers time_to_die_in_ms time_to_eat_in_ms time_to_sleep_in_ms [number_of_times_each_philosopher_must_eat]\n", STDERR_FILENO);
-	ft_putstr_fd("Example: ./philo 5 610 200 200\n", STDERR_FILENO);
-}
-
-bool	is_number(char *arg)
-{
-	if (ft_issign(*arg))
-		arg++;
-	if (!ft_isdigit(*arg))
-		return (false);
-	while (*++arg)
-		if (!ft_isdigit(*arg))
-			return (false);
-	return (true);
-}
-
-bool	is_negative(char *arg)
-{
-	if (*arg++ == '-')
+	if (argc != 5 && argc != 6)
+		return (print_wrong_arg_num(argc), false);
+	ret = true;
+	if (!set_rule(&rules->number_of_philosophers,
+			"Number of philosophers", argv[1]))
+		ret = false;
+	if (!set_rule(&rules->time_to_die_ms, "Time to die", argv[2]))
+		ret = false;
+	rules->time_to_die_us = rules->time_to_die_ms * 1000ULL;
+	if (!set_rule(&rules->time_to_eat_ms, "Time to eat", argv[3]))
+		ret = false;
+	if (!set_rule(&rules->time_to_sleep_ms, "Time to sleep", argv[4]))
+		ret = false;
+	if (argc == 6)
 	{
-		while (*arg == '0')
-			arg++;
-		if (ft_isdigit(*arg))
-			return (true);
+		if (!set_rule(&rules->number_of_times_each_philosopher_must_eat,
+				"Number of times each philosopher must eat", argv[5]))
+			ret = false;
 	}
-	return (false);
+	else
+		rules->number_of_times_each_philosopher_must_eat = -1;
+	return (ret);
 }
 
-void	print_invalid_arg(char *target, char *msg)
-{
-	ft_putstr_fd("Input error: ", STDERR_FILENO);
-	ft_putstr_fd(target, STDERR_FILENO);
-	ft_putstr_fd(" ", STDERR_FILENO);
-	ft_putstr_fd(msg, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-}
-
-bool	set_rule(int *rule, char *target, char *arg)
+static bool	set_rule(int *rule, char *target, char *arg)
 {
 	if (!is_number(arg))
 	{
@@ -84,41 +67,26 @@ bool	set_rule(int *rule, char *target, char *arg)
 	return (true);
 }
 
-bool	parse_rules(t_rules *rules, int argc, char *argv[])
+static bool	is_number(char *arg)
 {
-	bool	ret;
+	if (ft_issign(*arg))
+		arg++;
+	if (!ft_isdigit(*arg))
+		return (false);
+	while (*++arg)
+		if (!ft_isdigit(*arg))
+			return (false);
+	return (true);
+}
 
-	if (argc != 5 && argc != 6)
-		return (report_wrong_arg_num(argc), false);
-
-	// Number of philosophers
-		// 0 does nothing
-	ret = true;
-	if (!set_rule(&rules->number_of_philosophers, "Number of philosophers", argv[1]))
-		ret = false;
-
-	// Time to die
-		// 0 does nothing
-	if (!set_rule(&rules->time_to_die_ms, "Time to die", argv[2]))
-		ret = false;
-	rules->time_to_die_us = rules->time_to_die_ms * 1000ULL;
-
-	// Time to eat
-	if (!set_rule(&rules->time_to_eat_ms, "Time to eat", argv[3]))
-		ret = false;
-
-	// Time to sleep
-	if (!set_rule(&rules->time_to_sleep_ms, "Time to sleep", argv[4]))
-		ret = false;
-
-	// Number of times each philosopher must eat
-		// Optional
-	if (argc == 6)
+static bool	is_negative(char *arg)
+{
+	if (*arg++ == '-')
 	{
-		if (!set_rule(&rules->number_of_times_each_philosopher_must_eat, "Number of times each philosopher must eat", argv[5]))
-			ret = false;
+		while (*arg == '0')
+			arg++;
+		if (ft_isdigit(*arg))
+			return (true);
 	}
-	else
-		rules->number_of_times_each_philosopher_must_eat = -1;
-	return (ret);
+	return (false);
 }

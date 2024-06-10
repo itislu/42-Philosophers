@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/06/10 03:13:47 by ldulling         ###   ########.fr        #
+#    Updated: 2024/06/10 04:41:07 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC		+=	$(addprefix $(DIR), \
 # User input:
 DIR		:=	input/
 SRC		+=	$(addprefix $(DIR), \
+            feedback.c \
             parsing.c \
 )
 
