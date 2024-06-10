@@ -6,32 +6,20 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:25:04 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:58:54 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static __attribute__((always_inline))
-unsigned int	usleep_return(unsigned int us, struct timeval *start_time)
-{
-	usleep(us);
-	return (get_elapsed_time_us(start_time));
-}
-
-static __attribute__((always_inline))
-void	busy_wait(unsigned int us, unsigned int duration_us, struct timeval *start_time, t_philo *philo)
-{
-	char	verbose_msg[100];
-
-	if (VERBOSE)
-	{
-		snprintf(verbose_msg, 100, "busy waits for %uus", duration_us);
-		print_verbose(philo, verbose_msg);
-	}
-	while (get_elapsed_time_us(start_time) < us)
-		;
-}
+static unsigned int	usleep_return(unsigned int us, struct timeval *start_time)
+					__attribute__((always_inline));
+static void			busy_wait(
+						unsigned int us,
+						unsigned int duration_us,
+						struct timeval *start_time,
+						t_philo *philo)
+					__attribute__((always_inline));
 
 bool	usleep_while_alive(unsigned int us, t_philo *philo)
 {
@@ -73,4 +61,29 @@ bool	usleep_while_alive_precise(unsigned int us, t_philo *philo)
 		print_actual_elapsed_time(&start_time, &end_time, us, philo);
 	}
 	return (true);
+}
+
+static __attribute__((always_inline))
+unsigned int	usleep_return(unsigned int us, struct timeval *start_time)
+{
+	usleep(us);
+	return (get_elapsed_time_us(start_time));
+}
+
+static __attribute__((always_inline))
+void	busy_wait(
+			unsigned int us,
+			unsigned int duration_us,
+			struct timeval *start_time,
+			t_philo *philo)
+{
+	char	verbose_msg[100];
+
+	if (VERBOSE)
+	{
+		snprintf(verbose_msg, 100, "busy waits for %uus", duration_us);
+		print_verbose(philo, verbose_msg);
+	}
+	while (get_elapsed_time_us(start_time) < us)
+		;
 }
