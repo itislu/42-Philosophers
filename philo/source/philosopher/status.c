@@ -6,11 +6,15 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:41:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:54:45 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:04:01 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "sim_time.h"
+#include "print.h"
+#include "typedefs.h"
+#include <pthread.h>
+#include <stdbool.h>
 
 bool	check_alive(t_philo *me)
 {

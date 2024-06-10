@@ -6,12 +6,21 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 04:40:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:40:47 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:44:15 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
 #include "utils.h"
+#include "typedefs.h"
+#include <stdio.h>
+
+void	print_nothing_to_do(t_rules *rules)
+{
+	if (rules->num_of_philos == 0)
+		printf("No philosophers at the table.\n");
+	if (rules->num_each_philo_must_eat == 0)
+		printf("No meals to serve.\n");
+}
 
 void	print_wrong_arg_num(int argc)
 {
@@ -43,12 +52,4 @@ void	print_invalid_arg(char *target, char *msg)
 	ft_putstr_fd(" ", STDERR_FILENO);
 	ft_putstr_fd(msg, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
-}
-
-void	print_nothing_to_do(t_rules *rules)
-{
-	if (rules->num_of_philos == 0)
-		printf("No philosophers at the table.\n");
-	if (rules->num_each_philo_must_eat == 0)
-		printf("No meals to serve.\n");
 }

@@ -6,11 +6,15 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:20:12 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:36:46 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:44:16 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "init.h"
+#include "typedefs.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 
 static bool	iter_init_mutexes(pthread_mutex_t *mutexes, int count);
 static void	iter_destroy_mutexes(pthread_mutex_t *mutexes, int count);

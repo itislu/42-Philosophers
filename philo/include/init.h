@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calculate.h                                        :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 05:01:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:58:54 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 09:28:05 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 10:44:07 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CALCULATE_H
-# define CALCULATE_H
+#ifndef INIT_H
+# define INIT_H
 
 # include "typedefs.h"
 # include <stdbool.h>
 
-bool			is_outsider(const t_rules *rules, int id);
-unsigned int	calc_initial_think_us(const t_rules *rules, int id);
-unsigned int	calc_thinking_time_us(const t_rules *rules, int id);
+bool	create_philo_threads(t_philo *philos, const t_rules *rules);
+void	join_philo_threads(t_philo *philos, int count);
+bool	init_mutexes(t_mutexes *mutexes, t_rules *rules);
+void	destroy_mutexes(t_mutexes *mutexes, t_rules *rules);
+bool	init_philos(
+			t_philo **philos,
+			t_mutexes *mutexes,
+			const t_rules *rules,
+			struct timeval *start_time);
 
 #endif

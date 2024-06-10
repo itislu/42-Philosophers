@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/06/10 05:48:20 by ldulling         ###   ########.fr        #
+#    Updated: 2024/06/10 09:23:32 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC		+=	$(addprefix $(DIR), \
 # Monitor Thread:
 DIR		:=	monitor/
 SRC		+=	$(addprefix $(DIR), \
-            broadcast_death.c \
+            death.c \
             monitor.c \
 )
 

@@ -6,13 +6,14 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:07:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:40:47 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:44:15 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
 #include "utils.h"
 #include "feedback.h"
+#include "typedefs.h"
+#include <stdbool.h>
 
 static bool	set_rule(int *rule, char *target, char *arg);
 static bool	is_number(char *arg);

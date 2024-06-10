@@ -6,11 +6,16 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:02 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:47:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:04:52 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "print.h"
+#include "priv_philo.h"
+#include "macros.h"
+#include "typedefs.h"
+#include <pthread.h>
+#include <stdbool.h>
 
 bool	philo_eat(t_philo *me)
 {

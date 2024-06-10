@@ -6,13 +6,18 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 20:27:30 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:10:20 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:42:32 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "print.h"
+#include "macros.h"
+#include "typedefs.h"
+#include <pthread.h>
+#include <stdbool.h>
 
-static bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
+static __attribute__((always_inline))
+bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
 {
 	if (pthread_mutex_lock(fork) != 0)
 		return (false);

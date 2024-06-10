@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_sleep.c                                      :+:      :+:    :+:   */
+/*   pub_philo.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 02:19:42 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:15 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 10:10:55 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 10:44:07 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
-#include "priv_philo.h"
-#include "macros.h"
-#include "typedefs.h"
-#include <stdbool.h>
+#ifndef PUB_PHILO_H
+# define PUB_PHILO_H
 
-bool	philo_sleep(t_philo *me)
-{
-	if (!print_if_alive(me, MSG_SLEEP))
-		return (false);
-	usleep_while_alive_precise(me->rules->time_to_sleep_ms * 1000U, me);
-	return (true);
-}
+# include "typedefs.h"
+# include <stdbool.h>
+
+void	*philosopher(void *arg);
+bool	take_forks_left_first(t_philo *me);
+bool	take_forks_right_first(t_philo *me);
+void	release_forks_left_first(t_philo *me);
+void	release_forks_right_first(t_philo *me);
+bool	check_alive(t_philo *me);
+
+#endif

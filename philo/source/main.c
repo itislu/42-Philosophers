@@ -6,11 +6,17 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:41 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:40:47 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:03:25 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "monitor.h"
+#include "input.h"
+#include "init.h"
+#include "typedefs.h"
+#include <pthread.h>
+#include <stdlib.h>
+#include <sys/time.h>
 
 int	main(int argc, char *argv[])
 {

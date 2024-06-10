@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_sleep.c                                      :+:      :+:    :+:   */
+/*   death.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 02:19:42 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:15 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 05:37:19 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 10:44:07 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
-#include "priv_philo.h"
-#include "macros.h"
-#include "typedefs.h"
-#include <stdbool.h>
+#ifndef DEATH_H
+# define DEATH_H
 
-bool	philo_sleep(t_philo *me)
-{
-	if (!print_if_alive(me, MSG_SLEEP))
-		return (false);
-	usleep_while_alive_precise(me->rules->time_to_sleep_ms * 1000U, me);
-	return (true);
-}
+# include "typedefs.h"
+
+void	print_death(t_philo *philos, int num_of_philos, int dead_philo);
+
+#endif

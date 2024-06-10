@@ -6,11 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:37:28 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:16:12 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 09:08:48 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "sim_time.h"
 
 unsigned long long	get_elapsed_time_ms(struct timeval *start_time)
 {

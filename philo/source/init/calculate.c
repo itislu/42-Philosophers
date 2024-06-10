@@ -6,11 +6,13 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:01 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:35:02 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:44:16 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "macros.h"
+#include "typedefs.h"
+#include <stdbool.h>
 
 static unsigned int	calc_even_us(const t_rules *rules, int id);
 static unsigned int	calc_odd_us(const t_rules *rules, int id);

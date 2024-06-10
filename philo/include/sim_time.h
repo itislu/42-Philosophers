@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   broadcast_death.h                                  :+:      :+:    :+:   */
+/*   sim_time.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 05:37:19 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:38:01 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 09:04:05 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 10:43:03 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BROADCAST_DEATH_H
-# define BROADCAST_DEATH_H
+#ifndef SIM_TIME_H
+# define SIM_TIME_H
 
-# include "philo.h"
+# include <stddef.h>
+# include <sys/time.h>
 
-void	broadcast_death(t_philo *philos, int num_of_philos);
-void	print_death(t_philo *philos, int num_of_philos, int dead_philo);
+unsigned long long	get_elapsed_time_ms(struct timeval *start_time);
+unsigned long long	get_elapsed_time_us(struct timeval *start_time);
 
 #endif

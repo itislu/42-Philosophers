@@ -6,11 +6,16 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:26:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 06:24:04 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:03:52 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "sim_time.h"
+#include "macros.h"
+#include "typedefs.h"
+#include <pthread.h>
+#include <stdio.h>
+#include <unistd.h>
 
 void	print_verbose(t_philo *me, const char *msg)
 {
