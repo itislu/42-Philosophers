@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:37:28 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/26 16:29:41 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 06:16:12 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 unsigned long long	get_elapsed_time_ms(struct timeval *start_time)
 {
-	struct timeval		current_time;
-	struct timeval		result;
+	struct timeval	current_time;
+	struct timeval	result;
 
 	gettimeofday(&current_time, NULL);
 	timersub(&current_time, start_time, &result);
@@ -24,8 +24,8 @@ unsigned long long	get_elapsed_time_ms(struct timeval *start_time)
 
 unsigned long long	get_elapsed_time_us(struct timeval *start_time)
 {
-	struct timeval		current_time;
-	struct timeval		result;
+	struct timeval	current_time;
+	struct timeval	result;
 
 	gettimeofday(&current_time, NULL);
 	timersub(&current_time, start_time, &result);
