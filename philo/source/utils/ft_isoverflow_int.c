@@ -6,11 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:39:46 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/21 19:13:32 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:51:44 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "utils_priv.h"
 
 /**
  * The ft_isoverflow_int function checks if the passed string represents a

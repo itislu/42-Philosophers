@@ -6,11 +6,9 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:55:40 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/21 19:20:17 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:02:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "utils.h"
 
 /**
  * The ft_issign function checks if the passed character is a sign character

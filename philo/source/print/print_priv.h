@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   feedback.h                                         :+:      :+:    :+:   */
+/*   print_priv.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 04:49:36 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:59:37 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 15:43:08 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 16:36:23 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FEEDBACK_H
-# define FEEDBACK_H
+#ifndef PRINT_PRIV_H
+# define PRINT_PRIV_H
 
-void	print_wrong_arg_num(int argc);
-void	print_invalid_arg(char *target, char *msg);
+# include "macros.h"
+# include "philo_pub.h"
+# include "time_pub.h"
+# include "typedefs.h"
+# include <pthread.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <unistd.h>
+
+void	print_msg(t_philo *me, const char *msg);
 
 #endif

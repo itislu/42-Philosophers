@@ -6,16 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:16 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:47:05 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "calculate.h"
-#include "pub_philo.h"
-#include "typedefs.h"
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
+#include "init_priv.h"
 
 static void	set_forks(
 				t_philo *philos,

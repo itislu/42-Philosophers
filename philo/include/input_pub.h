@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   input_pub.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 14:13:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 02:53:31 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 09:25:52 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 16:31:46 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef INPUT_PUB_H
+# define INPUT_PUB_H
 
-# include <limits.h>
+# include "typedefs.h"
 # include <stdbool.h>
-# include <unistd.h>
 
-# define WHITESPACE	" \f\n\r\t\v"
-
-int		ft_atoi(const char *nptr);
-int		ft_isdigit(int c);
-bool	ft_isoverflow_int(const char *nptr);
-int		ft_issign(int c);
-int		ft_isspace(int c);
-void	ft_putstr_fd(char *s, int fd);
-char	*ft_strchr(const char *s, int c);
-size_t	ft_strlen(const char *s);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+bool	parse_rules(t_rules *rules, int argc, char *argv[]);
+void	print_nothing_to_do(t_rules *rules);
 
 #endif

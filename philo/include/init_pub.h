@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.h                                            :+:      :+:    :+:   */
+/*   init_pub.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 09:15:47 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:07 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 09:28:05 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 16:33:13 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_H
-# define PRINT_H
+#ifndef INIT_PUB_H
+# define INIT_PUB_H
 
 # include "typedefs.h"
 # include <stdbool.h>
 
-bool	print_if_alive(t_philo *me, const char *msg);
-void	print_msg(t_philo *me, const char *msg);
-void	print_verbose(t_philo *me, const char *msg);
-void	print_verbose_death(t_philo *me);
-void	print_actual_elapsed_time(
-			struct timeval *start,
-			struct timeval *end,
-			unsigned int target_time_us,
-			t_philo *philo);
-
+bool	create_philo_threads(t_philo *philos, const t_rules *rules);
+void	join_philo_threads(t_philo *philos, int count);
+bool	init_mutexes(t_mutexes *mutexes, t_rules *rules);
+void	destroy_mutexes(t_mutexes *mutexes, t_rules *rules);
+bool	init_philos(
+			t_philo **philos,
+			t_mutexes *mutexes,
+			const t_rules *rules,
+			struct timeval *start_time);
 
 #endif

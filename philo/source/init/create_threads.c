@@ -6,17 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:51:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 11:04:36 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:48:17 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
-#include "monitor.h"
-#include "init.h"
-#include "pub_philo.h"
-#include "typedefs.h"
-#include <pthread.h>
-#include <stdbool.h>
+#include "init_priv.h"
 
 bool	create_philo_threads(t_philo *philos, const t_rules *rules)
 {

@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   input_priv.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 15:55:31 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 15:51:44 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 04:49:36 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 16:30:28 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils_priv.h"
+#ifndef INPUT_PRIV_H
+# define INPUT_PRIV_H
 
-int	ft_atoi(const char *nptr)
-{
-	int	n;
-	int	sign;
+# include "typedefs.h"
+# include "utils_pub.h"
+# include <stdbool.h>
+# include <stdio.h>
+# include <unistd.h>
 
-	while (ft_isspace(*nptr))
-		nptr++;
-	sign = 1;
-	if (*nptr == '-' || *nptr == '+')
-	{
-		if (*nptr == '-')
-			sign = -1;
-		nptr++;
-	}
-	n = 0;
-	while (ft_isdigit(*nptr))
-	{
-		n = n * 10 + (*nptr - '0');
-		nptr++;
-	}
-	return (n * sign);
-}
+void	print_wrong_arg_num(int argc);
+void	print_invalid_arg(char *target, char *msg);
+
+#endif

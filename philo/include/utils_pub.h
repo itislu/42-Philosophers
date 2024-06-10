@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   utils_pub.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 09:28:05 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:07 by ldulling         ###   ########.fr       */
+/*   Created: 2024/05/21 14:13:48 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 16:08:39 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef UTILS_PUB_H
+# define UTILS_PUB_H
 
-# include "typedefs.h"
 # include <stdbool.h>
+# include <stddef.h>
 
-bool	create_philo_threads(t_philo *philos, const t_rules *rules);
-void	join_philo_threads(t_philo *philos, int count);
-bool	init_mutexes(t_mutexes *mutexes, t_rules *rules);
-void	destroy_mutexes(t_mutexes *mutexes, t_rules *rules);
-bool	init_philos(
-			t_philo **philos,
-			t_mutexes *mutexes,
-			const t_rules *rules,
-			struct timeval *start_time);
+int		ft_atoi(const char *nptr);
+int		ft_isdigit(int c);
+bool	ft_isoverflow_int(const char *nptr);
+int		ft_issign(int c);
+int		ft_isspace(int c);
+void	ft_putstr_fd(char *s, int fd);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

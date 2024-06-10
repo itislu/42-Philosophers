@@ -6,18 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:15 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:38:57 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
-#include "sim_time.h"
-#include "pub_philo.h"
-#include "macros.h"
-#include "typedefs.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdbool.h>
+#include "philo_priv.h"
 
 static unsigned int	usleep_return(unsigned int us, struct timeval *start_time)
 					__attribute__((always_inline));

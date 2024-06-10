@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   death.h                                            :+:      :+:    :+:   */
+/*   utils_priv.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 05:37:19 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:07 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 15:50:04 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 16:09:05 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEATH_H
-# define DEATH_H
+#ifndef UTILS_PRIV_H
+# define UTILS_PRIV_H
 
-# include "typedefs.h"
+# include "utils_pub.h"
+# include <limits.h>
+# include <stdbool.h>
+# include <unistd.h>
 
-void	print_death(t_philo *philos, int num_of_philos, int dead_philo);
+# define WHITESPACE	" \f\n\r\t\v"
 
 #endif

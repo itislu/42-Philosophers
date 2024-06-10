@@ -6,11 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:12:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/21 19:19:52 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:51:44 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "utils_priv.h"
 
 /**
  * The ft_isspace function checks if the passed character is a whitespace

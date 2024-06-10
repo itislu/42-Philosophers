@@ -6,15 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 11:04:05 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:38:57 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
-#include "priv_philo.h"
-#include "typedefs.h"
-#include <pthread.h>
-#include <stdbool.h>
+#include "philo_priv.h"
 
 void	*philosopher(void *arg)
 {

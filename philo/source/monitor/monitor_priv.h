@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor.h                                          :+:      :+:    :+:   */
+/*   monitor_priv.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 09:19:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:07 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 05:37:19 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 16:28:56 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MONITOR_H
-# define MONITOR_H
+#ifndef MONITOR_PRIV_H
+# define MONITOR_PRIV_H
 
+# include "macros.h"
+# include "monitor_pub.h"
+# include "print_pub.h"
 # include "typedefs.h"
+# include <pthread.h>
+# include <stdbool.h>
+# include <unistd.h>
 
-void	monitor(t_philo *philos, t_rules rules);
-void	broadcast_death(t_philo *philos, int num_of_philos);
+void	print_death(t_philo *philos, int num_of_philos, int dead_philo);
 
 #endif

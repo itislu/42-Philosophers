@@ -6,17 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 11:04:16 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:52:48 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "death.h"
-#include "monitor.h"
-#include "macros.h"
-#include "typedefs.h"
-#include <pthread.h>
-#include <unistd.h>
-#include <stdbool.h>
+#include "monitor_priv.h"
 
 static t_state	monitor_cycle(t_philo *philos, int num_of_philos)
 				__attribute__((always_inline));

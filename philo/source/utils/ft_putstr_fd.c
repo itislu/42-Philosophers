@@ -6,11 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:12:14 by ldulling          #+#    #+#             */
-/*   Updated: 2024/05/21 14:17:14 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:51:44 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "utils_priv.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

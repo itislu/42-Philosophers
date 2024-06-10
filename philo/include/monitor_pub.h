@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sim_time.h                                         :+:      :+:    :+:   */
+/*   monitor_pub.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 09:04:05 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:43:03 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 09:19:03 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 16:28:39 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIM_TIME_H
-# define SIM_TIME_H
+#ifndef MONITOR_PUB_H
+# define MONITOR_PUB_H
 
-# include <stddef.h>
-# include <sys/time.h>
+# include "typedefs.h"
 
-unsigned long long	get_elapsed_time_ms(struct timeval *start_time);
-unsigned long long	get_elapsed_time_us(struct timeval *start_time);
+void	monitor(t_philo *philos, t_rules rules);
+void	broadcast_death(t_philo *philos, int num_of_philos);
 
 #endif

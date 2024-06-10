@@ -6,13 +6,13 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:41 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 11:03:25 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:39:36 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "monitor.h"
-#include "input.h"
-#include "init.h"
+#include "init_pub.h"
+#include "input_pub.h"
+#include "monitor_pub.h"
 #include "typedefs.h"
 #include <pthread.h>
 #include <stdlib.h>

@@ -6,13 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 04:40:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:15 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:50:54 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-#include "typedefs.h"
-#include <stdio.h>
+#include "input_priv.h"
 
 void	print_nothing_to_do(t_rules *rules)
 {

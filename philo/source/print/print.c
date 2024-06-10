@@ -6,18 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 11:03:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:44:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sim_time.h"
-#include "print.h"
-#include "pub_philo.h"
-#include "macros.h"
-#include "typedefs.h"
-#include <pthread.h>
-#include <stdio.h>
-#include <stdbool.h>
+#include "print_priv.h"
 
 bool	print_if_alive(t_philo *me, const char *msg)
 {

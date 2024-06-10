@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pub_philo.h                                        :+:      :+:    :+:   */
+/*   time_pub.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 10:10:55 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:44:07 by ldulling         ###   ########.fr       */
+/*   Created: 2024/06/10 09:04:05 by ldulling          #+#    #+#             */
+/*   Updated: 2024/06/10 16:36:39 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUB_PHILO_H
-# define PUB_PHILO_H
+#ifndef TIME_PUB_H
+# define TIME_PUB_H
 
-# include "typedefs.h"
-# include <stdbool.h>
+# include <stddef.h>
+# include <sys/time.h>
 
-void	*philosopher(void *arg);
-bool	take_forks_left_first(t_philo *me);
-bool	take_forks_right_first(t_philo *me);
-void	release_forks_left_first(t_philo *me);
-void	release_forks_right_first(t_philo *me);
-bool	check_alive(t_philo *me);
+unsigned long long	get_elapsed_time_ms(struct timeval *start_time);
+unsigned long long	get_elapsed_time_us(struct timeval *start_time);
 
 #endif
