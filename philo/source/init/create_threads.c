@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   create_threads.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:51:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/02 00:24:11 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 04:58:39 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	create_philo_threads(t_philo *philos, const t_rules *rules)
 	i = 0;
 	while (i < rules->number_of_philosophers)
 	{
-		if (pthread_create(&philos[i].thread, NULL, &philosopher, &philos[i]) != 0)
+		if (pthread_create(
+				&philos[i].thread, NULL, &philosopher, &philos[i]) != 0)
 		{
 			broadcast_death(philos, i);
 			pthread_mutex_unlock(philos[i].sync_mutex);

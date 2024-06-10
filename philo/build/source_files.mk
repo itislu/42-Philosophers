@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/06/10 04:41:07 by ldulling         ###   ########.fr        #
+#    Updated: 2024/06/10 05:21:59 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,10 @@ SRC		:=	main.c
 # Initialization:
 DIR		:=	init/
 SRC		+=	$(addprefix $(DIR), \
+            calculate.c \
+            create_threads.c \
             init_mutexes.c \
             init_philos.c \
-            threads.c \
 )
 
 # User input:
