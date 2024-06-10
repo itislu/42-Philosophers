@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:43 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 03:16:47 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/10 04:17:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ typedef struct s_philo
 	bool					(*take_forks)(struct s_philo *me);
 	void					(*release_forks)(struct s_philo *me);
 	bool					is_outsider;
-	useconds_t				initial_time_to_think_us;
-	useconds_t				time_to_think_us;	//TODO Rename to thinking_time_us
+	useconds_t				initial_thinking_time_us;
+	useconds_t				thinking_time_us;
 	unsigned long long		latest_timestamp;
 	unsigned long long		last_meal_timestamp;
 	unsigned long long		meals_eaten;
@@ -152,8 +152,8 @@ void	*philosopher(void *arg);
 
 bool	philo_eat(t_philo *me);
 bool	philo_sleep(t_philo *me);
-bool	philo_think(t_philo *me, useconds_t time_to_think_us);
-bool	philo_think_initial(t_philo *me, useconds_t time_to_think_us);
+bool	philo_think(t_philo *me, useconds_t thinking_time_us);
+bool	philo_think_initial(t_philo *me, useconds_t thinking_time_us);
 
 void	broadcast_death(t_philo *philos, int number_of_philosophers);
 void	monitor(t_philo *philos, t_rules rules);
