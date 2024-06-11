@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:26:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/11 10:33:18 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:38:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_verbose_death(t_philo *me)
 		spacing = COLUMN1;
 	pthread_mutex_lock(me->print_mutex);
 	dprintf(STDERR_FILENO, "%s  - %d died %llums after last meal\n",
-		spacing, me->id, me->latest_timestamp - me->last_meal_timestamp);
+		spacing, me->id, me->latest_timestamp_ms - me->last_meal_timestamp_ms);
 	pthread_mutex_unlock(me->print_mutex);
 }
 

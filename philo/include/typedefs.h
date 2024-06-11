@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/11 08:43:12 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:38:17 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ typedef struct s_philo
 	bool					is_outsider;
 	unsigned int			initial_thinking_time_us;
 	unsigned int			thinking_time_us;
-	unsigned long long		latest_timestamp;
-	unsigned long long		last_meal_timestamp;
+	unsigned long long		latest_timestamp_ms;
+	unsigned long long		last_meal_timestamp_ms;
 	unsigned long long		meals_eaten;
 	t_rules const			*rules;
 }	t_philo;

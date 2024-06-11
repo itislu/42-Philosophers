@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:41:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:38:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:38:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ bool	check_alive(t_philo *me)
 		return (false);
 	}
 	pthread_mutex_unlock(me->state_mutex);
-	me->latest_timestamp = get_elapsed_time_ms(
+	me->latest_timestamp_ms = get_elapsed_time_ms(
 			(struct timeval *)me->start_time);
-	if (me->latest_timestamp - me->last_meal_timestamp
+	if (me->latest_timestamp_ms - me->last_meal_timestamp_ms
 		> (unsigned long long)me->rules->time_to_die_ms)
 	{
 		pthread_mutex_lock(me->state_mutex);

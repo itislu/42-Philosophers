@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:02 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:38:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:38:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	philo_eat(t_philo *me)
 		return (false);
 	if (!print_if_alive(me, MSG_EAT))
 		return (false);
-	me->last_meal_timestamp = me->latest_timestamp;
+	me->last_meal_timestamp_ms = me->latest_timestamp_ms;
 	usleep_while_alive_precise(me->rules->time_to_eat_ms * 1000U, me);
 	me->release_forks(me);
 	print_verbose(me, "has released forks");
