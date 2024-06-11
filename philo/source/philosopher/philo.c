@@ -21,8 +21,8 @@ void	*philosopher(void *arg)
 	pthread_mutex_unlock(me->sync_mutex);
 	if (VERBOSE)
 		print_verbose(me, "has started routine");
-	if (me->initial_thinking_time_us)
-		if (!philo_think_initial(me, me->initial_thinking_time_us))
+	if (me->initial_think_time_us)
+		if (!philo_think_initial(me))
 			return (NULL);
 	while (true)
 	{
@@ -30,7 +30,7 @@ void	*philosopher(void *arg)
 			break ;
 		if (!philo_sleep(me))
 			break ;
-		if (!philo_think(me, me->thinking_time_us))
+		if (!philo_think(me))
 			break ;
 	}
 	me->release_forks(me);

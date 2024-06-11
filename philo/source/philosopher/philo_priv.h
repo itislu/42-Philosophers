@@ -25,9 +25,9 @@
 
 bool	philo_eat(t_philo *me);
 bool	philo_sleep(t_philo *me);
-bool	philo_think(t_philo *me, unsigned int thinking_time_us);
-bool	philo_think_initial(t_philo *me, unsigned int thinking_time_us);
-bool	usleep_while_alive(unsigned int us, t_philo *me);
-bool	usleep_while_alive_precise(unsigned int us, t_philo *me);
+bool	philo_think(t_philo *me);
+bool	philo_think_initial(t_philo *me);
+bool	usleep_while_alive(unsigned long long us, t_philo *me);
+bool	usleep_while_alive_precise(unsigned long long us, t_philo *me);
 
 #endif

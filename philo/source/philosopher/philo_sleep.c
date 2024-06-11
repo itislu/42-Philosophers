@@ -16,7 +16,7 @@ bool	philo_sleep(t_philo *me)
 {
 	if (!print_if_alive(me, MSG_SLEEP))
 		return (false);
-	if (!usleep_while_alive_precise(me->rules->time_to_sleep_ms * 1000U, me))
+	if (!usleep_while_alive_precise(me->rules->time_to_sleep_ms * 1000ULL, me))
 		return (false);
 	return (true);
 }

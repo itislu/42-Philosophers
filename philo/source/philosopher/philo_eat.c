@@ -19,7 +19,7 @@ bool	philo_eat(t_philo *me)
 	if (!print_if_alive(me, MSG_EAT))
 		return (false);
 	me->last_meal_timestamp_ms = me->latest_timestamp_ms;
-	if (!usleep_while_alive_precise(me->rules->time_to_eat_ms * 1000U, me))
+	if (!usleep_while_alive_precise(me->rules->time_to_eat_ms * 1000ULL, me))
 		return (false);
 	me->release_forks(me);
 	me->meals_eaten++;

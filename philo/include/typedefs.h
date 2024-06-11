@@ -66,8 +66,8 @@ typedef struct s_philo
 	bool					(*take_forks)(struct s_philo * me);
 	void					(*release_forks)(struct s_philo *me);
 	bool					is_outsider;
-	unsigned int			initial_thinking_time_us;
-	unsigned int			thinking_time_us;
+	unsigned long long		initial_think_time_us;
+	unsigned long long		think_time_us;
 	unsigned long long		latest_timestamp_ms;
 	unsigned long long		last_meal_timestamp_ms;
 	unsigned long long		meals_eaten;

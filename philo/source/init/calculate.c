@@ -12,8 +12,8 @@
 
 #include "init_priv.h"
 
-static unsigned int	calc_initial_even_us(int id);
-static unsigned int	calc_initial_odd_us(const t_rules *rules, int id);
+static unsigned long long	calc_initial_even_us(int id);
+static unsigned long long	calc_initial_odd_us(const t_rules *rules, int id);
 
 bool	calc_is_outsider(const t_rules *rules, int id)
 {
@@ -23,26 +23,26 @@ bool	calc_is_outsider(const t_rules *rules, int id)
 	return (false);
 }
 
-unsigned int	calc_thinking_time_us(const t_rules *rules)
+unsigned long long	calc_think_time_us(const t_rules *rules)
 {
 	if (rules->time_to_eat_ms > rules->time_to_sleep_ms + MARGIN_MS / 2)
 		return ((rules->time_to_eat_ms - rules->time_to_sleep_ms
-				- MARGIN_MS / 2) * 1000U);
+				- MARGIN_MS / 2) * 1000ULL);
 	else
 		return (0);
 }
 
-unsigned int	calc_initial_thinking_time_us(const t_rules *rules, int id)
+unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id)
 {
 	if (rules->num_of_philos < 2)
-		return ((rules->time_to_die_ms + 1) * 1000);
+		return ((rules->time_to_die_ms + 1) * 1000ULL);
 	else if (rules->num_of_philos % 2 == 0)
 		return (calc_initial_even_us(id));
 	else
 		return (calc_initial_odd_us(rules, id));
 }
 
-static unsigned int	calc_initial_even_us(int id)
+static unsigned long long	calc_initial_even_us(int id)
 {
 	if (id % 2 == 0)
 		return (MARGIN_MS / 2 * 1000);
@@ -50,10 +50,10 @@ static unsigned int	calc_initial_even_us(int id)
 		return (0);
 }
 
-static unsigned int	calc_initial_odd_us(const t_rules *rules, int id)
+static unsigned long long	calc_initial_odd_us(const t_rules *rules, int id)
 {
 	if (calc_is_outsider(rules, id))
-		return ((rules->time_to_eat_ms * 2 - MARGIN_MS / 2) * 1000U);
+		return ((rules->time_to_eat_ms * 2ULL - MARGIN_MS / 2) * 1000ULL);
 	else if (id % 2 == 0)
 		return (MARGIN_MS / 2 * 1000);
 	else

@@ -12,19 +12,20 @@
 
 #include "philo_priv.h"
 
-static unsigned int	usleep_return(unsigned int us, struct timeval *start_time)
-					__attribute__((always_inline));
-static void			busy_wait(
-						unsigned int us,
-						unsigned int duration_us,
-						struct timeval *start_time,
-						t_philo *me)
-					__attribute__((always_inline));
+static unsigned long long	usleep_return(
+								unsigned int us, struct timeval *start_time)
+							__attribute__((always_inline));
+static void					busy_wait(
+								unsigned long long us,
+								unsigned long long duration_us,
+								struct timeval *start_time,
+								t_philo *me)
+							__attribute__((always_inline));
 
-bool	usleep_while_alive(unsigned int us, t_philo *me)
+bool	usleep_while_alive(unsigned long long us, t_philo *me)
 {
-	struct timeval	start_time;
-	unsigned int	slept_time_us;
+	struct timeval		start_time;
+	unsigned long long	slept_time_us;
 
 	gettimeofday(&start_time, NULL);
 	slept_time_us = 0;
@@ -37,11 +38,11 @@ bool	usleep_while_alive(unsigned int us, t_philo *me)
 	return (true);
 }
 
-bool	usleep_while_alive_precise(unsigned int us, t_philo *me)
+bool	usleep_while_alive_precise(unsigned long long us, t_philo *me)
 {
-	struct timeval	start_time;
-	struct timeval	end_time;
-	unsigned int	slept_time_us;
+	struct timeval		start_time;
+	struct timeval		end_time;
+	unsigned long long	slept_time_us;
 
 	gettimeofday(&start_time, NULL);
 	slept_time_us = 0;
@@ -64,7 +65,8 @@ bool	usleep_while_alive_precise(unsigned int us, t_philo *me)
 }
 
 static __attribute__((always_inline))
-unsigned int	usleep_return(unsigned int us, struct timeval *start_time)
+unsigned long long	usleep_return(
+						unsigned int us, struct timeval *start_time)
 {
 	usleep(us);
 	return (get_elapsed_time_us(start_time));
@@ -72,8 +74,8 @@ unsigned int	usleep_return(unsigned int us, struct timeval *start_time)
 
 static __attribute__((always_inline))
 void	busy_wait(
-			unsigned int us,
-			unsigned int duration_us,
+			unsigned long long us,
+			unsigned long long duration_us,
 			struct timeval *start_time,
 			t_philo *me)
 {
@@ -81,7 +83,7 @@ void	busy_wait(
 
 	if (VERBOSE)
 	{
-		snprintf(verbose_msg, 100, "busy waits for %uus", duration_us);
+		snprintf(verbose_msg, 100, "busy waits for %lluus", duration_us);
 		print_verbose(me, verbose_msg);
 	}
 	while (get_elapsed_time_us(start_time) < us)

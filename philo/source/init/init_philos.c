@@ -41,9 +41,9 @@ bool	init_philos(
 		(*philos)[i].print_mutex = mutexes->print_mutex;
 		set_forks(*philos, mutexes->forks, rules, i);
 		(*philos)[i].is_outsider = calc_is_outsider(rules, (*philos)[i].id);
-		(*philos)[i].initial_thinking_time_us = calc_initial_thinking_time_us(
+		(*philos)[i].initial_think_time_us = calc_initial_think_time_us(
 				rules, (*philos)[i].id);
-		(*philos)[i].thinking_time_us = calc_thinking_time_us(rules);
+		(*philos)[i].think_time_us = calc_think_time_us(rules);
 		(*philos)[i].rules = rules;
 		i++;
 	}

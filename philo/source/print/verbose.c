@@ -64,7 +64,7 @@ void	print_verbose_monitor(t_philo *philo, const char *msg)
 void	print_actual_elapsed_time(
 			struct timeval *start,
 			struct timeval *end,
-			unsigned int target_time_us,
+			unsigned long long target_time_us,
 			t_philo *me)
 {
 	struct timeval		result;
@@ -76,7 +76,7 @@ void	print_actual_elapsed_time(
 	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
 	if (actual_time_us - target_time_us >= VERBOSE_DELAY_PRINT_THRESHOLD_US)
 	{
-		snprintf(verbose_msg1, 100, STY_BOL STY_RED "Target sleep time: %uus"
+		snprintf(verbose_msg1, 100, STY_BOL STY_RED "Target sleep time: %lluus"
 			STY_RES, target_time_us);
 		snprintf(verbose_msg2, 100, STY_BOL STY_RED "Actual sleep time: %lluus"
 			STY_RES, actual_time_us);

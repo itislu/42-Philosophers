@@ -25,8 +25,8 @@
 # include <stdlib.h>
 # include <string.h>
 
-bool			calc_is_outsider(const t_rules *rules, int id);
-unsigned int	calc_initial_thinking_time_us(const t_rules *rules, int id);
-unsigned int	calc_thinking_time_us(const t_rules *rules);
+bool				calc_is_outsider(const t_rules *rules, int id);
+unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id);
+unsigned long long	calc_think_time_us(const t_rules *rules);
 
 #endif

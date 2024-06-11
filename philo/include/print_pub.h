@@ -24,7 +24,7 @@ void	print_verbose_monitor(t_philo *philo, const char *msg);
 void	print_actual_elapsed_time(
 			struct timeval *start,
 			struct timeval *end,
-			unsigned int target_time_us,
+			unsigned long long target_time_us,
 			t_philo *me);
 
 #endif
