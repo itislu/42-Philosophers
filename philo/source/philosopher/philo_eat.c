@@ -30,7 +30,6 @@ bool	philo_eat(t_philo *me)
 		me->state |= FULL;
 		pthread_mutex_unlock(me->state_mutex);
 		print_verbose(me, "got full");
-		return (false);
 	}
 	return (true);
 }

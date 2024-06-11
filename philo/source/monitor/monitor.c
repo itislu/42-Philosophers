@@ -23,8 +23,13 @@ void	monitor(t_philo *philos, t_rules rules)
 	{
 		usleep(MONITOR_INTERVAL_US);
 		state = monitor_cycle(philos, rules.num_of_philos);
-		if (state & (DEAD | FULL))
+		if (state & DEAD)
 			return ;
+		else if (state & FULL)
+		{
+			broadcast_death(philos, rules.num_of_philos);
+			return ;
+		}
 	}
 }
 
