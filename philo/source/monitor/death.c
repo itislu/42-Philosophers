@@ -52,5 +52,6 @@ static void	wait_all_dead(t_philo *philos, int num_of_philos)
 		}
 		if ((state & (DEAD | CONFIRMED)) == (DEAD | CONFIRMED))
 			break ;
+		usleep(MONITOR_INTERVAL_US);
 	}
 }
