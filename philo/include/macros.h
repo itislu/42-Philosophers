@@ -14,7 +14,7 @@
 # define MACROS_H
 
 /* Timing Configuration */
-# define MONITOR_INTERVAL_US				100
+# define MONITOR_INTERVAL_US				107
 # define USLEEP_LONG_US						1000
 # define USLEEP_SHORT_THRESHOLD_US			2000
 # define USLEEP_SHORT_US					100

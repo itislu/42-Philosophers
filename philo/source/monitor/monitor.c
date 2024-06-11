@@ -21,10 +21,10 @@ void	monitor(t_philo *philos, t_rules rules)
 
 	while (true)
 	{
+		usleep(MONITOR_INTERVAL_US);
 		state = monitor_cycle(philos, rules.num_of_philos);
 		if (state & (DEAD | FULL))
 			return ;
-		usleep(MONITOR_INTERVAL_US);
 	}
 }
 

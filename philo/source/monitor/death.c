@@ -41,6 +41,7 @@ static void	wait_all_dead(t_philo *philos, int num_of_philos)
 
 	while (true)
 	{
+		usleep(MONITOR_INTERVAL_US);
 		i = 0;
 		state = ~0;
 		while (i < num_of_philos)
@@ -52,6 +53,5 @@ static void	wait_all_dead(t_philo *philos, int num_of_philos)
 		}
 		if ((state & (DEAD | CONFIRMED)) == (DEAD | CONFIRMED))
 			break ;
-		usleep(MONITOR_INTERVAL_US);
 	}
 }
