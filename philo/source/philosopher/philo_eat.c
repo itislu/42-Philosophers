@@ -30,6 +30,8 @@ bool	philo_eat(t_philo *me)
 		me->state |= FULL;
 		pthread_mutex_unlock(me->state_mutex);
 		print_verbose(me, "got full");
+		usleep_while_alive(me->rules->time_to_die_ms * 1000ULL, me);
+		return (false);
 	}
 	return (true);
 }
