@@ -27,6 +27,8 @@ void	monitor(t_philo *philos, t_rules rules)
 			return ;
 		else if (state & FULL)
 		{
+			if (VERBOSE)
+				print_verbose_monitor(philos, "All philosophers got full");
 			broadcast_death(philos, rules.num_of_philos);
 			return ;
 		}

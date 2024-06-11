@@ -19,6 +19,8 @@ void	*philosopher(void *arg)
 	me = (t_philo *)arg;
 	pthread_mutex_lock(me->sync_mutex);
 	pthread_mutex_unlock(me->sync_mutex);
+	if (VERBOSE)
+		print_verbose(me, "has started routine");
 	if (me->initial_thinking_time_us)
 		if (!philo_think_initial(me, me->initial_thinking_time_us))
 			return (NULL);

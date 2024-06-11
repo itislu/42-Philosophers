@@ -20,6 +20,7 @@ bool	print_if_alive(t_philo *me, const char *msg);
 void	print_msg(t_philo *me, const char *msg);
 void	print_verbose(t_philo *me, const char *msg);
 void	print_verbose_death(t_philo *me);
+void	print_verbose_monitor(t_philo *philo, const char *msg);
 void	print_actual_elapsed_time(
 			struct timeval *start,
 			struct timeval *end,

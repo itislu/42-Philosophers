@@ -49,6 +49,16 @@ void	print_verbose_death(t_philo *me)
 	pthread_mutex_unlock(me->print_mutex);
 }
 
+void	print_verbose_monitor(t_philo *philo, const char *msg)
+{
+	if (!VERBOSE)
+		return ;
+	pthread_mutex_lock(philo->print_mutex);
+	dprintf(STDERR_FILENO, STY_BOL "%s%llu %c %s\n" STY_RES, COLUMN1,
+		get_elapsed_time_ms((struct timeval *)philo->start_time), 'm', msg);
+	pthread_mutex_unlock(philo->print_mutex);
+}
+
 #if VERBOSE
 
 void	print_actual_elapsed_time(

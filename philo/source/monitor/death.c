@@ -18,6 +18,8 @@ void	broadcast_death(t_philo *philos, int num_of_philos)
 {
 	int	i;
 
+	if (VERBOSE)
+		print_verbose_monitor(philos, "broadcasts death");
 	i = 0;
 	while (i < num_of_philos)
 	{
@@ -26,6 +28,8 @@ void	broadcast_death(t_philo *philos, int num_of_philos)
 		pthread_mutex_unlock(philos[i].state_mutex);
 		i++;
 	}
+	if (VERBOSE)
+		print_verbose_monitor(philos, "finished broadcasting");
 }
 
 void	print_death(t_philo *philos, int num_of_philos, int dead_philo)
@@ -41,6 +45,8 @@ static void	wait_all_dead(t_philo *philos, int num_of_philos)
 
 	while (true)
 	{
+		if (VERBOSE)
+			print_verbose_monitor(philos, "waits for all death confirms");
 		usleep(MONITOR_INTERVAL_US);
 		i = 0;
 		state = ~0;
