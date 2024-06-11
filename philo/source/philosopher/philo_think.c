@@ -18,6 +18,16 @@ static unsigned long long	calc_think_us(
 static unsigned long long	calc_think_odd_us(t_philo *me)
 							__attribute__((always_inline));
 
+bool	philo_think_initial(t_philo *me)
+{
+	if (!print_if_alive(me, MSG_THINK))
+		return (false);
+	if (me->initial_think_time_us)
+		if (!usleep_while_alive(me->initial_think_time_us, me))
+			return (false);
+	return (true);
+}
+
 bool	philo_think(t_philo *me)
 {
 	unsigned long long	think_time_us;
@@ -27,16 +37,6 @@ bool	philo_think(t_philo *me)
 	think_time_us = calc_think_us(me, me->think_time_us);
 	if (think_time_us)
 		if (!usleep_while_alive(think_time_us, me))
-			return (false);
-	return (true);
-}
-
-bool	philo_think_initial(t_philo *me)
-{
-	if (!print_if_alive(me, MSG_THINK))
-		return (false);
-	if (me->initial_think_time_us)
-		if (!usleep_while_alive(me->initial_think_time_us, me))
 			return (false);
 	return (true);
 }
