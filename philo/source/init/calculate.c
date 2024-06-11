@@ -35,7 +35,7 @@ unsigned long long	calc_think_time_us(const t_rules *rules)
 unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id)
 {
 	if (rules->num_of_philos < 2)
-		return ((rules->time_to_die_ms + 1) * 1000ULL);
+		return ((rules->time_to_die_ms + 1ULL) * 1000ULL);
 	else if (rules->num_of_philos % 2 == 0)
 		return (calc_initial_even_us(id));
 	else
