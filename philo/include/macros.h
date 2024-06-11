@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:21 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/11 08:48:50 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:33:53 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # define USLEEP_SHORT_US					100
 # define BUSY_WAIT_THRESHOLD_US				100
 # define MARGIN_MS							10
-# define VERBOSE_USLEEP_DELAY_THRESHOLD_US	50
 
 /* Special Modes */
+# define VERBOSE_DELAY_PRINT_THRESHOLD_US	50
 # ifndef VERBOSE
 #  define VERBOSE		0
 # endif

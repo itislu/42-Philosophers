@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:26:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 15:44:18 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:33:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	print_actual_elapsed_time(
 
 	timersub(end, start, &result);
 	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
-	if (actual_time_us - target_time_us >= VERBOSE_USLEEP_DELAY_THRESHOLD_US)
+	if (actual_time_us - target_time_us >= VERBOSE_DELAY_PRINT_THRESHOLD_US)
 	{
 		snprintf(verbose_msg1, 100, STY_BOL STY_RED "Target sleep time: %uus"
 			STY_RES, target_time_us);
