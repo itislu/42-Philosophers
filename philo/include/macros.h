@@ -52,4 +52,9 @@
 # define MSG_THINK		"\e[1;34m%s%llu %d is thinking\e[0m\n"
 # define MSG_DEAD		"\e[1;31m%s%llu %d died\e[0m\n"
 
+/* Error Messages */
+# define ERR_MUTEX		"Error: Mutex initialization failed\n"
+# define ERR_MALLOC		"Error: Memory allocation failed\n"
+# define ERR_THREAD		"Error: Thread creation failed\n"
+
 #endif
