@@ -21,7 +21,8 @@ bool	philo_think(t_philo *me, unsigned int thinking_time_us)
 		return (false);
 	thinking_time_us = calc_think_us(me, thinking_time_us);
 	if (thinking_time_us)
-		usleep_while_alive(thinking_time_us, me);
+		if (!usleep_while_alive(thinking_time_us, me))
+			return (false);
 	return (true);
 }
 
@@ -30,7 +31,8 @@ bool	philo_think_initial(t_philo *me, unsigned int thinking_time_us)
 	if (!print_if_alive(me, MSG_THINK))
 		return (false);
 	if (thinking_time_us)
-		usleep_while_alive(thinking_time_us, me);
+		if (!usleep_while_alive(thinking_time_us, me))
+			return (false);
 	return (true);
 }
 
