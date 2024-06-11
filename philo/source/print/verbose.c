@@ -63,7 +63,7 @@ void	print_verbose_death(t_philo *me)
 	pthread_mutex_lock(me->print_mutex);
 	printf("%s%llu %d died %llums after last meal\n", spacing,
 		get_elapsed_time_ms((struct timeval *)me->start_time), me->id,
-		me->latest_timestamp_ms - me->last_meal_timestamp_ms);
+		(me->latest_timestamp_us - me->last_meal_timestamp_us) / 1000);
 	pthread_mutex_unlock(me->print_mutex);
 }
 

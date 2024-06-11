@@ -68,8 +68,8 @@ typedef struct s_philo
 	bool					is_outsider;
 	unsigned long long		initial_think_time_us;
 	unsigned long long		think_time_us;
-	unsigned long long		latest_timestamp_ms;
-	unsigned long long		last_meal_timestamp_ms;
+	unsigned long long		latest_timestamp_us;
+	unsigned long long		last_meal_timestamp_us;
 	unsigned long long		meals_eaten;
 	t_rules const			*rules;
 }	t_philo;

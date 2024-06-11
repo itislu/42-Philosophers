@@ -31,8 +31,8 @@ void	print_msg(t_philo *me, const char *msg)
 	else
 		spacing = COLUMN1;
 	pthread_mutex_lock(me->print_mutex);
-	me->latest_timestamp_ms = get_elapsed_time_ms(
+	me->latest_timestamp_us = get_elapsed_time_us(
 			(struct timeval *)me->start_time);
-	printf(msg, spacing, me->latest_timestamp_ms, me->id);
+	printf(msg, spacing, me->latest_timestamp_us / 1000, me->id);
 	pthread_mutex_unlock(me->print_mutex);
 }

@@ -18,7 +18,7 @@ bool	philo_eat(t_philo *me)
 		return (false);
 	if (!print_if_alive(me, MSG_EAT))
 		return (false);
-	me->last_meal_timestamp_ms = me->latest_timestamp_ms;
+	me->last_meal_timestamp_us = me->latest_timestamp_us;
 	if (!usleep_while_alive_precise(me->rules->time_to_eat_ms * 1000ULL, me))
 		return (false);
 	me->release_forks(me);
@@ -31,7 +31,7 @@ bool	philo_eat(t_philo *me)
 		pthread_mutex_unlock(me->state_mutex);
 		if (VERBOSE)
 			print_verbose(me, "got full");
-		usleep_while_alive(me->rules->time_to_die_ms * 1000ULL, me);
+		usleep_while_alive(me->rules->time_to_die_us, me);
 		return (false);
 	}
 	return (true);

@@ -22,10 +22,10 @@ bool	check_alive(t_philo *me)
 		return (false);
 	}
 	pthread_mutex_unlock(me->state_mutex);
-	me->latest_timestamp_ms = get_elapsed_time_ms(
+	me->latest_timestamp_us = get_elapsed_time_us(
 			(struct timeval *)me->start_time);
-	if (me->latest_timestamp_ms - me->last_meal_timestamp_ms
-		> (unsigned long long)me->rules->time_to_die_ms)
+	if (me->latest_timestamp_us - me->last_meal_timestamp_us
+		> (unsigned long long)me->rules->time_to_die_us)
 	{
 		pthread_mutex_lock(me->state_mutex);
 		me->state |= (DEAD | CONFIRMED);
