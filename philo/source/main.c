@@ -29,20 +29,20 @@ int	main(int argc, char *argv[])
 		return (INPUT_ERROR);
 	if (rules.num_of_philos == 0 || rules.num_each_philo_must_eat == 0)
 		return (print_nothing_to_do(&rules), 0);
-	if (!init_mutexes(&mutexes, &rules))
+	if (!init_mutexes(&mutexes, rules.num_of_philos))
 		return (MUTEX_FAILURE);
 	if (!init_philos(&philos, &mutexes, &rules, &start_time))
-		return (destroy_mutexes(&mutexes, &rules), free(philos),
+		return (destroy_mutexes(&mutexes, rules.num_of_philos), free(philos),
 			MALLOC_FAILURE);
 	pthread_mutex_lock(mutexes.sync_mutex);
-	if (!create_philo_threads(philos, &rules))
-		return (destroy_mutexes(&mutexes, &rules), free(philos),
+	if (!create_philo_threads(philos, rules.num_of_philos))
+		return (destroy_mutexes(&mutexes, rules.num_of_philos), free(philos),
 			THREAD_FAILURE);
 	gettimeofday(&start_time, NULL);
 	pthread_mutex_unlock(mutexes.sync_mutex);
 	monitor(philos, rules);
 	join_philo_threads(philos, rules.num_of_philos);
-	destroy_mutexes(&mutexes, &rules);
+	destroy_mutexes(&mutexes, rules.num_of_philos);
 	free(philos);
 	return (SUCCESS);
 }

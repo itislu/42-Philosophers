@@ -17,6 +17,7 @@
 # include <stddef.h>
 
 int		ft_atoi(const char *nptr);
+void	ft_free_and_null(void **ptr);
 int		ft_isdigit(int c);
 bool	ft_isoverflow_int(const char *nptr);
 int		ft_issign(int c);

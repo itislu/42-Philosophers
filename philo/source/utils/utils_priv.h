@@ -16,6 +16,7 @@
 # include "utils_pub.h"
 # include <limits.h>
 # include <stdbool.h>
+# include <stdlib.h>
 # include <unistd.h>
 
 # define WHITESPACE	" \f\n\r\t\v"

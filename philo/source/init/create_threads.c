@@ -12,12 +12,12 @@
 
 #include "init_priv.h"
 
-bool	create_philo_threads(t_philo *philos, const t_rules *rules)
+bool	create_philo_threads(t_philo *philos, int count)
 {
 	int	i;
 
 	i = 0;
-	while (i < rules->num_of_philos)
+	while (i < count)
 	{
 		if (pthread_create(
 				&philos[i].thread, NULL, &philosopher, &philos[i]) != 0)

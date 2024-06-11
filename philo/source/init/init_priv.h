@@ -19,6 +19,7 @@
 # include "print_pub.h"
 # include "philo_pub.h"
 # include "typedefs.h"
+# include "utils_pub.h"
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdlib.h>

@@ -12,82 +12,64 @@
 
 #include "init_priv.h"
 
-static bool	iter_init_mutexes(pthread_mutex_t *mutexes, int count);
-static void	iter_destroy_mutexes(pthread_mutex_t *mutexes, int count);
+static bool	iter_init_mutexes(pthread_mutex_t **mutexes_member, int count);
+static void	iter_destroy_mutexes(pthread_mutex_t **mutexes_member, int count);
 
-bool	init_mutexes(t_mutexes *mutexes, t_rules *rules)
+bool	init_mutexes(t_mutexes *mutexes, int count)
 {
 	memset(mutexes, 0, sizeof(t_mutexes));
-	mutexes->forks = malloc(rules->num_of_philos * sizeof(pthread_mutex_t));
-	if (!mutexes->forks)
-		return (false);
-	mutexes->state_mutexes = malloc(
-			rules->num_of_philos * sizeof(pthread_mutex_t));
-	if (!mutexes->state_mutexes)
-		return (destroy_mutexes(mutexes, rules), false);
-	mutexes->sync_mutex = malloc(sizeof(pthread_mutex_t));
-	if (!mutexes->sync_mutex)
-		return (destroy_mutexes(mutexes, rules), false);
-	mutexes->print_mutex = malloc(sizeof(pthread_mutex_t));
-	if (!mutexes->print_mutex)
-		return (destroy_mutexes(mutexes, rules), false);
-	if (!iter_init_mutexes(mutexes->forks, rules->num_of_philos))
-		return (destroy_mutexes(mutexes, rules), false);
-	if (!iter_init_mutexes(mutexes->state_mutexes, rules->num_of_philos))
-		return (destroy_mutexes(mutexes, rules), false);
-	if (pthread_mutex_init(mutexes->sync_mutex, NULL) != 0)
-		return (destroy_mutexes(mutexes, rules), false);
-	if (pthread_mutex_init(mutexes->print_mutex, NULL) != 0)
-		return (destroy_mutexes(mutexes, rules), false);
+	if (!iter_init_mutexes(&mutexes->forks, count))
+		return (destroy_mutexes(mutexes, count), false);
+	if (!iter_init_mutexes(&mutexes->state_mutexes, count))
+		return (destroy_mutexes(mutexes, count), false);
+	if (!iter_init_mutexes(&mutexes->sync_mutex, 1))
+		return (destroy_mutexes(mutexes, count), false);
+	if (!iter_init_mutexes(&mutexes->print_mutex, 1))
+		return (destroy_mutexes(mutexes, count), false);
 	return (true);
 }
 
-static bool	iter_init_mutexes(pthread_mutex_t *mutexes, int count)
+static bool	iter_init_mutexes(pthread_mutex_t **mutexes_member, int count)
 {
 	int	i;
 
+	*mutexes_member = malloc(count * sizeof(pthread_mutex_t));
+	if (!*mutexes_member)
+		return (false);
 	i = 0;
 	while (i < count)
 	{
-		if (pthread_mutex_init(&mutexes[i], NULL) != 0)
+		if (pthread_mutex_init(&(*mutexes_member)[i], NULL) != 0)
+		{
+			iter_destroy_mutexes(mutexes_member, i);
 			return (false);
+		}
 		i++;
 	}
 	return (true);
 }
 
-void	destroy_mutexes(t_mutexes *mutexes, t_rules *rules)
+void	destroy_mutexes(t_mutexes *mutexes, int count)
 {
 	if (mutexes->forks)
-	{
-		iter_destroy_mutexes(mutexes->forks, rules->num_of_philos);
-		free(mutexes->forks);
-	}
+		iter_destroy_mutexes(&mutexes->forks, count);
 	if (mutexes->state_mutexes)
-	{
-		iter_destroy_mutexes(mutexes->state_mutexes, rules->num_of_philos);
-		free(mutexes->state_mutexes);
-	}
+		iter_destroy_mutexes(&mutexes->state_mutexes, count);
 	if (mutexes->sync_mutex)
-	{
-		pthread_mutex_destroy(mutexes->sync_mutex);
-		free(mutexes->sync_mutex);
-	}
+		iter_destroy_mutexes(&mutexes->sync_mutex, 1);
 	if (mutexes->print_mutex)
-	{
-		pthread_mutex_destroy(mutexes->print_mutex);
-		free(mutexes->print_mutex);
-	}
+		iter_destroy_mutexes(&mutexes->print_mutex, 1);
 }
 
-static void	iter_destroy_mutexes(pthread_mutex_t *mutexes, int count)
+static void	iter_destroy_mutexes(pthread_mutex_t **mutexes_member, int count)
 {
 	int	i;
 
 	i = 0;
 	while (i < count)
 	{
-		pthread_mutex_destroy(&mutexes[i]);
+		pthread_mutex_destroy(&(*mutexes_member)[i]);
 		i++;
 	}
+	ft_free_and_null((void **)mutexes_member);
 }

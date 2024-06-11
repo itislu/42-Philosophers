@@ -65,6 +65,7 @@ SRC		+=	$(addprefix $(DIR), \
 DIR		:=	utils/
 SRC		+=	$(addprefix $(DIR), \
             ft_atoi.c \
+            ft_free_and_null.c \
             ft_isdigit.c \
             ft_isoverflow_int.c \
             ft_issign.c \
