@@ -110,7 +110,7 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 # ***************************** BUILD PROCESS ******************************** #
 
 .PHONY			:	all verbose verbose1 verbose2 verbose3 column1 column2 column3 \
-					val clean fclean ffclean re
+					run val clean fclean ffclean re
 
 
 #	Compilation
@@ -127,8 +127,11 @@ verbose	verbose1 verbose2 verbose3 column1 column2 column3:
 					$(MAKE) re
 					$(MAKE) clean
 
+run				:	all
+					"./$(NAME)" $(ARGS)
+
 val				:	all
-					$(VALGRIND) $(VALGRINDFLAGS) "./$(NAME)"
+					$(VALGRIND) $(VALGRINDFLAGS) "./$(NAME)" $(ARGS)
 
 
 #	Executable linking
