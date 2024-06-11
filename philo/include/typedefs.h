@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 10:41:13 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/06/11 08:43:12 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,28 @@
 
 typedef enum e_state
 {
-	ALIVE		= 0b000,
-	FULL		= 0b001,
-	DEAD		= 0b010,
-	CONFIRMED	= 0b100
+	ALIVE			=		0b000,
+	FULL			=		0b001,
+	DEAD			=		0b010,
+	CONFIRMED		=		0b100
 }	t_state;
 
 typedef struct s_rules
 {
-	int					num_of_philos;
-	int					time_to_die_ms;
-	unsigned long long	time_to_die_us;
-	int					time_to_eat_ms;
-	int					time_to_sleep_ms;
-	int					num_each_philo_must_eat;
+	int						num_of_philos;
+	int						time_to_die_ms;
+	unsigned long long		time_to_die_us;
+	int						time_to_eat_ms;
+	int						time_to_sleep_ms;
+	int						num_each_philo_must_eat;
 }	t_rules;
 
 typedef struct s_mutexes
 {
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	*state_mutexes;
-	pthread_mutex_t	*sync_mutex;
-	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t			*forks;
+	pthread_mutex_t			*state_mutexes;
+	pthread_mutex_t			*sync_mutex;
+	pthread_mutex_t			*print_mutex;
 }	t_mutexes;
 
 typedef struct s_philo
@@ -55,7 +55,7 @@ typedef struct s_philo
 	pthread_mutex_t			*right_fork;
 	bool					locked_left_fork;
 	bool					locked_right_fork;
-	bool					(*take_forks)(struct s_philo *me);
+	bool					(*take_forks)(struct s_philo * me);
 	void					(*release_forks)(struct s_philo *me);
 	bool					is_outsider;
 	unsigned int			initial_thinking_time_us;
@@ -65,6 +65,5 @@ typedef struct s_philo
 	unsigned long long		meals_eaten;
 	t_rules const			*rules;
 }	t_philo;
-
 
 #endif
