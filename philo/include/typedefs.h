@@ -37,7 +37,6 @@ typedef struct s_rules
 {
 	int						num_of_philos;
 	int						time_to_die_ms;
-	unsigned long long		time_to_die_us;
 	int						time_to_eat_ms;
 	int						time_to_sleep_ms;
 	int						num_each_philo_must_eat;

@@ -27,7 +27,6 @@ bool	parse_rules(t_rules *rules, int argc, char *argv[])
 		ret = false;
 	if (!set_rule(&rules->time_to_die_ms, "Time to die", argv[2]))
 		ret = false;
-	rules->time_to_die_us = rules->time_to_die_ms * 1000ULL;
 	if (!set_rule(&rules->time_to_eat_ms, "Time to eat", argv[3]))
 		ret = false;
 	if (!set_rule(&rules->time_to_sleep_ms, "Time to sleep", argv[4]))
