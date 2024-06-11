@@ -16,6 +16,15 @@
 # include <pthread.h>
 # include <stdbool.h>
 
+enum e_exit_codes
+{
+	SUCCESS			=		0,
+	INPUT_ERROR		=		1,
+	MUTEX_FAILURE	=		2,
+	MALLOC_FAILURE	=		3,
+	THREAD_FAILURE	=		4
+};
+
 typedef enum e_state
 {
 	ALIVE			=		0b000,
