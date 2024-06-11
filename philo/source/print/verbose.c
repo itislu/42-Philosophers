@@ -55,7 +55,7 @@ void	print_actual_elapsed_time(
 			struct timeval *start,
 			struct timeval *end,
 			unsigned int target_time_us,
-			t_philo *philo)
+			t_philo *me)
 {
 	struct timeval		result;
 	unsigned long long	actual_time_us;
@@ -70,8 +70,8 @@ void	print_actual_elapsed_time(
 			STY_RES, target_time_us);
 		snprintf(verbose_msg2, 100, STY_BOL STY_RED "Actual sleep time: %lluus"
 			STY_RES, actual_time_us);
-		print_verbose(philo, verbose_msg1);
-		print_verbose(philo, verbose_msg2);
+		print_verbose(me, verbose_msg1);
+		print_verbose(me, verbose_msg2);
 	}
 }
 

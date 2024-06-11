@@ -24,6 +24,6 @@ void	print_actual_elapsed_time(
 			struct timeval *start,
 			struct timeval *end,
 			unsigned int target_time_us,
-			t_philo *philo);
+			t_philo *me);
 
 #endif
