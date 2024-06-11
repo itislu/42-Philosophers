@@ -178,7 +178,8 @@ fclean			:	clean
 ffclean			:	fclean
 					rm -rf $(OBJ_DIR) $(DEP_DIR)
 
-re				:	fclean all
+re				:	fclean
+					$(MAKE) all
 
 
 #	Include dependency files
