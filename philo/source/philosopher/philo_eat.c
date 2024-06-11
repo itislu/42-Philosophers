@@ -22,7 +22,6 @@ bool	philo_eat(t_philo *me)
 	if (!usleep_while_alive_precise(me->rules->time_to_eat_ms * 1000U, me))
 		return (false);
 	me->release_forks(me);
-	print_verbose(me, "has released forks");
 	me->meals_eaten++;
 	if (me->rules->num_each_philo_must_eat > 0
 		&& (int)me->meals_eaten == me->rules->num_each_philo_must_eat)

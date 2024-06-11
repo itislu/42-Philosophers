@@ -54,28 +54,44 @@ bool	take_forks_right_first(t_philo *me)
 
 void	release_forks_left_first(t_philo *me)
 {
+	bool	was_locked;
+
 	if (me->locked_left_fork)
 	{
 		pthread_mutex_unlock(me->left_fork);
 		me->locked_left_fork = false;
+		was_locked = true;
 	}
+	else
+		was_locked = false;
 	if (me->locked_right_fork)
 	{
 		pthread_mutex_unlock(me->right_fork);
 		me->locked_right_fork = false;
+		was_locked = true;
 	}
+	if (was_locked)
+		print_verbose(me, "has released forks");
 }
 
 void	release_forks_right_first(t_philo *me)
 {
+	bool	was_locked;
+
 	if (me->locked_right_fork)
 	{
 		pthread_mutex_unlock(me->right_fork);
 		me->locked_right_fork = false;
+		was_locked = true;
 	}
+	else
+		was_locked = false;
 	if (me->locked_left_fork)
 	{
 		pthread_mutex_unlock(me->left_fork);
 		me->locked_left_fork = false;
+		was_locked = true;
 	}
+	if (was_locked)
+		print_verbose(me, "has released forks");
 }
