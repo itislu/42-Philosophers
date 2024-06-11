@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/06/10 03:14:19 by ldulling         ###   ########.fr        #
+#    Updated: 2024/06/11 08:47:13 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -202,7 +202,7 @@ STY_CYA			:=	"\e[36m"
 STY_WHI			:=	"\e[37m"
 STY_GRA			:=	"\e[90m"
 STY_WHI_BRI		:=	"\e[97m"
-STY_BLA_BG		:=	"\e[41m"
+STY_BLA_BG		:=	"\e[40m"
 STY_RED_BG		:=	"\e[41m"
 STY_GRE_BG		:=	"\e[42m"
 STY_YEL_BG		:=	"\e[43m"
