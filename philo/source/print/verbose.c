@@ -77,18 +77,19 @@ void	print_verbose_monitor(t_philo *philo, const char *msg)
 	pthread_mutex_unlock(philo->print_mutex);
 }
 
-#if VERBOSE
-
 void	print_actual_elapsed_time(
 			struct timeval *start,
-			struct timeval *end,
 			unsigned long long target_time_us,
 			t_philo *me)
 {
+	struct timeval		end;
 	struct timeval		result;
 	unsigned long long	actual_time_us;
 
-	timersub(end, start, &result);
+	if (!VERBOSE)
+		return ;
+	gettimeofday(&end, NULL);
+	timersub(&end, start, &result);
 	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
 	if (actual_time_us - target_time_us >= VERBOSE_DELAY_PRINT_THRESHOLD_US)
 	{
@@ -96,5 +97,3 @@ void	print_actual_elapsed_time(
 		print_verbose_us(me, "Actual sleep time:", actual_time_us);
 	}
 }
-
-#endif

@@ -41,7 +41,6 @@ bool	usleep_while_alive(unsigned long long us, t_philo *me)
 bool	usleep_while_alive_precise(unsigned long long us, t_philo *me)
 {
 	struct timeval		start_time;
-	struct timeval		end_time;
 	unsigned long long	slept_time_us;
 
 	gettimeofday(&start_time, NULL);
@@ -57,10 +56,7 @@ bool	usleep_while_alive_precise(unsigned long long us, t_philo *me)
 	if (slept_time_us < us && check_alive(me))
 		busy_wait(us, us - slept_time_us, &start_time, me);
 	if (VERBOSE)
-	{
-		gettimeofday(&end_time, NULL);
-		print_actual_elapsed_time(&start_time, &end_time, us, me);
-	}
+		print_actual_elapsed_time(&start_time, us, me);
 	return (true);
 }
 
