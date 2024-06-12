@@ -20,7 +20,6 @@
 # include "typedefs.h"
 # include <pthread.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <unistd.h>
 
 bool	philo_eat(t_philo *me);

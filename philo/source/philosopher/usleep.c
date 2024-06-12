@@ -79,13 +79,8 @@ void	busy_wait(
 			struct timeval *start_time,
 			t_philo *me)
 {
-	char	verbose_msg[100];
-
 	if (VERBOSE)
-	{
-		snprintf(verbose_msg, 100, "busy waits for %lluus", duration_us);
-		print_verbose(me, verbose_msg);
-	}
+		print_verbose_us(me, "busy waits for", duration_us);
 	while (get_elapsed_time_us(start_time) < us)
 		;
 }

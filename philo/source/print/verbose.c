@@ -30,6 +30,24 @@ void	print_verbose(t_philo *me, const char *msg)
 	pthread_mutex_unlock(me->print_mutex);
 }
 
+void	print_verbose_us(t_philo *me, const char *msg, unsigned long long us)
+{
+	char	*spacing;
+
+	if (!VERBOSE)
+		return ;
+	if (me->is_outsider)
+		spacing = COLUMN3;
+	else if (me->id % 2 == 0)
+		spacing = COLUMN2;
+	else
+		spacing = COLUMN1;
+	pthread_mutex_lock(me->print_mutex);
+	dprintf(STDERR_FILENO, "%s%llu %d %s %lluus\n", spacing,
+		get_elapsed_time_ms((struct timeval *)me->start_time), me->id, msg, us);
+	pthread_mutex_unlock(me->print_mutex);
+}
+
 void	print_verbose_death(t_philo *me)
 {
 	char	*spacing;
@@ -69,19 +87,13 @@ void	print_actual_elapsed_time(
 {
 	struct timeval		result;
 	unsigned long long	actual_time_us;
-	char				verbose_msg1[100];
-	char				verbose_msg2[100];
 
 	timersub(end, start, &result);
 	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
 	if (actual_time_us - target_time_us >= VERBOSE_DELAY_PRINT_THRESHOLD_US)
 	{
-		snprintf(verbose_msg1, 100, STY_BOL STY_RED "Target sleep time: %lluus"
-			STY_RES, target_time_us);
-		snprintf(verbose_msg2, 100, STY_BOL STY_RED "Actual sleep time: %lluus"
-			STY_RES, actual_time_us);
-		print_verbose(me, verbose_msg1);
-		print_verbose(me, verbose_msg2);
+		print_verbose_us(me, "Target sleep time:", target_time_us);
+		print_verbose_us(me, "Actual sleep time:", actual_time_us);
 	}
 }
 
