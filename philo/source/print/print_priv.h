@@ -20,7 +20,6 @@
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdio.h>
-# include <unistd.h>
 
 void	print_msg(t_philo *me, const char *msg);
 
