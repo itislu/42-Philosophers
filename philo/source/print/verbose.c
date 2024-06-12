@@ -93,7 +93,9 @@ void	print_actual_elapsed_time(
 	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
 	if (actual_time_us - target_time_us >= VERBOSE_DELAY_PRINT_THRESHOLD_US)
 	{
-		print_verbose_us(me, "Target sleep time:", target_time_us);
-		print_verbose_us(me, "Actual sleep time:", actual_time_us);
+		print_verbose_us(
+			me, STY_BOL STY_RED "Target sleep time:" STY_RES, target_time_us);
+		print_verbose_us(
+			me, STY_BOL STY_RED "Actual sleep time:" STY_RES, actual_time_us);
 	}
 }
