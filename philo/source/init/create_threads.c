@@ -39,9 +39,11 @@ void	join_philo_threads(t_philo *philos, int count)
 	i = 0;
 	while (i < count)
 	{
-		print_verbose(&philos[i], "will be joined");
+		if (VERBOSE)
+			print_verbose(&philos[i], "will be joined");
 		pthread_join(philos[i].thread, NULL);
-		print_verbose(&philos[i], "has been joined");
+		if (VERBOSE)
+			print_verbose(&philos[i], "has been joined");
 		i++;
 	}
 }

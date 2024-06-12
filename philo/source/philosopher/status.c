@@ -30,7 +30,8 @@ bool	check_alive(t_philo *me)
 		pthread_mutex_lock(me->state_mutex);
 		me->state |= (DEAD | CONFIRMED);
 		pthread_mutex_unlock(me->state_mutex);
-		print_verbose_death(me);
+		if (VERBOSE)
+			print_verbose_death(me);
 		return (false);
 	}
 	return (true);

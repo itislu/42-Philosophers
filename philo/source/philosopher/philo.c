@@ -34,6 +34,7 @@ void	*philosopher(void *arg)
 			break ;
 	}
 	me->release_forks(me);
-	print_verbose(me, "has exited routine");
+	if (VERBOSE)
+		print_verbose(me, "has exited routine");
 	return (NULL);
 }

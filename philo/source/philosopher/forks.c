@@ -26,29 +26,35 @@ bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
 
 bool	take_forks_left_first(t_philo *me)
 {
-	print_verbose(me, "is trying to take forks");
+	if (VERBOSE)
+		print_verbose(me, "is trying to take forks");
 	if (!philo_take_fork(me, me->left_fork))
 		return (false);
 	me->locked_left_fork = true;
-	print_verbose(me, "has taken left fork");
+	if (VERBOSE)
+		print_verbose(me, "has taken left fork");
 	if (!philo_take_fork(me, me->right_fork))
 		return (false);
 	me->locked_right_fork = true;
-	print_verbose(me, "has taken right fork");
+	if (VERBOSE)
+		print_verbose(me, "has taken right fork");
 	return (true);
 }
 
 bool	take_forks_right_first(t_philo *me)
 {
-	print_verbose(me, "is trying to take forks");
+	if (VERBOSE)
+		print_verbose(me, "is trying to take forks");
 	if (!philo_take_fork(me, me->right_fork))
 		return (false);
 	me->locked_right_fork = true;
-	print_verbose(me, "has taken right fork");
+	if (VERBOSE)
+		print_verbose(me, "has taken right fork");
 	if (!philo_take_fork(me, me->left_fork))
 		return (false);
 	me->locked_left_fork = true;
-	print_verbose(me, "has taken left fork");
+	if (VERBOSE)
+		print_verbose(me, "has taken left fork");
 	return (true);
 }
 
@@ -70,7 +76,7 @@ void	release_forks_left_first(t_philo *me)
 		me->locked_right_fork = false;
 		was_locked = true;
 	}
-	if (was_locked)
+	if (VERBOSE && was_locked)
 		print_verbose(me, "has released forks");
 }
 
@@ -92,6 +98,6 @@ void	release_forks_right_first(t_philo *me)
 		me->locked_left_fork = false;
 		was_locked = true;
 	}
-	if (was_locked)
+	if (VERBOSE && was_locked)
 		print_verbose(me, "has released forks");
 }
