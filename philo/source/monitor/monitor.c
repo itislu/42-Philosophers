@@ -12,8 +12,8 @@
 
 #include "monitor_priv.h"
 
-static t_state	monitor_cycle(t_philo *philos, int num_of_philos)
-				__attribute__((always_inline));
+static inline t_state	monitor_cycle(t_philo *philos, int num_of_philos)
+						__attribute__((always_inline));
 
 void	monitor(t_philo *philos, t_rules rules)
 {
@@ -35,7 +35,7 @@ void	monitor(t_philo *philos, t_rules rules)
 	}
 }
 
-static __attribute__((always_inline))
+static inline __attribute__((always_inline))
 t_state	monitor_cycle(t_philo *philos, int num_of_philos)
 {
 	int		i;

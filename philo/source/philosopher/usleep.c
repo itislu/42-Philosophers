@@ -12,15 +12,16 @@
 
 #include "philo_priv.h"
 
-static unsigned long long	usleep_return(
-								unsigned int us, struct timeval *start_time)
-							__attribute__((always_inline));
-static void					busy_wait(
-								unsigned long long us,
-								unsigned long long duration_us,
-								struct timeval *start_time,
-								t_philo *me)
-							__attribute__((always_inline));
+static inline unsigned long long	usleep_return(
+										unsigned int us,
+										struct timeval *start_time)
+									__attribute__((always_inline));
+static inline void				busy_wait(
+										unsigned long long us,
+										unsigned long long duration_us,
+										struct timeval *start_time,
+										t_philo *me)
+									__attribute__((always_inline));
 
 bool	usleep_while_alive(unsigned long long us, t_philo *me)
 {
@@ -60,15 +61,16 @@ bool	usleep_while_alive_precise(unsigned long long us, t_philo *me)
 	return (true);
 }
 
-static __attribute__((always_inline))
+static inline __attribute__((always_inline))
 unsigned long long	usleep_return(
-						unsigned int us, struct timeval *start_time)
+						unsigned int us,
+						struct timeval *start_time)
 {
 	usleep(us);
 	return (get_elapsed_time_us(start_time));
 }
 
-static __attribute__((always_inline))
+static inline __attribute__((always_inline))
 void	busy_wait(
 			unsigned long long us,
 			unsigned long long duration_us,

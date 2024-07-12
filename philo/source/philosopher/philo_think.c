@@ -12,11 +12,12 @@
 
 #include "philo_priv.h"
 
-static unsigned long long	calc_think_us(
-								t_philo *me, unsigned long long think_time_us)
-							__attribute__((always_inline));
-static unsigned long long	calc_think_odd_us(t_philo *me)
-							__attribute__((always_inline));
+static inline unsigned long long	calc_think_us(
+										t_philo *me,
+										unsigned long long think_time_us)
+									__attribute__((always_inline));
+static inline unsigned long long	calc_think_odd_us(t_philo *me)
+									__attribute__((always_inline));
 
 bool	philo_think_initial(t_philo *me)
 {
@@ -41,9 +42,10 @@ bool	philo_think(t_philo *me)
 	return (true);
 }
 
-static __attribute__((always_inline))
+static inline __attribute__((always_inline))
 unsigned long long	calc_think_us(
-						t_philo *me, unsigned long long think_time_us)
+						t_philo *me,
+						unsigned long long think_time_us)
 {
 	if (me->rules->num_of_philos % 2 == 1)
 		return (calc_think_odd_us(me));
@@ -51,7 +53,7 @@ unsigned long long	calc_think_us(
 		return (think_time_us);
 }
 
-static __attribute__((always_inline))
+static inline __attribute__((always_inline))
 unsigned long long	calc_think_odd_us(t_philo *me)
 {
 	long long	think_time_ms;

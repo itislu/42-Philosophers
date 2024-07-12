@@ -12,7 +12,7 @@
 
 #include "philo_priv.h"
 
-static __attribute__((always_inline))
+static inline __attribute__((always_inline))
 bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
 {
 	pthread_mutex_lock(fork);
