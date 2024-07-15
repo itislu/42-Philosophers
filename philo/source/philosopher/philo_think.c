@@ -59,7 +59,8 @@ unsigned long long	calc_think_odd_us(t_philo *me)
 	long long	think_time_ms;
 
 	if ((me->meals_eaten - 1) % (me->rules->num_of_philos / 2)
-		== (me->id - 1 - (me->id == me->rules->num_of_philos)) / 2ULL)
+		== (me->id - 1 - (me->id == me->rules->num_of_philos))
+		/ 2ULL)
 	{
 		me->is_outsider = true;
 		think_time_ms = me->rules->time_to_eat_ms * 2LL
