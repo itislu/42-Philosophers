@@ -54,12 +54,12 @@ MACROS			:=	-D VERBOSE=1
 endif
 ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
-					-D COLUMN2='"$(COLUMN1)"' \
-					-D COLUMN3='"$(COLUMN1)"'
+					-D COLUMN2='NULL' \
+					-D COLUMN3='NULL'
 else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
 					-D COLUMN2='"$(COLUMN2)"' \
-					-D COLUMN3='"$(COLUMN2)"'
+					-D COLUMN3='NULL'
 else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
 					-D COLUMN2='"$(COLUMN2)"' \

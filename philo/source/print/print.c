@@ -24,9 +24,9 @@ void	print_msg(t_philo *me, const char *msg)
 {
 	char	*spacing;
 
-	if (me->is_outsider)
+	if (COLUMN3 && me->is_outsider)
 		spacing = COLUMN3;
-	else if (me->id % 2 == 0)
+	else if (COLUMN2 && me->id % 2 == 0)
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;

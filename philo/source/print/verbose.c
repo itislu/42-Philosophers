@@ -18,9 +18,9 @@ void	print_verbose(t_philo *me, const char *msg)
 
 	if (!VERBOSE)
 		return ;
-	if (me->is_outsider)
+	if (COLUMN3 && me->is_outsider)
 		spacing = COLUMN3;
-	else if (me->id % 2 == 0)
+	else if (COLUMN2 && me->id % 2 == 0)
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;
@@ -36,9 +36,9 @@ void	print_verbose_us(t_philo *me, const char *msg, unsigned long long us)
 
 	if (!VERBOSE)
 		return ;
-	if (me->is_outsider)
+	if (COLUMN3 && me->is_outsider)
 		spacing = COLUMN3;
-	else if (me->id % 2 == 0)
+	else if (COLUMN2 && me->id % 2 == 0)
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;
@@ -54,9 +54,9 @@ void	print_verbose_death(t_philo *me)
 
 	if (!VERBOSE)
 		return ;
-	if (me->is_outsider)
+	if (COLUMN3 && me->is_outsider)
 		spacing = COLUMN3;
-	else if (me->id % 2 == 0)
+	else if (COLUMN2 && me->id % 2 == 0)
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;
