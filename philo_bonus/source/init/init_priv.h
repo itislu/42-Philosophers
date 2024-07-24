@@ -20,10 +20,13 @@
 # include "philo_pub.h"
 # include "typedefs.h"
 # include "utils_pub.h"
+# include <fcntl.h>
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/stat.h>
+# include <unistd.h>
 
 bool				calc_is_outsider(const t_rules *rules, int id);
 unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id);

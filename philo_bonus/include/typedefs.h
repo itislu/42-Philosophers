@@ -14,15 +14,16 @@
 # define TYPEDEFS_H
 
 # include <pthread.h>
+# include <semaphore.h>
 # include <stdbool.h>
 
 enum e_exit_codes
 {
 	SUCCESS			=		0,
 	INPUT_ERROR		=		1,
-	MUTEX_FAILURE	=		2,
+	SEMAPHORE_FAILURE	=		2,
 	MALLOC_FAILURE	=		3,
-	THREAD_FAILURE	=		4
+	PROCESS_FAILURE	=		4
 };
 
 typedef enum e_state
@@ -42,36 +43,36 @@ typedef struct s_rules
 	int						num_each_philo_must_eat;
 }	t_rules;
 
-typedef struct s_mutexes
+typedef struct s_semaphore_named
 {
-	pthread_mutex_t			*forks;
-	pthread_mutex_t			*state_mutexes;
-	pthread_mutex_t			*sync_mutex;
-	pthread_mutex_t			*print_mutex;
-}	t_mutexes;
+	sem_t					*sem;
+	char					*name;
+}	t_sem_named;
+
+typedef struct s_semaphores
+{
+	t_sem_named				forks;
+	t_sem_named				sync;
+	t_sem_named				is_dead;
+	t_sem_named				is_full;
+	t_sem_named				ready_to_exit;
+}	t_semaphores;
 
 typedef struct s_philo
 {
-	pthread_t				thread;
+	pid_t					pid;
 	int						id;
-	struct timeval const	*start_time;
+	const struct timeval	*start_time;
+	const t_rules			*rules;
 	t_state					state;
-	pthread_mutex_t			*state_mutex;
-	pthread_mutex_t			*sync_mutex;
-	pthread_mutex_t			*print_mutex;
-	pthread_mutex_t			*left_fork;
-	pthread_mutex_t			*right_fork;
-	bool					locked_left_fork;
-	bool					locked_right_fork;
-	bool					(*take_forks)(struct s_philo * me);
-	void					(*release_forks)(struct s_philo *me);
+	t_semaphores			*semaphores;
+	int						forks_taken;
 	bool					is_outsider;
 	unsigned long long		initial_think_time_us;
 	unsigned long long		think_time_us;
 	unsigned long long		latest_timestamp_ms;
 	unsigned long long		last_meal_timestamp_ms;
 	unsigned long long		meals_eaten;
-	t_rules const			*rules;
 }	t_philo;
 
 #endif

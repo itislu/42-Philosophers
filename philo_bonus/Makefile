@@ -15,7 +15,7 @@
 
 #	Executable
 
-NAME 			:=	philo
+NAME 			:=	philo_bonus
 
 
 #	Directories
@@ -76,7 +76,8 @@ VALGRINDFLAGS	=	--errors-for-leak-kinds=all \
 					--read-var-info=yes \
 					--show-error-list=yes \
 					--show-leak-kinds=all \
-					--track-origins=yes
+					--track-origins=yes \
+					# --trace-children=yes \
 
 
 #	Terminal
@@ -110,7 +111,7 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 # ***************************** BUILD PROCESS ******************************** #
 
 .PHONY			:	all verbose verbose1 verbose2 verbose3 column1 column2 column3 \
-					run val clean fclean ffclean re
+					run val clear clean fclean ffclean re
 
 
 #	Compilation
@@ -132,6 +133,10 @@ run				:	all
 
 val				:	all
 					$(VALGRIND) $(VALGRINDFLAGS) "./$(NAME)" $(ARGS)
+
+clear			:
+					clear
+					$(MAKE) all
 
 
 #	Executable linking

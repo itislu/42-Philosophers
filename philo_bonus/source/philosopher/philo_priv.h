@@ -19,6 +19,7 @@
 # include "time_pub.h"
 # include "typedefs.h"
 # include <pthread.h>
+# include <semaphore.h>
 # include <stdbool.h>
 # include <unistd.h>
 
@@ -26,6 +27,8 @@ bool	philo_eat(t_philo *me);
 bool	philo_sleep(t_philo *me);
 bool	philo_think_initial(t_philo *me);
 bool	philo_think(t_philo *me);
+bool	take_forks(t_philo *me);
+void	release_forks(t_philo *me);
 bool	usleep_while_alive(unsigned long long us, t_philo *me);
 bool	usleep_while_alive_precise(unsigned long long us, t_philo *me);
 

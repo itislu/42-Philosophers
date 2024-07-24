@@ -13,91 +13,40 @@
 #include "philo_priv.h"
 
 static inline __attribute__((always_inline))
-bool	philo_take_fork(t_philo *me, pthread_mutex_t *fork)
+bool	philo_take_fork(t_philo *me, sem_t *forks)
 {
-	pthread_mutex_lock(fork);
+	sem_wait(forks);
 	if (!print_if_alive(me, MSG_FORK))
 	{
-		pthread_mutex_unlock(fork);
+		sem_post(forks);
 		return (false);
 	}
+	me->forks_taken++;
 	return (true);
 }
 
-bool	take_forks_left_first(t_philo *me)
+bool	take_forks(t_philo *me)
 {
 	if (VERBOSE)
 		print_verbose(me, "is trying to take forks");
-	if (!philo_take_fork(me, me->left_fork))
+	if (!philo_take_fork(me, me->semaphores->forks.sem))
 		return (false);
-	me->locked_left_fork = true;
-	if (VERBOSE)
-		print_verbose(me, "has taken left fork");
-	if (!philo_take_fork(me, me->right_fork))
+	if (!philo_take_fork(me, me->semaphores->forks.sem))
 		return (false);
-	me->locked_right_fork = true;
-	if (VERBOSE)
-		print_verbose(me, "has taken right fork");
 	return (true);
 }
 
-bool	take_forks_right_first(t_philo *me)
+void	release_forks(t_philo *me)
 {
-	if (VERBOSE)
-		print_verbose(me, "is trying to take forks");
-	if (!philo_take_fork(me, me->right_fork))
-		return (false);
-	me->locked_right_fork = true;
-	if (VERBOSE)
-		print_verbose(me, "has taken right fork");
-	if (!philo_take_fork(me, me->left_fork))
-		return (false);
-	me->locked_left_fork = true;
-	if (VERBOSE)
-		print_verbose(me, "has taken left fork");
-	return (true);
-}
+	bool	was_taken;
 
-void	release_forks_left_first(t_philo *me)
-{
-	bool	was_locked;
-
-	if (me->locked_left_fork)
+	was_taken = false;
+	while (me->forks_taken > 0)
 	{
-		pthread_mutex_unlock(me->left_fork);
-		me->locked_left_fork = false;
-		was_locked = true;
+		sem_post(me->semaphores->forks.sem);
+		me->forks_taken--;
+		was_taken = true;
 	}
-	else
-		was_locked = false;
-	if (me->locked_right_fork)
-	{
-		pthread_mutex_unlock(me->right_fork);
-		me->locked_right_fork = false;
-		was_locked = true;
-	}
-	if (VERBOSE && was_locked)
-		print_verbose(me, "has released forks");
-}
-
-void	release_forks_right_first(t_philo *me)
-{
-	bool	was_locked;
-
-	if (me->locked_right_fork)
-	{
-		pthread_mutex_unlock(me->right_fork);
-		me->locked_right_fork = false;
-		was_locked = true;
-	}
-	else
-		was_locked = false;
-	if (me->locked_left_fork)
-	{
-		pthread_mutex_unlock(me->left_fork);
-		me->locked_left_fork = false;
-		was_locked = true;
-	}
-	if (VERBOSE && was_locked)
+	if (VERBOSE && was_taken)
 		print_verbose(me, "has released forks");
 }

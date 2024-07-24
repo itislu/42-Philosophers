@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "monitor_priv.h"
+#include <signal.h>
+#include <sys/wait.h>
 
 static void	wait_all_dead(t_philo *philos, int num_of_philos);
 
@@ -23,9 +25,7 @@ void	broadcast_death(t_philo *philos, int num_of_philos)
 	i = 0;
 	while (i < num_of_philos)
 	{
-		pthread_mutex_lock(philos[i].state_mutex);
-		philos[i].state |= DEAD;
-		pthread_mutex_unlock(philos[i].state_mutex);
+		kill(philos[i].pid, SIGTERM);
 		i++;
 	}
 	if (VERBOSE)
@@ -40,24 +40,14 @@ void	print_death(t_philo *philos, int num_of_philos, int dead_philo)
 
 static void	wait_all_dead(t_philo *philos, int num_of_philos)
 {
-	int		i;
-	t_state	state;
+	int	i;
 
-	while (true)
+	if (VERBOSE)
+		print_verbose_monitor(philos, "waits for all death confirms");
+	i = 0;
+	while (i < num_of_philos)
 	{
-		if (VERBOSE)
-			print_verbose_monitor(philos, "waits for all death confirms");
-		usleep(MONITOR_INTERVAL_US);
-		i = 0;
-		state = ~0;
-		while (i < num_of_philos)
-		{
-			pthread_mutex_lock(philos[i].state_mutex);
-			state &= philos[i].state;
-			pthread_mutex_unlock(philos[i].state_mutex);
-			i++;
-		}
-		if ((state & (DEAD | CONFIRMED)) == (DEAD | CONFIRMED))
-			break ;
+		waitpid(philos[i].pid, NULL, 0);
+		i++;
 	}
 }

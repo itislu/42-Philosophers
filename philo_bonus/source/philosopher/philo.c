@@ -11,19 +11,17 @@
 /* ************************************************************************** */
 
 #include "philo_priv.h"
+#include <stdlib.h>
 
-void	*philosopher(void *arg)
+void	philosopher(t_philo *me)
 {
-	t_philo	*me;
-
-	me = (t_philo *)arg;
-	pthread_mutex_lock(me->sync_mutex);
-	pthread_mutex_unlock(me->sync_mutex);
+	sem_wait(me->semaphores->sync.sem);
+	sem_post(me->semaphores->sync.sem);
 	if (VERBOSE)
 		print_verbose(me, "has started routine");
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
-			return (NULL);
+			exit(1);	// No verbose message atm
 	while (true)
 	{
 		if (!philo_eat(me))
@@ -33,8 +31,8 @@ void	*philosopher(void *arg)
 		if (!philo_think(me))
 			break ;
 	}
-	me->release_forks(me);
+	release_forks(me);
 	if (VERBOSE)
 		print_verbose(me, "has exited routine");
-	return (NULL);
+	exit(me->state & DEAD);
 }

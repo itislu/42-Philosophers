@@ -16,11 +16,9 @@
 # include "typedefs.h"
 # include <stdbool.h>
 
-void	*philosopher(void *arg);
-bool	take_forks_left_first(t_philo *me);
-bool	take_forks_right_first(t_philo *me);
-void	release_forks_left_first(t_philo *me);
-void	release_forks_right_first(t_philo *me);
+void	philosopher(t_philo *me);
+bool	take_forks(t_philo *me);
+void	release_forks(t_philo *me);
 bool	check_alive(t_philo *me);
 
 #endif

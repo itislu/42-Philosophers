@@ -53,8 +53,8 @@
 # define MSG_DEAD		"\e[1;31m%s%llu %d died\e[0m\n"
 
 /* Error Messages */
-# define ERR_MUTEX		"Error: Mutex initialization failed\n"
+# define ERR_SEMAPHORE	"Error: Semaphore initialization failed\n"
 # define ERR_MALLOC		"Error: Memory allocation failed\n"
-# define ERR_THREAD		"Error: Thread creation failed\n"
+# define ERR_PROCESS	"Error: Process creation failed\n"
 
 #endif

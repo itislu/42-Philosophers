@@ -11,28 +11,33 @@
 /* ************************************************************************** */
 
 #include "init_priv.h"
+#include <signal.h>
+#include <sys/wait.h>
 
-bool	create_philo_threads(t_philo *philos, int count)
+bool	create_philo_processes(t_philo *philos, int count)
 {
 	int	i;
 
 	i = 0;
 	while (i < count)
 	{
-		if (pthread_create(
-				&philos[i].thread, NULL, &philosopher, &philos[i]) != 0)
+		philos[i].pid = fork();
+		if (philos[i].pid == -1)
 		{
-			broadcast_death(philos, i);
-			pthread_mutex_unlock(philos[i].sync_mutex);
-			join_philo_threads(philos, i);
+			// broadcast_death(philos, i);
+			// pthread_mutex_unlock(philos[i].sync_mutex);
+			// kill(0, SIGTERM);
+			kill_philo_processes(philos, i);
 			return (false);
 		}
+		else if (philos[i].pid == 0)
+			philosopher(&philos[i]);
 		i++;
 	}
 	return (true);
 }
 
-void	join_philo_threads(t_philo *philos, int count)
+void	kill_philo_processes(t_philo *philos, int count)
 {
 	int	i;
 
@@ -41,7 +46,8 @@ void	join_philo_threads(t_philo *philos, int count)
 	{
 		if (VERBOSE)
 			print_verbose(&philos[i], "will be joined");
-		pthread_join(philos[i].thread, NULL);
+		kill(philos[i].pid, SIGTERM);
+		waitpid(philos[i].pid, NULL, 0);
 		if (VERBOSE)
 			print_verbose(&philos[i], "has been joined");
 		i++;

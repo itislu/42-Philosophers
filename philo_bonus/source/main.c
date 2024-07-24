@@ -24,7 +24,7 @@
 int	main(int argc, char *argv[])
 {
 	struct timeval	start_time;
-	t_mutexes		mutexes;
+	t_semaphores	semaphores;
 	t_philo			*philos;
 	t_rules			rules;
 
@@ -32,20 +32,18 @@ int	main(int argc, char *argv[])
 		return (INPUT_ERROR);
 	if (rules.num_of_philos == 0 || rules.num_each_philo_must_eat == 0)
 		return (print_nothing_to_do(&rules), 0);
-	if (!init_mutexes(&mutexes, rules.num_of_philos))
-		return (ft_putstr_fd(ERR_MUTEX, STDERR_FILENO), MUTEX_FAILURE);
-	if (!init_philos(&philos, &mutexes, &rules, &start_time))
-		return (destroy_mutexes(&mutexes, rules.num_of_philos), free(philos),
+	if (!init_semaphores(&semaphores, rules.num_of_philos))
+		return (ft_putstr_fd(ERR_SEMAPHORE, STDERR_FILENO), SEMAPHORE_FAILURE);
+	if (!init_philos(&philos, &semaphores, &rules, &start_time))
+		return (destroy_semaphores(&semaphores, rules.num_of_philos), free(philos),
 			ft_putstr_fd(ERR_MALLOC, STDERR_FILENO), MALLOC_FAILURE);
-	pthread_mutex_lock(mutexes.sync_mutex);
-	if (!create_philo_threads(philos, rules.num_of_philos))
-		return (destroy_mutexes(&mutexes, rules.num_of_philos), free(philos),
-			ft_putstr_fd(ERR_THREAD, STDERR_FILENO), THREAD_FAILURE);
 	gettimeofday(&start_time, NULL);
-	pthread_mutex_unlock(mutexes.sync_mutex);
-	monitor(philos, rules);
-	join_philo_threads(philos, rules.num_of_philos);
-	destroy_mutexes(&mutexes, rules.num_of_philos);
+	if (!create_philo_processes(philos, rules.num_of_philos))
+		return (destroy_semaphores(&semaphores, rules.num_of_philos), free(philos),
+			ft_putstr_fd(ERR_PROCESS, STDERR_FILENO), PROCESS_FAILURE);
+	sem_post(semaphores.sync.sem);
+	monitor(philos, &semaphores, &rules);
+	destroy_semaphores(&semaphores, rules.num_of_philos);
 	free(philos);
 	return (SUCCESS);
 }

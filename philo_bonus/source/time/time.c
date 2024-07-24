@@ -12,7 +12,7 @@
 
 #include "time_pub.h"
 
-unsigned long long	get_elapsed_time_ms(struct timeval *start_time)
+unsigned long long	get_elapsed_time_ms(const struct timeval *start_time)
 {
 	struct timeval	current_time;
 	struct timeval	result;
@@ -22,7 +22,7 @@ unsigned long long	get_elapsed_time_ms(struct timeval *start_time)
 	return (result.tv_sec * 1000ULL + result.tv_usec / 1000);
 }
 
-unsigned long long	get_elapsed_time_us(struct timeval *start_time)
+unsigned long long	get_elapsed_time_us(const struct timeval *start_time)
 {
 	struct timeval	current_time;
 	struct timeval	result;

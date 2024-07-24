@@ -30,9 +30,6 @@ void	print_msg(t_philo *me, const char *msg)
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;
-	pthread_mutex_lock(me->print_mutex);
-	me->latest_timestamp_ms = get_elapsed_time_ms(
-			(struct timeval *)me->start_time);
+	me->latest_timestamp_ms = get_elapsed_time_ms(me->start_time);
 	printf(msg, spacing, me->latest_timestamp_ms, me->id);
-	pthread_mutex_unlock(me->print_mutex);
 }

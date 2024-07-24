@@ -16,13 +16,13 @@
 # include "typedefs.h"
 # include <stdbool.h>
 
-bool	create_philo_threads(t_philo *philos, int count);
-void	join_philo_threads(t_philo *philos, int count);
-bool	init_mutexes(t_mutexes *mutexes, int count);
-void	destroy_mutexes(t_mutexes *mutexes, int count);
+bool	create_philo_processes(t_philo *philos, int count);
+void	kill_philo_processes(t_philo *philos, int count);
+bool	init_semaphores(t_semaphores *semaphores, int count);
+void	destroy_semaphores(t_semaphores *semaphores, int count);
 bool	init_philos(
 			t_philo **philos,
-			t_mutexes *mutexes,
+			t_semaphores *semaphores,
 			const t_rules *rules,
 			struct timeval *start_time);
 

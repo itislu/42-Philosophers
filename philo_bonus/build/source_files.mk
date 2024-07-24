@@ -17,9 +17,9 @@ SRC		:=	main.c
 DIR		:=	init/
 SRC		+=	$(addprefix $(DIR), \
             calculate.c \
-            create_threads.c \
-            init_mutexes.c \
+            create_processes.c \
             init_philos.c \
+            init_semaphores.c \
 )
 
 # User input:
