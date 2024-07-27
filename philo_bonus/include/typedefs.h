@@ -56,6 +56,7 @@ typedef struct s_semaphores
 	t_sem_named				is_dead;
 	t_sem_named				is_full;
 	t_sem_named				ready_to_exit;
+	bool					is_ready_to_exit;
 }	t_semaphores;
 
 typedef struct s_philo

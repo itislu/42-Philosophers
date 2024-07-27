@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include "utils_pub.h"
 
-int	get_philo_id_with_pid(t_philo *philos, int num_of_philos, pid_t pid)
+static int	get_philo_id_with_pid(t_philo *philos, int num_of_philos, pid_t pid)
 {
 	int	i;
 
@@ -34,6 +34,15 @@ int	get_philo_id_with_pid(t_philo *philos, int num_of_philos, pid_t pid)
 	return (i);
 }
 
+static bool	release_monitor(sem_t *sem, bool *is_ready_to_exit)
+{
+	if (*is_ready_to_exit)
+		return (false);
+	*is_ready_to_exit = true;
+	sem_post(sem);
+	return (true);
+}
+
 void	*monitor_is_full(void *arg)
 {
 	t_philo *philos = (t_philo *)arg;
@@ -44,10 +53,14 @@ void	*monitor_is_full(void *arg)
 	i = 0;
 	while (i < rules->num_of_philos)
 	{
-		print_verbose_monitor(philos, "detected a philosopher got full");
 		sem_wait(semaphores->is_full.sem);
+		// Check here if someone died already
+
 		i++;
 	}
+	if (!release_monitor(semaphores->is_dead.sem, &semaphores->is_ready_to_exit))
+		return (NULL);
+	semaphores->is_ready_to_exit = true;
 	if (VERBOSE)
 		print_verbose_monitor(philos, "detected all philosophers got full");
 	sem_post(semaphores->ready_to_exit.sem);
@@ -64,6 +77,8 @@ void	*monitor_is_dead(void *arg)
 	pid_t	pid;
 
 	sem_wait(semaphores->is_dead.sem);
+	if (!release_monitor(semaphores->is_full.sem, &semaphores->is_ready_to_exit))
+		return (NULL);
 	pid = waitpid(0, &wstatus, 0);
 	printf("errno: %d\n", errno); // ECHILD No child processes
 	print_verbose_monitor(philos, "detected a philosopher died");
@@ -89,31 +104,31 @@ bool	fork_monitor(pid_t *pid, t_philo *philos, void *(*monitor_function)(void *)
 
 void	monitor(t_philo *philos, t_semaphores *semaphores, const t_rules *rules)
 {
-	// pthread_t	monitors[2];
-	pid_t		monitors[2];
-	int			wstatus;
+	pthread_t	monitors[2];
+	// pid_t		monitors[2];
+	// int			wstatus;
 
 	(void)rules;
 	// Create two threads and detach them. On one, monitor the is_full semaphore; on the other, monitor the is_dead semaphore.
 	// Only one of them will get enough sem_posts to continue and set the read_to_exit semaphore.
-	// When exiting a process, all its threads gets terminated automatically.
+	// When exiting a process, all its threads get terminated automatically.
 
-	// pthread_create(&monitors[0], NULL, &monitor_is_full, philos);
-	// pthread_create(&monitors[1], NULL, &monitor_is_dead, philos);
-	// pthread_detach(monitors[0]);
-	// pthread_detach(monitors[1]);
+	pthread_create(&monitors[0], NULL, &monitor_is_full, philos);
+	pthread_create(&monitors[1], NULL, &monitor_is_dead, philos);
+	pthread_detach(monitors[0]);
+	pthread_detach(monitors[1]);
 
-	if (!fork_monitor(&monitors[0], philos, &monitor_is_full))
-		dprintf(2, "Failed to fork monitor 0\n");
-	if (!fork_monitor(&monitors[1], philos, &monitor_is_dead))
-		dprintf(2, "Failed to fork monitor 1\n");
+	// if (!fork_monitor(&monitors[0], philos, &monitor_is_full))
+	// 	dprintf(2, "Failed to fork monitor 0\n");
+	// if (!fork_monitor(&monitors[1], philos, &monitor_is_dead))
+	// 	dprintf(2, "Failed to fork monitor 1\n");
 
 	sem_wait(semaphores->ready_to_exit.sem);
 
-	kill(monitors[0], SIGTERM);
-	kill(monitors[1], SIGTERM);
-	waitpid(monitors[0], &wstatus, 0);
-	waitpid(monitors[1], &wstatus, 0);
+	// kill(monitors[0], SIGTERM);
+	// kill(monitors[1], SIGTERM);
+	// waitpid(monitors[0], &wstatus, 0);
+	// waitpid(monitors[1], &wstatus, 0);
 }
 
 // void	monitor(t_philo *philos, t_rules rules)
