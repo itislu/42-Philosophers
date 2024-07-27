@@ -43,7 +43,7 @@ void	destroy_semaphore(t_sem_named *sem_named)
 		return ;
 	sem_close(sem_named->sem);
 	sem_unlink(sem_named->name);
-	ft_free_and_null((void **)&sem_named->sem);
+	// ft_free_and_null((void **)&sem_named->sem);
 }
 
 void	destroy_semaphores(t_semaphores *semaphores, int count)

@@ -26,7 +26,6 @@ bool	create_philo_processes(t_philo *philos, int count)
 		{
 			// broadcast_death(philos, i);
 			// pthread_mutex_unlock(philos[i].sync_mutex);
-			// kill(0, SIGTERM);
 			kill_philo_processes(philos, i);
 			return (false);
 		}
@@ -40,6 +39,7 @@ bool	create_philo_processes(t_philo *philos, int count)
 void	kill_philo_processes(t_philo *philos, int count)
 {
 	int	i;
+	int	wstatus;
 
 	i = 0;
 	while (i < count)
@@ -47,9 +47,14 @@ void	kill_philo_processes(t_philo *philos, int count)
 		if (VERBOSE)
 			print_verbose(&philos[i], "will be joined");
 		kill(philos[i].pid, SIGTERM);
-		waitpid(philos[i].pid, NULL, 0);
 		if (VERBOSE)
 			print_verbose(&philos[i], "has been joined");
+		i++;
+	}
+	i = 0;
+	while (i < count)
+	{
+		waitpid(philos[i].pid, &wstatus, 0);
 		i++;
 	}
 }
