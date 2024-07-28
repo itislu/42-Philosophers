@@ -21,8 +21,6 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-#include <stdio.h>
-
 int	main(int argc, char *argv[])
 {
 	struct timeval	start_time;
@@ -44,7 +42,7 @@ int	main(int argc, char *argv[])
 		return (destroy_semaphores(&semaphores, rules.num_of_philos), free(philos),
 			ft_putstr_fd(ERR_PROCESS, STDERR_FILENO), PROCESS_FAILURE);
 	sem_post(semaphores.sync.sem);
-	monitor(philos, &semaphores, &rules);
+	monitor(philos);
 	destroy_semaphores(&semaphores, rules.num_of_philos);
 	free(philos);
 	return (SUCCESS);
