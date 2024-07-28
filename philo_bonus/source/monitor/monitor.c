@@ -34,11 +34,11 @@ static int	get_philo_id_with_pid(t_philo *philos, int num_of_philos, pid_t pid)
 	return (i);
 }
 
-static bool	release_monitor(sem_t *sem, bool *is_ready_to_exit)
+static bool	release_monitor(sem_t *sem, bool *is_triggered)
 {
-	if (*is_ready_to_exit)
+	if (*is_triggered)
 		return (false);
-	*is_ready_to_exit = true;
+	*is_triggered = true;
 	sem_post(sem);
 	return (true);
 }
@@ -54,16 +54,14 @@ void	*monitor_is_full(void *arg)
 	while (i < rules->num_of_philos)
 	{
 		sem_wait(semaphores->is_full.sem);
-		// Check here if someone died already
-
+		if (semaphores->is_triggered)
+			return (NULL);
 		i++;
 	}
-	if (!release_monitor(semaphores->is_dead.sem, &semaphores->is_ready_to_exit))
+	if (!release_monitor(semaphores->is_dead.sem, &semaphores->is_triggered))
 		return (NULL);
-	semaphores->is_ready_to_exit = true;
 	if (VERBOSE)
 		print_verbose_monitor(philos, "detected all philosophers got full");
-	sem_post(semaphores->ready_to_exit.sem);
 	return (NULL);
 }
 
@@ -77,7 +75,7 @@ void	*monitor_is_dead(void *arg)
 	pid_t	pid;
 
 	sem_wait(semaphores->is_dead.sem);
-	if (!release_monitor(semaphores->is_full.sem, &semaphores->is_ready_to_exit))
+	if (!release_monitor(semaphores->is_full.sem, &semaphores->is_triggered))
 		return (NULL);
 	pid = waitpid(0, &wstatus, 0);
 	printf("errno: %d\n", errno); // ECHILD No child processes
@@ -85,7 +83,6 @@ void	*monitor_is_dead(void *arg)
 	broadcast_death(philos, rules->num_of_philos);
 	print_death(philos, rules->num_of_philos, get_philo_id_with_pid(
 		philos, rules->num_of_philos, pid));
-	sem_post(semaphores->ready_to_exit.sem);
 	return (NULL);
 }
 
@@ -115,15 +112,17 @@ void	monitor(t_philo *philos, t_semaphores *semaphores, const t_rules *rules)
 
 	pthread_create(&monitors[0], NULL, &monitor_is_full, philos);
 	pthread_create(&monitors[1], NULL, &monitor_is_dead, philos);
-	pthread_detach(monitors[0]);
-	pthread_detach(monitors[1]);
+	// pthread_detach(monitors[0]);
+	// pthread_detach(monitors[1]);
+
+	(void)semaphores;
+	pthread_join(monitors[0], NULL);
+	pthread_join(monitors[1], NULL);
 
 	// if (!fork_monitor(&monitors[0], philos, &monitor_is_full))
 	// 	dprintf(2, "Failed to fork monitor 0\n");
 	// if (!fork_monitor(&monitors[1], philos, &monitor_is_dead))
 	// 	dprintf(2, "Failed to fork monitor 1\n");
-
-	sem_wait(semaphores->ready_to_exit.sem);
 
 	// kill(monitors[0], SIGTERM);
 	// kill(monitors[1], SIGTERM);

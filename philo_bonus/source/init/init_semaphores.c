@@ -28,8 +28,7 @@ bool	init_semaphores(t_semaphores *semaphores, int count)
 	if (!init_semaphore(&semaphores->forks, "philo_forks", count)
 		|| !init_semaphore(&semaphores->sync, "philo_sync", 0)
 		|| !init_semaphore(&semaphores->is_dead, "philo_is_dead", 0)
-		|| !init_semaphore(&semaphores->is_full, "philo_is_full", 0)
-		|| !init_semaphore(&semaphores->ready_to_exit, "philo_ready_to_exit", 0))
+		|| !init_semaphore(&semaphores->is_full, "philo_is_full", 0))
 	{
 		destroy_semaphores(semaphores, count);
 		return (false);
