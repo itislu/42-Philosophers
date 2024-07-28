@@ -31,7 +31,7 @@ typedef enum e_state
 	ALIVE			=		0b000,
 	FULL			=		0b001,
 	DEAD			=		0b010,
-	CONFIRMED		=		0b100
+	STOPPED			=		0b100
 }	t_state;
 
 typedef struct s_rules
@@ -52,10 +52,12 @@ typedef struct s_semaphore_named
 typedef struct s_semaphores
 {
 	t_sem_named				forks;
-	t_sem_named				sync;
+	t_sem_named				start;
+	t_sem_named				stop;
 	t_sem_named				is_dead;
 	t_sem_named				is_full;
-	t_sem_named				stop;
+	t_sem_named				ready_to_exit;
+	t_sem_named				exit_allowed;
 }	t_semaphores;
 
 typedef struct s_philo	t_philo;

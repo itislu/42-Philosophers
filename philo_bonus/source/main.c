@@ -35,15 +35,12 @@ int	main(int argc, char *argv[])
 	if (!init_semaphores(&semaphores, rules.num_of_philos))
 		return (ft_putstr_fd(ERR_SEMAPHORE, STDERR_FILENO), SEMAPHORE_FAILURE);
 	if (!init_philos(&philos, &semaphores, &rules, &start_time))
-		return (destroy_semaphores(&semaphores), free(philos),
-			ft_putstr_fd(ERR_MALLOC, STDERR_FILENO), MALLOC_FAILURE);
+		return (cleanup(philos, &semaphores, ERR_MALLOC), MALLOC_FAILURE);
 	gettimeofday(&start_time, NULL);
 	if (!create_philo_processes(philos, rules.num_of_philos))
-		return (destroy_semaphores(&semaphores), free(philos),
-			ft_putstr_fd(ERR_PROCESS, STDERR_FILENO), PROCESS_FAILURE);
-	sem_post(semaphores.sync.sem);
+		return (cleanup(philos, &semaphores, ERR_PROCESS), PROCESS_FAILURE);
+	sem_post(semaphores.start.sem);
 	monitor(philos);
-	destroy_semaphores(&semaphores);
-	free(philos);
+	cleanup(philos, &semaphores, NULL);
 	return (SUCCESS);
 }

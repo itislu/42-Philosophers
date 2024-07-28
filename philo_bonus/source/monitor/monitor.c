@@ -15,20 +15,6 @@
 #include <stdlib.h>
 #include <signal.h>
 
-static int	get_philo_id_with_pid(t_philo *philos, int num_of_philos, pid_t pid)
-{
-	int	i;
-
-	i = 0;
-	while (i < num_of_philos)
-	{
-		if (philos[i].pid == pid)
-			break ;
-		i++;
-	}
-	return (i);
-}
-
 static bool	release_monitor(sem_t *sem, bool *is_exited)
 {
 	if (*is_exited)
@@ -63,20 +49,17 @@ void	*monitor_is_full(void *arg)
 
 void	*monitor_is_dead(void *arg)
 {
-	t_philo *philos = (t_philo *)arg;
-	t_semaphores *semaphores = philos->semaphores;
-	const t_rules *rules = philos->rules;
-	int		wstatus;
-	pid_t	pid;
+	t_philo			*philos;
+	t_semaphores	*semaphores;
 
+	philos = (t_philo *)arg;
+	semaphores = philos->semaphores;
 	sem_wait(semaphores->is_dead.sem);
 	if (!release_monitor(semaphores->is_full.sem, &philos->is_exited))
 		return (NULL);
-	pid = waitpid(0, &wstatus, 0);	// Atm not really guaranteed that first process is the one that initially died
-	print_verbose_monitor(philos, "detected a philosopher died");
-	sem_post(semaphores->stop.sem);
-	print_death(philos, rules->num_of_philos, get_philo_id_with_pid(
-		philos, rules->num_of_philos, pid));
+	if (VERBOSE)
+		print_verbose_monitor(philos, "detected a philosopher died");
+	broadcast_death(philos);
 	return (NULL);
 }
 
@@ -85,7 +68,7 @@ void	*monitor_is_dead(void *arg)
 // Only one of them will get enough sem_posts to continue.
 void	monitor(t_philo *philos)
 {
-	pthread_t	monitors[2];
+	pthread_t	monitors[2];	// I don't think I need two new threads, just one
 
 	pthread_create(&monitors[0], NULL, &monitor_is_full, philos);
 	pthread_create(&monitors[1], NULL, &monitor_is_dead, philos);

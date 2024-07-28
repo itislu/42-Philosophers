@@ -27,10 +27,12 @@ bool	init_semaphores(t_semaphores *semaphores, int num_of_philos)
 {
 	memset(semaphores, 0, sizeof(t_semaphores));
 	if (!init_semaphore(&semaphores->forks, "philo_forks", num_of_philos)
-		|| !init_semaphore(&semaphores->sync, "philo_sync", 0)
+		|| !init_semaphore(&semaphores->start, "philo_start", 0)
+		|| !init_semaphore(&semaphores->stop, "philo_stop", 0)
 		|| !init_semaphore(&semaphores->is_dead, "philo_is_dead", 0)
 		|| !init_semaphore(&semaphores->is_full, "philo_is_full", 0)
-		|| !init_semaphore(&semaphores->stop, "philo_stop", 0))
+		|| !init_semaphore(&semaphores->ready_to_exit, "philo_ready_to_exit", 0)
+		|| !init_semaphore(&semaphores->exit_allowed, "philo_exit_allowed", 0))
 	{
 		destroy_semaphores(semaphores);
 		return (false);

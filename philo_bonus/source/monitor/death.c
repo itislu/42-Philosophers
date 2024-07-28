@@ -14,25 +14,52 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-static void	wait_all_dead(t_philo *philos, int num_of_philos);
+static int	get_philo_id_with_pid(t_philo *philos, int num_of_philos, pid_t pid);
+static void	wait_all_stopped(t_philo *philos, int num_of_philos);
+static void	print_death(t_philo *philos, int dead_philo);
 
-void	print_death(t_philo *philos, int num_of_philos, int dead_philo)
+void	broadcast_death(t_philo *philos)
 {
-	wait_all_dead(philos, num_of_philos);
-	print_msg(&philos[dead_philo], MSG_DEAD);
+	int		status;
+	pid_t	pid;
+
+	sem_post(philos->semaphores->stop.sem);
+	wait_all_stopped(philos, philos->rules->num_of_philos);
+	pid = waitpid(0, &status, 0);
+	print_death(
+		philos, get_philo_id_with_pid(philos, philos->rules->num_of_philos, pid));
+	sem_post(philos->semaphores->exit_allowed.sem);
 }
 
-static void	wait_all_dead(t_philo *philos, int num_of_philos)
+static int	get_philo_id_with_pid(t_philo *philos, int num_of_philos, pid_t pid)
 {
 	int	i;
-	int	wstatus;
 
-	if (VERBOSE)
-		print_verbose_monitor(philos, "waits for all death confirms");
 	i = 0;
 	while (i < num_of_philos)
 	{
-		waitpid(philos[i].pid, &wstatus, 0);
+		if (philos[i].pid == pid)
+			break ;
 		i++;
 	}
+	return (i);
+}
+
+static void	wait_all_stopped(t_philo *philos, int num_of_philos)
+{
+	int	i;
+
+	if (VERBOSE)
+		print_verbose_monitor(philos, "waits for all philos to be stopped");
+	i = 0;
+	while (i < num_of_philos)
+	{
+		sem_wait(philos->semaphores->ready_to_exit.sem);
+		i++;
+	}
+}
+
+static void	print_death(t_philo *philos, int dead_philo)
+{
+	print_msg(&philos[dead_philo], MSG_DEAD);
 }

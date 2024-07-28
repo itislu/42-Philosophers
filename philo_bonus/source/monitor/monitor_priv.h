@@ -21,6 +21,6 @@
 # include <stdbool.h>
 # include <unistd.h>
 
-void	print_death(t_philo *philos, int num_of_philos, int dead_philo);
+void	broadcast_death(t_philo *philos);
 
 #endif

@@ -17,7 +17,7 @@
 # include <stdbool.h>
 
 bool	create_philo_processes(t_philo *philos, int count);
-void	kill_philo_processes(t_philo *philos, int count);
+void	stop_philo_processes(t_philo *philos, int count);
 bool	init_semaphores(t_semaphores *semaphores, int num_of_philos);
 void	destroy_semaphores(t_semaphores *semaphores);
 bool	init_philos(
@@ -25,5 +25,6 @@ bool	init_philos(
 			t_semaphores *semaphores,
 			const t_rules *rules,
 			struct timeval *start_time);
+void	cleanup(t_philo *philos, t_semaphores *semaphores, char *error_msg);
 
 #endif

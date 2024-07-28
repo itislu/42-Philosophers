@@ -24,9 +24,7 @@ bool	create_philo_processes(t_philo *philos, int count)
 		philos[i].pid = fork();
 		if (philos[i].pid == -1)
 		{
-			// broadcast_death(philos->semaphores);
-			// pthread_mutex_unlock(philos[i].sync_mutex);
-			kill_philo_processes(philos, i);
+			stop_philo_processes(philos, i);
 			return (false);
 		}
 		else if (philos[i].pid == 0)
@@ -36,16 +34,18 @@ bool	create_philo_processes(t_philo *philos, int count)
 	return (true);
 }
 
-void	kill_philo_processes(t_philo *philos, int count)
+void	stop_philo_processes(t_philo *philos, int count)
 {
 	int	i;
-	int	wstatus;
+	int	status;
 
 	sem_post(philos->semaphores->stop.sem);
+	sem_post(philos->semaphores->exit_allowed.sem);
+	sem_post(philos->semaphores->start.sem);
 	i = 0;
 	while (i < count)
 	{
-		waitpid(philos[i].pid, &wstatus, 0);
+		waitpid(philos[i].pid, &status, 0);
 		i++;
 	}
 }
