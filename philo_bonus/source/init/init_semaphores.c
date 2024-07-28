@@ -18,6 +18,7 @@ bool	init_semaphore(t_sem_named *sem_named, char *name, int value)
 	sem_named->sem = sem_open(name, O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, value);
 	if (sem_named->sem == SEM_FAILED)
 		return (false);
+	sem_unlink(name);
 	sem_named->name = name;
 	return (true);
 }
@@ -42,7 +43,6 @@ void	destroy_semaphore(t_sem_named *sem_named)
 		return ;
 	sem_close(sem_named->sem);
 	sem_unlink(sem_named->name);
-	// ft_free_and_null((void **)&sem_named->sem);
 }
 
 void	destroy_semaphores(t_semaphores *semaphores, int count)
