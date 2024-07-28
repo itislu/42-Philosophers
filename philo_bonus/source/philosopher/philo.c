@@ -12,6 +12,13 @@
 
 #include "philo_priv.h"
 #include <stdlib.h>
+#include "init_pub.h"
+
+void	clean_exit(t_philo *me, int exit_status)
+{
+	destroy_semaphores(me->semaphores, me->rules->num_of_philos);
+	exit(exit_status);
+}
 
 void	philosopher(t_philo *me)
 {
@@ -21,7 +28,7 @@ void	philosopher(t_philo *me)
 		print_verbose(me, "has started routine");
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
-			exit(1);	// No verbose message atm
+			clean_exit(me, 1);	// No verbose message atm
 	while (true)
 	{
 		if (!philo_eat(me))
@@ -34,5 +41,5 @@ void	philosopher(t_philo *me)
 	release_forks(me);
 	if (VERBOSE)
 		print_verbose(me, "has exited routine");
-	exit(me->state & DEAD);
+	clean_exit(me, me->state & DEAD);
 }
