@@ -16,7 +16,7 @@
 
 void	clean_exit(t_philo *me, int exit_status)
 {
-	destroy_semaphores(me->semaphores, me->rules->num_of_philos);
+	destroy_semaphores(me->semaphores);
 	free(me->base_ptr);
 	exit(exit_status);
 }

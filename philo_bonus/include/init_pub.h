@@ -18,8 +18,8 @@
 
 bool	create_philo_processes(t_philo *philos, int count);
 void	kill_philo_processes(t_philo *philos, int count);
-bool	init_semaphores(t_semaphores *semaphores, int count);
-void	destroy_semaphores(t_semaphores *semaphores, int count);
+bool	init_semaphores(t_semaphores *semaphores, int num_of_philos);
+void	destroy_semaphores(t_semaphores *semaphores);
 bool	init_philos(
 			t_philo **philos,
 			t_semaphores *semaphores,

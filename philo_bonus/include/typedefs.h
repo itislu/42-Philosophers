@@ -55,7 +55,6 @@ typedef struct s_semaphores
 	t_sem_named				sync;
 	t_sem_named				is_dead;
 	t_sem_named				is_full;
-	bool					is_triggered;	//TODO Should be in a monitor struct
 }	t_semaphores;
 
 typedef struct s_philo	t_philo;
@@ -76,6 +75,7 @@ struct s_philo
 	unsigned long long		latest_timestamp_ms;
 	unsigned long long		last_meal_timestamp_ms;
 	unsigned long long		meals_eaten;
+	bool					is_exited;
 };
 
 #endif

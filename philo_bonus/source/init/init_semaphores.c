@@ -23,15 +23,15 @@ bool	init_semaphore(t_sem_named *sem_named, char *name, int value)
 	return (true);
 }
 
-bool	init_semaphores(t_semaphores *semaphores, int count)
+bool	init_semaphores(t_semaphores *semaphores, int num_of_philos)
 {
 	memset(semaphores, 0, sizeof(t_semaphores));
-	if (!init_semaphore(&semaphores->forks, "philo_forks", count)
+	if (!init_semaphore(&semaphores->forks, "philo_forks", num_of_philos)
 		|| !init_semaphore(&semaphores->sync, "philo_sync", 0)
 		|| !init_semaphore(&semaphores->is_dead, "philo_is_dead", 0)
 		|| !init_semaphore(&semaphores->is_full, "philo_is_full", 0))
 	{
-		destroy_semaphores(semaphores, count);
+		destroy_semaphores(semaphores);
 		return (false);
 	}
 	return (true);
@@ -45,12 +45,14 @@ void	destroy_semaphore(t_sem_named *sem_named)
 	sem_unlink(sem_named->name);
 }
 
-void	destroy_semaphores(t_semaphores *semaphores, int count)
+void	destroy_semaphores(t_semaphores *semaphores)
 {
 	t_sem_named	*sem_named;
+	int			count;
 	int			i;
 
 	sem_named = (t_sem_named *)semaphores;
+	count = sizeof(t_semaphores) / sizeof(t_sem_named);
 	i = 0;
 	while (i < count)
 	{

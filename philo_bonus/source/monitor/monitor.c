@@ -29,11 +29,11 @@ static int	get_philo_id_with_pid(t_philo *philos, int num_of_philos, pid_t pid)
 	return (i);
 }
 
-static bool	release_monitor(sem_t *sem, bool *is_triggered)
+static bool	release_monitor(sem_t *sem, bool *is_exited)
 {
-	if (*is_triggered)
+	if (*is_exited)
 		return (false);
-	*is_triggered = true;
+	*is_exited = true;
 	sem_post(sem);
 	return (true);
 }
@@ -50,11 +50,11 @@ void	*monitor_is_full(void *arg)
 	while (i < philos->rules->num_of_philos)
 	{
 		sem_wait(semaphores->is_full.sem);
-		if (semaphores->is_triggered)
+		if (philos->is_exited)
 			return (NULL);
 		i++;
 	}
-	if (!release_monitor(semaphores->is_dead.sem, &semaphores->is_triggered))
+	if (!release_monitor(semaphores->is_dead.sem, &philos->is_exited))
 		return (NULL);
 	if (VERBOSE)
 		print_verbose_monitor(philos, "detected all philosophers got full");
@@ -70,7 +70,7 @@ void	*monitor_is_dead(void *arg)
 	pid_t	pid;
 
 	sem_wait(semaphores->is_dead.sem);
-	if (!release_monitor(semaphores->is_full.sem, &semaphores->is_triggered))
+	if (!release_monitor(semaphores->is_full.sem, &philos->is_exited))
 		return (NULL);
 	pid = waitpid(0, &wstatus, 0);
 	print_verbose_monitor(philos, "detected a philosopher died");
