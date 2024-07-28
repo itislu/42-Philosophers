@@ -14,6 +14,8 @@
 
 bool	check_alive(t_philo *me)
 {
+	if (me->state & DEAD)
+		return (false);
 	me->latest_timestamp_ms = get_elapsed_time_ms(me->start_time);
 	if (me->latest_timestamp_ms - me->last_meal_timestamp_ms
 		> (unsigned long long)me->rules->time_to_die_ms)

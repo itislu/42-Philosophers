@@ -16,22 +16,6 @@
 
 static void	wait_all_dead(t_philo *philos, int num_of_philos);
 
-void	broadcast_death(t_philo *philos, int num_of_philos)
-{
-	int	i;
-
-	if (VERBOSE)
-		print_verbose_monitor(philos, "broadcasts death");
-	i = 0;
-	while (i < num_of_philos)
-	{
-		kill(philos[i].pid, SIGTERM);
-		i++;
-	}
-	if (VERBOSE)
-		print_verbose_monitor(philos, "finished broadcasting");
-}
-
 void	print_death(t_philo *philos, int num_of_philos, int dead_philo)
 {
 	wait_all_dead(philos, num_of_philos);

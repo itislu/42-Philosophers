@@ -24,7 +24,7 @@ bool	create_philo_processes(t_philo *philos, int count)
 		philos[i].pid = fork();
 		if (philos[i].pid == -1)
 		{
-			// broadcast_death(philos, i);
+			// broadcast_death(philos->semaphores);
 			// pthread_mutex_unlock(philos[i].sync_mutex);
 			kill_philo_processes(philos, i);
 			return (false);
@@ -41,16 +41,7 @@ void	kill_philo_processes(t_philo *philos, int count)
 	int	i;
 	int	wstatus;
 
-	i = 0;
-	while (i < count)
-	{
-		if (VERBOSE)
-			print_verbose(&philos[i], "will be joined");
-		kill(philos[i].pid, SIGTERM);
-		if (VERBOSE)
-			print_verbose(&philos[i], "has been joined");
-		i++;
-	}
+	sem_post(philos->semaphores->stop.sem);
 	i = 0;
 	while (i < count)
 	{

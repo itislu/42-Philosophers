@@ -72,9 +72,9 @@ void	*monitor_is_dead(void *arg)
 	sem_wait(semaphores->is_dead.sem);
 	if (!release_monitor(semaphores->is_full.sem, &philos->is_exited))
 		return (NULL);
-	pid = waitpid(0, &wstatus, 0);
+	pid = waitpid(0, &wstatus, 0);	// Atm not really guaranteed that first process is the one that initially died
 	print_verbose_monitor(philos, "detected a philosopher died");
-	broadcast_death(philos, rules->num_of_philos);
+	sem_post(semaphores->stop.sem);
 	print_death(philos, rules->num_of_philos, get_philo_id_with_pid(
 		philos, rules->num_of_philos, pid));
 	return (NULL);
