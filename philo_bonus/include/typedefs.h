@@ -58,8 +58,11 @@ typedef struct s_semaphores
 	bool					is_triggered;	//TODO Should be in a monitor struct
 }	t_semaphores;
 
-typedef struct s_philo
+typedef struct s_philo	t_philo;
+
+struct s_philo
 {
+	t_philo					*base_ptr;
 	pid_t					pid;
 	int						id;
 	const struct timeval	*start_time;
@@ -73,6 +76,6 @@ typedef struct s_philo
 	unsigned long long		latest_timestamp_ms;
 	unsigned long long		last_meal_timestamp_ms;
 	unsigned long long		meals_eaten;
-}	t_philo;
+};
 
 #endif

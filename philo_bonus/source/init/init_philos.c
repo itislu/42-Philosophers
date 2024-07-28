@@ -27,15 +27,16 @@ bool	init_philos(
 	i = 0;
 	while (i < rules->num_of_philos)
 	{
+		(*philos)[i].base_ptr = *philos;
 		(*philos)[i].id = i + 1;
 		(*philos)[i].start_time = start_time;
+		(*philos)[i].rules = rules;
 		(*philos)[i].state = ALIVE;
 		(*philos)[i].semaphores = semaphores;
 		(*philos)[i].is_outsider = calc_is_outsider(rules, (*philos)[i].id);
 		(*philos)[i].initial_think_time_us = calc_initial_think_time_us(
 				rules, (*philos)[i].id);
 		(*philos)[i].think_time_us = calc_think_time_us(rules);
-		(*philos)[i].rules = rules;
 		i++;
 	}
 	return (true);
