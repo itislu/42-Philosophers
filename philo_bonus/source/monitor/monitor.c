@@ -63,15 +63,13 @@ void	*monitor_is_dead(void *arg)
 	return (NULL);
 }
 
-// Create two monitoring threads.
-// On one, monitor the is_full semaphore; on the other, the is_dead semaphore.
+// Split the monitoring for the is_full and is_dead semaphore into two threads.
 // Only one of them will get enough sem_posts to continue.
 void	monitor(t_philo *philos)
 {
-	pthread_t	monitors[2];	// I don't think I need two new threads, just one
+	pthread_t	monitor_thread;
 
-	pthread_create(&monitors[0], NULL, &monitor_is_full, philos);
-	pthread_create(&monitors[1], NULL, &monitor_is_dead, philos);
-	pthread_join(monitors[0], NULL);
-	pthread_join(monitors[1], NULL);
+	pthread_create(&monitor_thread, NULL, &monitor_is_full, philos);
+	monitor_is_dead(philos);
+	pthread_join(monitor_thread, NULL);
 }
