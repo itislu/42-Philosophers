@@ -26,7 +26,7 @@ bool	philo_eat(t_philo *me)
 	if (me->rules->num_each_philo_must_eat > 0
 		&& (int)me->meals_eaten == me->rules->num_each_philo_must_eat)
 	{
-		sem_post(me->semaphores->is_full.sem);
+		sem_post(me->semaphores->full.sem);
 		me->state |= FULL;
 		if (VERBOSE)
 			print_verbose(me, "got full");

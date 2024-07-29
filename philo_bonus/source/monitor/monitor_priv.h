@@ -21,6 +21,6 @@
 # include <stdbool.h>
 # include <unistd.h>
 
-void	broadcast_death(t_philo *philos);
+void	broadcast_death(t_mon *monitor);
 
 #endif

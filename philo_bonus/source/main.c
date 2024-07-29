@@ -26,6 +26,7 @@ int	main(int argc, char *argv[])
 	struct timeval	start_time;
 	t_semaphores	semaphores;
 	t_philo			*philos;
+	t_mon			monitor_data;
 	t_rules			rules;
 
 	if (!parse_rules(&rules, argc, argv))
@@ -36,11 +37,12 @@ int	main(int argc, char *argv[])
 		return (ft_putstr_fd(ERR_SEMAPHORE, STDERR_FILENO), SEMAPHORE_FAILURE);
 	if (!init_philos(&philos, &semaphores, &rules, &start_time))
 		return (cleanup(philos, &semaphores, ERR_MALLOC), MALLOC_FAILURE);
+	init_monitor(&monitor_data, philos, &semaphores, &rules);
 	gettimeofday(&start_time, NULL);
 	if (!create_philo_processes(philos, rules.num_of_philos))
 		return (cleanup(philos, &semaphores, ERR_PROCESS), PROCESS_FAILURE);
 	sem_post(semaphores.start.sem);
-	monitor(philos);
+	monitor(&monitor_data);
 	cleanup(philos, &semaphores, NULL);
 	return (SUCCESS);
 }

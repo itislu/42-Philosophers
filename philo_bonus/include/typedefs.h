@@ -49,19 +49,41 @@ typedef struct s_semaphore_named
 	char					*name;
 }	t_sem_named;
 
+/**
+ * @brief Structure containing all the semaphores used in the program.
+ *
+ * - `forks`: Available forks.
+ *
+ * - `start`: To start the philosophers in sync.
+ *
+ * - `stop`: To stop the philosophers without exiting their processes.
+ *
+ * - `dead`: To signal to the monitor that a philosopher died.
+ *
+ * - `full`: To signal to the monitor that a philosopher got full.
+ *
+ * - `ready_to_exit`: To signal to the monitor that a philosopher is ready to
+ *     exit.
+ *     It means it won't print any more messages.
+ *
+ * - `exit_allowed`: To signal that a philosopher is allowed to exit.
+ *     Important to allow the philosopher who died to exit before the others.
+ *
+ * - `mon_mutex`: To protect against race conditions in the monitor threads.
+ */
 typedef struct s_semaphores
 {
 	t_sem_named				forks;
 	t_sem_named				start;
 	t_sem_named				stop;
-	t_sem_named				is_dead;
-	t_sem_named				is_full;
+	t_sem_named				dead;
+	t_sem_named				full;
 	t_sem_named				ready_to_exit;
 	t_sem_named				exit_allowed;
+	t_sem_named				mon_mutex;
 }	t_semaphores;
 
 typedef struct s_philo	t_philo;
-
 struct s_philo
 {
 	t_philo					*base_ptr;
@@ -78,7 +100,14 @@ struct s_philo
 	unsigned long long		latest_timestamp_ms;
 	unsigned long long		last_meal_timestamp_ms;
 	unsigned long long		meals_eaten;
-	bool					is_exited;
 };
+
+typedef struct s_monitor
+{
+	t_philo					*philos;
+	t_semaphores			*semaphores;
+	const t_rules			*rules;
+	bool					is_released;
+}	t_mon;
 
 #endif

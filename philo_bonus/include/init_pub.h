@@ -26,5 +26,10 @@ bool	init_philos(
 			const t_rules *rules,
 			struct timeval *start_time);
 void	cleanup(t_philo *philos, t_semaphores *semaphores, char *error_msg);
+void	init_monitor(
+			t_mon *monitor,
+			t_philo *philos,
+			t_semaphores *semaphores,
+			t_rules *rules);
 
 #endif

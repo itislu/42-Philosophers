@@ -20,7 +20,7 @@ bool	check_alive(t_philo *me)
 	if (me->latest_timestamp_ms - me->last_meal_timestamp_ms
 		> (unsigned long long)me->rules->time_to_die_ms)
 	{
-		sem_post(me->semaphores->is_dead.sem);
+		sem_post(me->semaphores->dead.sem);
 		me->state |= DEAD;
 		if (VERBOSE)
 			print_verbose_death(me);

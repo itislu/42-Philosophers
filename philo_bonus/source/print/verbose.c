@@ -61,12 +61,12 @@ void	print_verbose_death(t_philo *me)
 		me->latest_timestamp_ms - me->last_meal_timestamp_ms);
 }
 
-void	print_verbose_monitor(t_philo *philo, const char *msg)
+void	print_verbose_monitor(t_mon *monitor, const char *msg)
 {
 	if (!VERBOSE)
 		return ;
 	printf(STY_BOL "%s%llu %c %s" STY_RES "\n", COLUMN1,
-		get_elapsed_time_ms(philo->start_time), 'm', msg);
+		get_elapsed_time_ms(monitor->philos->start_time), 'm', msg);
 }
 
 void	print_actual_elapsed_time(

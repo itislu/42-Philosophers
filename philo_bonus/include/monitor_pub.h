@@ -15,6 +15,6 @@
 
 # include "typedefs.h"
 
-void	monitor(t_philo *philos);
+void	monitor(t_mon *monitor);
 
 #endif

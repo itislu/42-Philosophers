@@ -18,6 +18,7 @@ DIR		:=	init/
 SRC		+=	$(addprefix $(DIR), \
             calc.c \
             processes.c \
+            t_mon.c \
             t_philos.c \
             t_semaphores.c \
 )
