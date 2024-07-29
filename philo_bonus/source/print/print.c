@@ -30,6 +30,8 @@ void	print_msg(t_philo *me, const char *msg)
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;
+	sem_wait(me->semaphores->print_mutex.sem);
 	me->latest_timestamp_ms = get_elapsed_time_ms(me->start_time);
 	printf(msg, spacing, me->latest_timestamp_ms, me->id);
+	sem_post(me->semaphores->print_mutex.sem);
 }

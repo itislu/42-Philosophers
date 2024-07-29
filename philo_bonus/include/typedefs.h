@@ -70,6 +70,8 @@ typedef struct s_semaphore_named
  *     Important to allow the philosopher who died to exit before the others.
  *
  * - `mon_mutex`: To protect against race conditions in the monitor threads.
+ *
+ * - `print_mutex`: To protect against out of order timestamps in the outputs.
  */
 typedef struct s_semaphores
 {
@@ -81,6 +83,7 @@ typedef struct s_semaphores
 	t_sem_named				ready_to_exit;
 	t_sem_named				exit_allowed;
 	t_sem_named				mon_mutex;
+	t_sem_named				print_mutex;
 }	t_semaphores;
 
 typedef struct s_philo	t_philo;
