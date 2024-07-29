@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/06/11 08:47:13 by ldulling         ###   ########.fr        #
+#    Updated: 2024/07/30 02:14:54 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,9 @@ MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
 					-D COLUMN2='"$(COLUMN2)"' \
 					-D COLUMN3='"$(COLUMN3)"'
 endif
+ifneq (,$(filter nocolor,$(MAKECMDGOALS)))
+MACROS			+=	-D NO_COLOR=1
+endif
 
 
 #	Valgrind
@@ -110,7 +113,7 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 
 # ***************************** BUILD PROCESS ******************************** #
 
-.PHONY			:	all verbose verbose1 verbose2 verbose3 column1 column2 column3 \
+.PHONY			:	all verbose verbose1 verbose2 verbose3 column1 column2 column3 nocolor \
 					run val clear clean fclean ffclean re
 
 
@@ -122,7 +125,7 @@ all				:
 							&& ($(MAKE) $(NAME) && echo $(MSG_SUCCESS)) \
 							|| (echo $(MSG_FAILURE) && exit 42))
 
-verbose	verbose1 verbose2 verbose3 column1 column2 column3:
+verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor:
 					echo -n $(MSG_MODE)
 					echo -n $(MSG_COLUMN)
 					$(MAKE) re
@@ -229,7 +232,7 @@ STY_WHI_BRI_BG	:=	"\e[107m"
 MSG_INFO		:=	$(STY_ITA)$(STY_WHI)" Make version: $(MAKE_VERSION)\n\
 					Compiler version: $(CC_VERSION)\n"$(STY_RES)
 ################################################################################
-MSG_START		:=	$(STY_ITA)"Building philo ... "$(STY_RES)
+MSG_START		:=	$(STY_ITA)"Building $(NAME) ... "$(STY_RES)
 ################################################################################
 MSG_PROGRESS	:=	"🍽️ "
 ################################################################################
@@ -239,20 +242,25 @@ MSG_NO_CHNG		:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)
 ################################################################################
 MSG_FAILURE		:=	$(STY_BOL)$(STY_ITA)$(STY_RED)"BUILD FAILED!"$(STY_RES)
 ################################################################################
-MSG_VERBOSE_MODE:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_YEL)"-------------- VERBOSE MODE --------------\n"$(STY_RES)
+MSG_VERBOSE		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_YEL)"-------------- VERBOSE MODE --------------\n"$(STY_RES)
 ifneq (,$(filter verbose%,$(MAKECMDGOALS)))
-MSG_MODE		:=	$(MSG_VERBOSE_MODE)
+MSG_MODE		:=	$(MSG_VERBOSE)
 endif
 ################################################################################
-MSG_COLUMN1_MODE:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"--------- PRINTOUTS IN 1 COLUMN ----------\n"$(STY_RES)
-MSG_COLUMN2_MODE:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"--------- PRINTOUTS IN 2 COLUMNS ---------\n"$(STY_RES)
-MSG_COLUMN3_MODE:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"--------- PRINTOUTS IN 3 COLUMNS ---------\n"$(STY_RES)
+MSG_COLUMN1		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"--------- PRINTOUTS IN 1 COLUMN ----------\n"$(STY_RES)
+MSG_COLUMN2		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"--------- PRINTOUTS IN 2 COLUMNS ---------\n"$(STY_RES)
+MSG_COLUMN3		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"--------- PRINTOUTS IN 3 COLUMNS ---------\n"$(STY_RES)
 ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS)))
-MSG_COLUMN		:=	$(MSG_COLUMN1_MODE)
+MSG_COLUMN		:=	$(MSG_COLUMN1)
 else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS)))
-MSG_COLUMN		:=	$(MSG_COLUMN2_MODE)
+MSG_COLUMN		:=	$(MSG_COLUMN2)
 else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS)))
-MSG_COLUMN		:=	$(MSG_COLUMN3_MODE)
+MSG_COLUMN		:=	$(MSG_COLUMN3)
+endif
+################################################################################
+MSG_NO_COLOR	:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_WHI_BRI)"------------- NO COLOR MODE --------------\n"$(STY_RES)
+ifneq (,$(filter nocolor,$(MAKECMDGOALS)))
+MSG_MODE		:=	$(MSG_NO_COLOR)
 endif
 ################################################################################
 
