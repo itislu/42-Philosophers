@@ -15,16 +15,22 @@
 #include <stdlib.h>
 #include <signal.h>
 
-static bool	release_monitor(sem_t *sem, bool *is_exited)
+static void	*monitor_is_dead(void *arg);
+static void	*monitor_is_full(void *arg);
+static bool	release_monitor(sem_t *sem, bool *is_exited);
+
+// Split the monitoring for the is_full and is_dead semaphore into two threads.
+// Only one of them will get enough sem_posts to continue.
+void	monitor(t_philo *philos)
 {
-	if (*is_exited)
-		return (false);
-	*is_exited = true;
-	sem_post(sem);
-	return (true);
+	pthread_t	monitor_thread;
+
+	pthread_create(&monitor_thread, NULL, &monitor_is_full, philos);
+	monitor_is_dead(philos);
+	pthread_join(monitor_thread, NULL);
 }
 
-void	*monitor_is_full(void *arg)
+static void	*monitor_is_full(void *arg)
 {
 	t_philo			*philos;
 	t_semaphores	*semaphores;
@@ -47,7 +53,7 @@ void	*monitor_is_full(void *arg)
 	return (NULL);
 }
 
-void	*monitor_is_dead(void *arg)
+static void	*monitor_is_dead(void *arg)
 {
 	t_philo			*philos;
 	t_semaphores	*semaphores;
@@ -63,13 +69,11 @@ void	*monitor_is_dead(void *arg)
 	return (NULL);
 }
 
-// Split the monitoring for the is_full and is_dead semaphore into two threads.
-// Only one of them will get enough sem_posts to continue.
-void	monitor(t_philo *philos)
+static bool	release_monitor(sem_t *sem, bool *is_exited)
 {
-	pthread_t	monitor_thread;
-
-	pthread_create(&monitor_thread, NULL, &monitor_is_full, philos);
-	monitor_is_dead(philos);
-	pthread_join(monitor_thread, NULL);
+	if (*is_exited)
+		return (false);
+	*is_exited = true;
+	sem_post(sem);
+	return (true);
 }

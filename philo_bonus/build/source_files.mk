@@ -16,10 +16,10 @@ SRC		:=	main.c
 # Initialization:
 DIR		:=	init/
 SRC		+=	$(addprefix $(DIR), \
-            calculate.c \
-            create_processes.c \
-            init_philos.c \
-            init_semaphores.c \
+            calc.c \
+            processes.c \
+            t_philos.c \
+            t_semaphores.c \
 )
 
 # User input:
