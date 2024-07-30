@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/07/30 17:50:50 by ldulling         ###   ########.fr        #
+#    Updated: 2024/07/31 01:12:10 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,15 @@ BUILDFILES		:=	Makefile \
 
 #	Flags
 
-CC 				:=	cc
+CC 				?=	cc
 CC_VERSION		:=	$(shell $(CC) --version | head -1)
-CFLAGS 			:=	-Wall -Wextra -Werror -ggdb3 -pthread# -fsanitize=thread
+CFLAGS_STD		:=	-Wall -Wextra -Werror
+CFLAGS_DBG		:=	-ggdb3
+CFLAGS_SAN		:=	-fsanitize=thread,undefined,bounds,float-divide-by-zero
+CFLAGS_OPT		:=	-O3
+CFLAGS 			?=	$(CFLAGS_STD) $(CFLAGS_DBG)
 INCFLAGS 		:=	$(addprefix -I,$(INC_DIR))
+LDLIBS			:=	-pthread
 MAKEFLAGS		:=	-j -s
 
 
@@ -113,8 +118,10 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 
 # ***************************** BUILD PROCESS ******************************** #
 
+export				CC CFLAGS MAKECMDGOALS MAKEFLAGS
+
 .PHONY			:	all verbose verbose1 verbose2 verbose3 column1 column2 column3 nocolor \
-					run val clear clean fclean ffclean re
+					fast san run val clear clean fclean ffclean re
 
 
 #	Compilation
@@ -140,6 +147,14 @@ verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor:
 					$(MAKE) re
 					$(MAKE) clean
 
+fast			:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
+fast			:	re
+					$(MAKE) clean
+
+san				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_DBG) $(CFLAGS_SAN)
+san				:	re
+					$(MAKE) clean
+
 run				:	all
 					"./$(NAME)" $(ARGS)
 
@@ -154,7 +169,7 @@ clear			:
 #	Executable linking
 
 $(NAME)			:	$(LIBRARIES) $(OBJ)
-					$(CC) $(CFLAGS) $(INCFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME)
+					$(CC) $(CFLAGS) $(OBJ) $(LDLIBS) -o $(NAME)
 
 
 #	Source file compiling
@@ -167,8 +182,7 @@ $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(BUILDFILES) | $(OBJ_SUBDIRS)
 #	Pre-processing and dependency file creation
 
 $(DEP_DIR)/%.d	:	$(SRC_DIR)/%.c $(BUILDFILES) | $(DEP_SUBDIRS)
-					$(CC) $(CFLAGS) $(MACROS) $(INCFLAGS) \
-						-M -MP -MF $@ -MT "$(OBJ_DIR)/$*.o $@" $<
+					$(CC) $(CFLAGS) $(MACROS) $(INCFLAGS) -M -MP -MF $@ -MT "$(OBJ_DIR)/$*.o $@" $<
 
 
 #	Mirror directory structure of source files for build artifacts
