@@ -15,21 +15,21 @@
 static inline t_state	monitor_cycle(t_philo *philos, int num_of_philos)
 						__attribute__((always_inline));
 
-void	monitor(t_philo *philos, t_rules rules)
+void	monitor(t_philo *philos, const t_rules *rules)
 {
 	t_state	state;
 
 	while (true)
 	{
 		usleep(MONITOR_INTERVAL_US);
-		state = monitor_cycle(philos, rules.num_of_philos);
+		state = monitor_cycle(philos, rules->num_of_philos);
 		if (state & DEAD)
 			return ;
 		else if (state & FULL)
 		{
 			if (VERBOSE)
 				print_verbose_monitor(philos, "All philosophers got full");
-			broadcast_death(philos, rules.num_of_philos);
+			broadcast_death(philos, rules->num_of_philos);
 			return ;
 		}
 	}

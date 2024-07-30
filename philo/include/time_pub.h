@@ -16,7 +16,7 @@
 # include <stddef.h>
 # include <sys/time.h>
 
-unsigned long long	get_elapsed_time_ms(struct timeval *start_time);
-unsigned long long	get_elapsed_time_us(struct timeval *start_time);
+unsigned long long	get_elapsed_time_ms(const struct timeval *start_time);
+unsigned long long	get_elapsed_time_us(const struct timeval *start_time);
 
 #endif

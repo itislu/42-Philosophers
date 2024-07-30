@@ -43,7 +43,7 @@ int	main(int argc, char *argv[])
 			ft_putstr_fd(ERR_THREAD, STDERR_FILENO), THREAD_FAILURE);
 	gettimeofday(&start_time, NULL);
 	pthread_mutex_unlock(mutexes.sync_mutex);
-	monitor(philos, rules);
+	monitor(philos, &rules);
 	join_philo_threads(philos, rules.num_of_philos);
 	destroy_mutexes(&mutexes, rules.num_of_philos);
 	free(philos);

@@ -15,7 +15,7 @@
 
 # include "typedefs.h"
 
-void	monitor(t_philo *philos, t_rules rules);
+void	monitor(t_philo *philos, const t_rules *rules);
 void	broadcast_death(t_philo *philos, int num_of_philos);
 
 #endif

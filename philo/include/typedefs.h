@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/11 10:38:17 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:19:53 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ typedef struct s_philo
 {
 	pthread_t				thread;
 	int						id;
-	struct timeval const	*start_time;
+	const struct timeval	*start_time;
+	const t_rules			*rules;
 	t_state					state;
 	pthread_mutex_t			*state_mutex;
 	pthread_mutex_t			*sync_mutex;
@@ -71,7 +72,6 @@ typedef struct s_philo
 	unsigned long long		latest_timestamp_ms;
 	unsigned long long		last_meal_timestamp_ms;
 	unsigned long long		meals_eaten;
-	t_rules const			*rules;
 }	t_philo;
 
 #endif
