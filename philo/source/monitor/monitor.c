@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 13:52:48 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:26:39 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	monitor(t_philo *philos, const t_rules *rules)
 		else if (state & FULL)
 		{
 			if (VERBOSE)
-				print_verbose_monitor(philos, "All philosophers got full");
+				print_verbose_monitor(
+					philos, "detected all philosophers got full");
 			broadcast_death(philos, rules->num_of_philos);
 			return ;
 		}

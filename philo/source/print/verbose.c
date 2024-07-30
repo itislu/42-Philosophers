@@ -72,7 +72,7 @@ void	print_verbose_monitor(t_philo *philo, const char *msg)
 	if (!VERBOSE)
 		return ;
 	pthread_mutex_lock(philo->print_mutex);
-	printf(STY_BOL "%s%llu %c %s\n" STY_RES, COLUMN1,
+	printf(STY_BOL "%s%llu %c %s" STY_RES "\n", COLUMN1,
 		get_elapsed_time_ms(philo->start_time), 'm', msg);
 	pthread_mutex_unlock(philo->print_mutex);
 }
