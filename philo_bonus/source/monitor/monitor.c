@@ -1,0 +1,82 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
+/*   Updated: 2024/07/30 01:33:02 by ldulling         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "monitor_priv.h"
+
+static void	*monitor_dead(void *arg);
+static void	*monitor_full(void *arg);
+static bool	is_monitor_released(t_mon *monitor);
+static void	release_monitor(t_mon *monitor, sem_t *release);
+
+// Split the monitoring for the full and dead semaphores into two threads.
+// Only one of them will get enough sem_posts to continue.
+void	monitor(t_mon *monitor)
+{
+	pthread_t	monitor_thread;
+
+	pthread_create(&monitor_thread, NULL, &monitor_full, monitor);
+	monitor_dead(monitor);
+	pthread_join(monitor_thread, NULL);
+}
+
+static void	*monitor_full(void *arg)
+{
+	t_mon			*monitor;
+	int				i;
+
+	monitor = (t_mon *)arg;
+	i = 0;
+	while (i < monitor->rules->num_of_philos)
+	{
+		sem_wait(monitor->semaphores->full.sem);
+		if (is_monitor_released(monitor))
+			return (NULL);
+		i++;
+	}
+	release_monitor(monitor, monitor->semaphores->dead.sem);
+	if (VERBOSE)
+		print_verbose_monitor(monitor, "detected all philosophers got full");
+	return (NULL);
+}
+
+static void	*monitor_dead(void *arg)
+{
+	t_mon			*monitor;
+
+	monitor = (t_mon *)arg;
+	sem_wait(monitor->semaphores->dead.sem);
+	if (is_monitor_released(monitor))
+		return (NULL);
+	release_monitor(monitor, monitor->semaphores->full.sem);
+	if (VERBOSE)
+		print_verbose_monitor(monitor, "detected a philosopher died");
+	broadcast_death(monitor);
+	return (NULL);
+}
+
+static bool	is_monitor_released(t_mon *monitor)
+{
+	bool	ret;
+
+	sem_wait(monitor->semaphores->mon_mutex.sem);
+	ret = monitor->is_released;
+	sem_post(monitor->semaphores->mon_mutex.sem);
+	return (ret);
+}
+
+static void	release_monitor(t_mon *monitor, sem_t *release)
+{
+	sem_wait(monitor->semaphores->mon_mutex.sem);
+	monitor->is_released = true;
+	sem_post(monitor->semaphores->mon_mutex.sem);
+	sem_post(release);
+}
