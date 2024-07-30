@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:21 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/11 10:33:53 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/07/30 02:11:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,19 @@
 # define STY_MAG		"\e[35m"
 
 /* Messages */
-# define MSG_FORK		"\e[1;33m%s%llu %d has taken a fork\e[0m\n"
-# define MSG_EAT		"\e[1;32m%s%llu %d is eating\e[0m\n"
-# define MSG_SLEEP		"\e[1;35m%s%llu %d is sleeping\e[0m\n"
-# define MSG_THINK		"\e[1;34m%s%llu %d is thinking\e[0m\n"
-# define MSG_DEAD		"\e[1;31m%s%llu %d died\e[0m\n"
+# if NO_COLOR
+#  define MSG_FORK		"%s%llu %d has taken a fork\n"
+#  define MSG_EAT		"%s%llu %d is eating\n"
+#  define MSG_SLEEP		"%s%llu %d is sleeping\n"
+#  define MSG_THINK		"%s%llu %d is thinking\n"
+#  define MSG_DEAD		"%s%llu %d died\n"
+# else
+#  define MSG_FORK		"\e[1;33m%s%llu %d has taken a fork\e[0m\n"
+#  define MSG_EAT		"\e[1;32m%s%llu %d is eating\e[0m\n"
+#  define MSG_SLEEP		"\e[1;35m%s%llu %d is sleeping\e[0m\n"
+#  define MSG_THINK		"\e[1;34m%s%llu %d is thinking\e[0m\n"
+#  define MSG_DEAD		"\e[1;31m%s%llu %d died\e[0m\n"
+# endif
 
 /* Error Messages */
 # define ERR_MUTEX		"Error: Mutex initialization failed\n"
