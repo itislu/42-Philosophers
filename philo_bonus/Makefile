@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/07/30 17:49:31 by ldulling         ###   ########.fr        #
+#    Updated: 2024/07/30 17:50:50 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,8 +125,10 @@ all				:
 					else \
 						echo -n $(MSG_INFO)$(MSG_START); \
 						if $(MAKE) $(NAME); then \
+							echo; \
 							echo $(MSG_SUCCESS); \
 						else \
+							echo; \
 							echo $(MSG_FAILURE); \
 							exit 42; \
 						fi; \
@@ -243,7 +245,7 @@ MSG_START		:=	$(STY_ITA)"Building $(NAME) ... "$(STY_RES)
 ################################################################################
 MSG_PROGRESS	:=	"🍽️ "
 ################################################################################
-MSG_SUCCESS		:=	$(STY_BOL)$(STY_ITA)$(STY_WHI_BRI)"\nDONE!"$(STY_RES)
+MSG_SUCCESS		:=	$(STY_BOL)$(STY_ITA)$(STY_WHI_BRI)"DONE!"$(STY_RES)
 ################################################################################
 MSG_NO_CHNG		:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)
 ################################################################################
