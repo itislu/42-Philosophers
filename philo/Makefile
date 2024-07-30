@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/07/30 02:14:32 by ldulling         ###   ########.fr        #
+#    Updated: 2024/07/30 17:40:55 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,12 +54,12 @@ MACROS			:=	-D VERBOSE=1
 endif
 ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
-					-D COLUMN2='NULL' \
-					-D COLUMN3='NULL'
+					-D COLUMN2='"$(COLUMN1)"' \
+					-D COLUMN3='"$(COLUMN1)"'
 else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
 					-D COLUMN2='"$(COLUMN2)"' \
-					-D COLUMN3='NULL'
+					-D COLUMN3='"$(COLUMN2)"'
 else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
 					-D COLUMN2='"$(COLUMN2)"' \
@@ -113,7 +113,7 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 # ***************************** BUILD PROCESS ******************************** #
 
 .PHONY			:	all verbose verbose1 verbose2 verbose3 column1 column2 column3 nocolor \
-					run val clean fclean ffclean re
+					run val clear clean fclean ffclean re
 
 
 #	Compilation
@@ -135,6 +135,10 @@ run				:	all
 
 val				:	all
 					$(VALGRIND) $(VALGRINDFLAGS) "./$(NAME)" $(ARGS)
+
+clear			:
+					clear
+					$(MAKE) all
 
 
 #	Executable linking

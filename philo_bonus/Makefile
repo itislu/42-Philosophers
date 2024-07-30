@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/07/30 02:14:54 by ldulling         ###   ########.fr        #
+#    Updated: 2024/07/30 17:40:11 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ VALGRINDFLAGS	=	--errors-for-leak-kinds=all \
 					--show-error-list=yes \
 					--show-leak-kinds=all \
 					--track-origins=yes \
-					# --trace-children=yes \
+					--trace-children=yes
 
 
 #	Terminal
