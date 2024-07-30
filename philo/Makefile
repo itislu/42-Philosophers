@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/07/30 17:40:55 by ldulling         ###   ########.fr        #
+#    Updated: 2024/07/30 17:49:12 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,10 +119,17 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 #	Compilation
 
 all				:
-					($(MAKE) --question $(NAME) && echo $(MSG_NO_CHNG)) \
-						|| (echo -n $(MSG_INFO)$(MSG_START) \
-							&& ($(MAKE) $(NAME) && echo $(MSG_SUCCESS)) \
-							|| (echo $(MSG_FAILURE) && exit 42))
+					if $(MAKE) --question $(NAME); then \
+						echo $(MSG_NO_CHNG); \
+					else \
+						echo -n $(MSG_INFO)$(MSG_START); \
+						if $(MAKE) $(NAME); then \
+							echo $(MSG_SUCCESS); \
+						else \
+							echo $(MSG_FAILURE); \
+							exit 42; \
+						fi; \
+					fi
 
 verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor:
 					echo -n $(MSG_MODE)
