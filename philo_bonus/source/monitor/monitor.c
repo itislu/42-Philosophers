@@ -6,14 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 13:52:48 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:33:02 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "monitor_priv.h"
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <signal.h>
 
 static void	*monitor_dead(void *arg);
 static void	*monitor_full(void *arg);

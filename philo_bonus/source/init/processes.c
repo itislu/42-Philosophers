@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_threads.c                                   :+:      :+:    :+:   */
+/*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:51:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 13:48:17 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:23:43 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_priv.h"
-#include <signal.h>
-#include <sys/wait.h>
 
 bool	create_philo_processes(t_philo *philos, int count)
 {

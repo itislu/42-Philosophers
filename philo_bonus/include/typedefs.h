@@ -6,14 +6,13 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/11 10:38:17 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:44:20 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPEDEFS_H
 # define TYPEDEFS_H
 
-# include <pthread.h>
 # include <semaphore.h>
 # include <stdbool.h>
 

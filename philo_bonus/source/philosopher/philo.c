@@ -6,13 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:38:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:39:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_priv.h"
-#include <stdlib.h>
-#include "init_pub.h"
 
 static void	*monitor_stop(void *arg);
 static void	clean_exit(t_philo *me, pthread_t monitor);

@@ -6,13 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:36:09 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/30 01:19:50 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:37:43 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "monitor_priv.h"
-#include <signal.h>
-#include <sys/wait.h>
 
 static int	get_philo_id_with_pid(t_philo *philos, pid_t pid);
 static void	wait_all_stopped(t_mon *monitor, int num_of_philos);

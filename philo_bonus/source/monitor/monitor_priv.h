@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:37:19 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:28:56 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:38:41 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define MONITOR_PRIV_H
 
 # include "macros.h"
-# include "monitor_pub.h"
 # include "print_pub.h"
 # include "typedefs.h"
 # include <pthread.h>
+# include <semaphore.h>
 # include <stdbool.h>
-# include <unistd.h>
+# include <sys/wait.h>
 
 void	broadcast_death(t_mon *monitor);
 
