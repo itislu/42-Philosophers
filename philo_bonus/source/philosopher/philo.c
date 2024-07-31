@@ -24,7 +24,7 @@ void	philosopher(t_philo *me)
 		print_verbose(me, "has started routine");
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
-			clean_exit(me, monitor);	// No verbose message atm
+			clean_exit(me, monitor);
 	while (true)
 	{
 		if (!philo_eat(me))
@@ -35,8 +35,6 @@ void	philosopher(t_philo *me)
 			break ;
 	}
 	release_forks(me);
-	if (VERBOSE)
-		print_verbose(me, "has exited routine");
 	clean_exit(me, monitor);
 }
 
@@ -66,6 +64,8 @@ static void	clean_exit(t_philo *me, pthread_t monitor)
 		sem_post(me->semaphores->exit_allowed.sem);
 	}
 	exit_status = me->is_dead;
+	if (VERBOSE)
+		print_verbose(me, "has exited routine");
 	destroy_semaphores(me->semaphores);
 	free(me->base_ptr);
 	exit(exit_status);

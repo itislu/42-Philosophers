@@ -12,6 +12,8 @@
 
 #include "philo_priv.h"
 
+static void	*verbose_exit(t_philo *me);
+
 void	*philosopher(void *arg)
 {
 	t_philo	*me;
@@ -23,7 +25,7 @@ void	*philosopher(void *arg)
 		print_verbose(me, "has started routine");
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
-			return (NULL);
+			return (verbose_exit(me));
 	while (true)
 	{
 		if (!philo_eat(me))
@@ -34,6 +36,11 @@ void	*philosopher(void *arg)
 			break ;
 	}
 	me->release_forks(me);
+	return (verbose_exit(me));
+}
+
+static void	*verbose_exit(t_philo *me)
+{
 	if (VERBOSE)
 		print_verbose(me, "has exited routine");
 	return (NULL);
