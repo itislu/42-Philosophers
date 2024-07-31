@@ -44,7 +44,7 @@ static void	*monitor_full(void *arg)
 	}
 	release_monitor(monitor, monitor->semaphores->dead.sem);
 	if (VERBOSE)
-		print_verbose_monitor(monitor, "detected all philosophers got full");
+		print_verbose_monitor(monitor, "detected all philos got full");
 	return (NULL);
 }
 
@@ -58,7 +58,7 @@ static void	*monitor_dead(void *arg)
 		return (NULL);
 	release_monitor(monitor, monitor->semaphores->full.sem);
 	if (VERBOSE)
-		print_verbose_monitor(monitor, "detected a philosopher died");
+		print_verbose_monitor(monitor, "detected a philo died");
 	broadcast_death(monitor);
 	return (NULL);
 }

@@ -47,7 +47,7 @@ static void	wait_all_stopped(t_mon *monitor, int num_of_philos)
 	int	i;
 
 	if (VERBOSE)
-		print_verbose_monitor(monitor, "waits for all philos to be stopped");
+		print_verbose_monitor(monitor, "waits for all philos stop");
 	i = 0;
 	while (i < num_of_philos)
 	{
