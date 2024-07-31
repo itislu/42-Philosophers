@@ -24,9 +24,9 @@
 int	main(int argc, char *argv[])
 {
 	struct timeval	start_time;
+	t_rules			rules;
 	t_mutexes		mutexes;
 	t_philo			*philos;
-	t_rules			rules;
 
 	if (!parse_rules(&rules, argc, argv))
 		return (INPUT_ERROR);

@@ -22,10 +22,10 @@
 int	main(int argc, char *argv[])
 {
 	struct timeval	start_time;
+	t_rules			rules;
 	t_semaphores	semaphores;
 	t_philo			*philos;
 	t_mon			monitor_data;
-	t_rules			rules;
 
 	if (!parse_rules(&rules, argc, argv))
 		return (INPUT_ERROR);

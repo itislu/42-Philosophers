@@ -40,8 +40,8 @@ void	print_death(t_philo *philos, int num_of_philos, int dead_philo)
 
 static void	wait_all_dead(t_philo *philos, int num_of_philos)
 {
-	int		i;
 	t_state	state;
+	int		i;
 
 	while (true)
 	{
