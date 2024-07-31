@@ -51,7 +51,7 @@ static void	wait_all_stopped(t_mon *monitor, int num_of_philos)
 	i = 0;
 	while (i < num_of_philos)
 	{
-		sem_wait(monitor->semaphores->ready_to_exit.sem);
+		sem_wait(monitor->semaphores->exit_ready.sem);
 		i++;
 	}
 }

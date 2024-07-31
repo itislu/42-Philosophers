@@ -51,12 +51,12 @@ typedef struct s_semaphore_named
  *
  * - `full`: To signal to the monitor that a philosopher got full.
  *
- * - `ready_to_exit`: To signal to the monitor that a philosopher is ready to
+ * - `exit_ready`: To signal to the monitor that a philosopher is ready to
  *     exit.
- *     It means it won't print any more messages.
+ *     It means the philosopher won't print any more messages.
  *
  * - `exit_allowed`: To signal that a philosopher is allowed to exit.
- *     Important to allow the philosopher who died to exit before the others.
+ *     Important to ensure the philosopher who died exits before the others.
  *
  * - `mon_mutex`: To protect against race conditions in the monitor threads.
  *
@@ -70,7 +70,7 @@ typedef struct s_semaphores
 	t_sem_named				stop;
 	t_sem_named				dead;
 	t_sem_named				full;
-	t_sem_named				ready_to_exit;
+	t_sem_named				exit_ready;
 	t_sem_named				exit_allowed;
 	t_sem_named				mon_mutex;
 	t_sem_named				philo_mutex;
