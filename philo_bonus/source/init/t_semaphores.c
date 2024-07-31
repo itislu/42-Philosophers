@@ -12,16 +12,8 @@
 
 #include "init_priv.h"
 
-bool	init_semaphore(t_sem_named *sem_named, char *name, int value)
-{
-	sem_unlink(name);
-	sem_named->sem = sem_open(name, O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, value);
-	if (sem_named->sem == SEM_FAILED)
-		return (false);
-	sem_unlink(name);
-	sem_named->name = name;
-	return (true);
-}
+static bool	init_semaphore(t_sem_named *sem_named, char *name, int value);
+static void	destroy_semaphore(t_sem_named *sem_named);
 
 bool	init_semaphores(t_semaphores *semaphores, int num_of_philos)
 {
@@ -42,12 +34,15 @@ bool	init_semaphores(t_semaphores *semaphores, int num_of_philos)
 	return (true);
 }
 
-void	destroy_semaphore(t_sem_named *sem_named)
+static bool	init_semaphore(t_sem_named *sem_named, char *name, int value)
 {
-	if (!sem_named->sem)
-		return ;
-	sem_close(sem_named->sem);
-	sem_unlink(sem_named->name);
+	sem_unlink(name);
+	sem_named->sem = sem_open(name, O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, value);
+	if (sem_named->sem == SEM_FAILED)
+		return (false);
+	sem_unlink(name);
+	sem_named->name = name;
+	return (true);
 }
 
 void	destroy_semaphores(t_semaphores *semaphores)
@@ -65,4 +60,12 @@ void	destroy_semaphores(t_semaphores *semaphores)
 		sem_named++;
 		i++;
 	}
+}
+
+static void	destroy_semaphore(t_sem_named *sem_named)
+{
+	if (!sem_named->sem)
+		return ;
+	sem_close(sem_named->sem);
+	sem_unlink(sem_named->name);
 }
