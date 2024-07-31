@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/07/31 01:12:10 by ldulling         ###   ########.fr        #
+#    Updated: 2024/07/31 09:55:28 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,23 +54,23 @@ COLUMN2			:=	'"                                   "'
 COLUMN3			:=	'"                                                                      "'
 
 export				MACROS
-ifneq (,$(filter verbose%,$(MAKECMDGOALS)))
+ifneq (,$(filter verbose%,$(MAKECMDGOALS) $(MODE)))
 MACROS			:=	-D VERBOSE=1
 endif
-ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS)))
+ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS) $(MODE)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
 					-D COLUMN2='"$(COLUMN1)"' \
 					-D COLUMN3='"$(COLUMN1)"'
-else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS)))
+else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS) $(MODE)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
 					-D COLUMN2='"$(COLUMN2)"' \
 					-D COLUMN3='"$(COLUMN2)"'
-else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS)))
+else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS) $(MODE)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
 					-D COLUMN2='"$(COLUMN2)"' \
 					-D COLUMN3='"$(COLUMN3)"'
 endif
-ifneq (,$(filter nocolor,$(MAKECMDGOALS)))
+ifneq (,$(filter nocolor,$(MAKECMDGOALS) $(MODE)))
 MACROS			+=	-D NO_COLOR=1
 endif
 
@@ -120,17 +120,40 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 
 export				CC CFLAGS MAKECMDGOALS MAKEFLAGS
 
-.PHONY			:	all verbose verbose1 verbose2 verbose3 column1 column2 column3 nocolor \
-					fast san run val clear clean fclean ffclean re
+PHONY_TARGETS	:=	all verbose verbose1 verbose2 verbose3 column1 column2 column3 nocolor \
+					opt san run val clear clean fclean ffclean re
+ENV_VARIABLES	:=	MODE ARGS
+HELP_TARGETS	:=	help help-print \
+					$(addprefix help-,$(PHONY_TARGETS) $(ENV_VARIABLES)) \
+					$(addsuffix -help,$(PHONY_TARGETS) $(ENV_VARIABLES))
+PHONY_TARGETS	+=	$(HELP_TARGETS)
+
+export .PHONY	:	$(PHONY_TARGETS)
+
+.DEFAULT		:
+					$(MAKE) help
+
+.DEFAULT_GOAL	:=	all
+
+MODE			?=	all
 
 
 #	Compilation
 
+help-all		:
+					echo "Build the project."
+					echo "This is the default target when no target is specified."
+
 all				:
 					if $(MAKE) --question $(NAME); then \
 						echo $(MSG_NO_CHNG); \
+						echo $(MSG_HELP); \
 					else \
-						echo -n $(MSG_INFO)$(MSG_START); \
+						echo -n $(MSG_MODE); \
+						echo -n $(MSG_COLUMN); \
+						echo " "$(MSG_INFO); \
+						echo " "$(MSG_HELP); \
+						echo -n $(MSG_START); \
 						if $(MAKE) $(NAME); then \
 							echo; \
 							echo $(MSG_SUCCESS); \
@@ -141,29 +164,126 @@ all				:
 						fi; \
 					fi
 
-verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor:
-					echo -n $(MSG_MODE)
-					echo -n $(MSG_COLUMN)
-					$(MAKE) re
-					$(MAKE) clean
 
-fast			:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
-fast			:	re
+help-verbose help-verbose1 help-verbose2 help-verbose3:
+					echo "Build the project in verbose mode."
+					echo "Verbose mode prints extra information to see what each process is doing."
+					echo "Optionally, printouts can be split into 1, 2, or 3 columns (default is 1)."
+					echo "  Column 1: The philosophers with uneven ID."
+					echo "  Column 2: The philosophers with even ID."
+					echo "  Column 3 (only for uneven amount of philosophers): The philosophers which have to wait double the time to eat."
+
+help-column1 help-column2 help-column3:
+					echo "Build the project with printouts split into 1, 2, or 3 columns."
+					echo "  Column 1: The philosophers with uneven ID."
+					echo "  Column 2: The philosophers with even ID."
+					echo "  Column 3 (only for uneven amount of philosophers): The philosophers which have to wait double the time to eat."
+
+help-nocolor	:
+					echo "Build the project without colors in printouts."
+					echo "Useful for redirecting the output into a file and pasting it into the philosophers-visualizer."
+
+verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor: re
 					$(MAKE) clean
+					if [ -n "$(ARGS)" ]; then \
+						"./$(NAME)" $(ARGS); \
+					fi
+
+
+help-opt		:
+					echo "Build the project with the following compiler optimization flags:"
+					echo "  $(CFLAGS_OPT)"
+
+opt				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
+opt				:	re
+					$(MAKE) clean
+					if [ -n "$(ARGS)" ]; then \
+						"./$(NAME)" $(ARGS); \
+					fi
+
+
+help-san		:
+					echo "Rebuild the project with the following sanitizers enabled:"
+					echo "  $(CFLAGS_SAN)"
 
 san				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_DBG) $(CFLAGS_SAN)
 san				:	re
 					$(MAKE) clean
+					if [ -n "$(ARGS)" ]; then \
+						"./$(NAME)" $(ARGS); \
+					fi
 
-run				:	all
+
+help-run		:
+					echo "Build the project and run the executable."
+					echo "Arguments to the program can be passed via the ARGS variable."
+					echo "Usage: make run ARGS=\"<arg1> <arg2> <...>\""
+
+run				:	$(MODE)
 					"./$(NAME)" $(ARGS)
 
-val				:	all
+
+help-val		:
+					echo "Build the project and run the executable with valgrind."
+					echo "The following valgrind flags are used:"
+					echo "$(VALGRINDFLAGS)" | tr ' ' '\n' | sed 's/^/  /'
+					echo "Arguments to the program can be passed via the ARGS variable."
+					echo "Usage: make val ARGS=\"<arg1> <arg2> <...>\""
+
+val				:	$(MODE)
 					$(VALGRIND) $(VALGRINDFLAGS) "./$(NAME)" $(ARGS)
+
+
+help-clear		:
+					echo "Clear the terminal and build the project."
 
 clear			:
 					clear
-					$(MAKE) all
+					$(MAKE) $(MODE)
+					if [ -n "$(ARGS)" ]; then \
+						"./$(NAME)" $(ARGS); \
+					fi
+
+
+help			:
+					echo "Usage: make [target [MODE=<mode>] [ARGS=\"<arg1> <arg2> <...>\"]]"
+					echo
+					echo "Targets:"
+					echo "  all              Build the project (default target)"
+					echo "  verbose[1|2|3]   Build the project in verbose mode with printouts in 1, 2, or 3 columns (default: 1)"
+					echo "  column<1|2|3>    Build the project with printouts in 1, 2, or 3 columns"
+					echo "  nocolor          Build the project without colors in printouts"
+					echo "  opt              Build the project with optimizations"
+					echo "  san              Build the project with sanitizers"
+					echo "  run              Build and run the project"
+					echo "  val              Build and run the project with valgrind"
+					echo "  clear            Clear the terminal and build the project"
+					echo "  clean            Remove build artifacts"
+					echo "  fclean           Remove build artifacts and executable"
+					echo "  ffclean          Remove build artifacts and executable without checking for unknown files"
+					echo "  re               Rebuild the project"
+					echo "  print-%          Print the value of a Makefile variable (replace % with variable name)"
+					echo "  help             Display this message"
+					echo "  help-% | %-help  Display more information for a specific target (replace % with target name)"
+					echo
+					echo "Environment Variables:"
+					echo "  MODE             Build mode to combine with other targets"
+					echo "  ARGS             If specified, the program will run with those arguments after compilation."
+
+help-help		:
+					echo "Display more information for a specific target by appending or prepending help."
+					echo "Usage: make help-<target> | make <target>-help"
+
+help-MODE MODE-help:
+					echo "Build mode to combine with other targets."
+					echo "Usage: make <target> MODE=<mode>"
+
+help-ARGS ARGS-help:
+					echo "If specified, the program will run with those arguments after compilation."
+					echo "Usage: make <target> ARGS=\"<arg1> <arg2> <...>\""
+
+%-help:
+					$(MAKE) help-$(subst -help,,$@)
 
 
 #	Executable linking
@@ -194,6 +314,9 @@ $(DEP_SUBDIRS)	:
 
 #	Cleaning
 
+help-clean		:
+					echo "Remove build artifacts."
+
 clean			:
 					rm -f $(OBJ) $(DEP)
 ifneq (,$(wildcard $(OBJ_DIR)))
@@ -203,11 +326,23 @@ ifneq (,$(wildcard $(DEP_DIR)))
 					-find $(DEP_DIR) -type d -empty -delete
 endif
 
+
+help-fclean		:
+					echo "Remove build artifacts and the executable."
+
 fclean			:	clean
 					rm -f $(NAME)
 
+
+help-ffclean	:
+					echo "Remove build artifacts and the executable without checking for unknown files."
+
 ffclean			:	fclean
 					rm -rf $(OBJ_DIR) $(DEP_DIR)
+
+
+help-re			:
+					echo "Rebuild the project."
 
 re				:	fclean
 					$(MAKE) all
@@ -215,7 +350,7 @@ re				:	fclean
 
 #	Include dependency files
 
-ifeq (,$(filter clean fclean re,$(MAKECMDGOALS)))
+ifeq (,$(filter $(HELP_TARGETS) clean fclean ffclean re,$(MAKECMDGOALS)))
     ifneq (,$(wildcard $(OBJ_DIR)))
         -include	$(DEP)
     endif
@@ -252,8 +387,10 @@ STY_WHI_BRI_BG	:=	"\e[107m"
 # **************************** CUSTOM MESSAGES ******************************* #
 
 ################################################################################
-MSG_INFO		:=	$(STY_ITA)$(STY_WHI)" Make version: $(MAKE_VERSION)\n\
-					Compiler version: $(CC_VERSION)\n"$(STY_RES)
+MSG_INFO		:=	$(STY_ITA)$(STY_WHI)"Make version: $(MAKE_VERSION)\n\
+					Compiler version: $(CC_VERSION)"$(STY_RES)
+################################################################################
+MSG_HELP		:=	$(STY_ITA)$(STY_WHI)"Run 'make help' to see all available Makefile targets."$(STY_RES)
 ################################################################################
 MSG_START		:=	$(STY_ITA)"Building $(NAME) ... "$(STY_RES)
 ################################################################################
@@ -266,31 +403,34 @@ MSG_NO_CHNG		:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)
 MSG_FAILURE		:=	$(STY_BOL)$(STY_ITA)$(STY_RED)"BUILD FAILED!"$(STY_RES)
 ################################################################################
 MSG_VERBOSE		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_YEL)"-------------- VERBOSE MODE --------------\n"$(STY_RES)
-ifneq (,$(filter verbose%,$(MAKECMDGOALS)))
+ifneq (,$(filter verbose%,$(MAKECMDGOALS) $(MODE)))
 MSG_MODE		:=	$(MSG_VERBOSE)
 endif
 ################################################################################
 MSG_COLUMN1		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"--------- PRINTOUTS IN 1 COLUMN ----------\n"$(STY_RES)
 MSG_COLUMN2		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"--------- PRINTOUTS IN 2 COLUMNS ---------\n"$(STY_RES)
 MSG_COLUMN3		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"--------- PRINTOUTS IN 3 COLUMNS ---------\n"$(STY_RES)
-ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS)))
+ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS) $(MODE)))
 MSG_COLUMN		:=	$(MSG_COLUMN1)
-else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS)))
+else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS) $(MODE)))
 MSG_COLUMN		:=	$(MSG_COLUMN2)
-else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS)))
+else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS) $(MODE)))
 MSG_COLUMN		:=	$(MSG_COLUMN3)
 endif
 ################################################################################
 MSG_NO_COLOR	:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_WHI_BRI)"------------- NO COLOR MODE --------------\n"$(STY_RES)
-ifneq (,$(filter nocolor,$(MAKECMDGOALS)))
-MSG_MODE		:=	$(MSG_NO_COLOR)
+ifneq (,$(filter nocolor,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_NO_COLOR)
 endif
 ################################################################################
 
 
 # *************************** MAKEFILE DEBUGGING ***************************** #
 
-#	Execute "make print-[variable name]" to list the variable's values
+help-print		:
+					echo "Print the value of a Makefile variable by appending the variable name to print-."
+					echo "Useful for Makefile debugging."
+					echo "Usage: make print-<variable name>"
 
 print-%			:
 					echo $* = $($*)
