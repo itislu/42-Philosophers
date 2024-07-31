@@ -45,8 +45,6 @@ typedef struct s_semaphore_named
  *
  * - `forks`: Available forks.
  *
- * - `start`: To start the philosophers in sync.
- *
  * - `stop`: To stop the philosophers without exiting their processes.
  *
  * - `dead`: To signal to the monitor that a philosopher died.
@@ -69,7 +67,6 @@ typedef struct s_semaphore_named
 typedef struct s_semaphores
 {
 	t_sem_named				forks;
-	t_sem_named				start;
 	t_sem_named				stop;
 	t_sem_named				dead;
 	t_sem_named				full;
@@ -91,8 +88,8 @@ struct s_philo
 	t_semaphores			*semaphores;
 	int						forks_taken;
 	bool					is_stopped;
-	bool					is_full;
 	bool					is_dead;
+	bool					is_full;
 	bool					is_outsider;
 	unsigned long long		initial_think_time_us;
 	unsigned long long		think_time_us;

@@ -20,8 +20,6 @@ void	philosopher(t_philo *me)
 	pthread_t	monitor;
 
 	pthread_create(&monitor, NULL, &monitor_stop, me);
-	sem_wait(me->semaphores->start.sem);
-	sem_post(me->semaphores->start.sem);
 	if (VERBOSE)
 		print_verbose(me, "has started routine");
 	if (me->initial_think_time_us)

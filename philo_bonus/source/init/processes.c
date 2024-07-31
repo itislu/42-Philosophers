@@ -39,7 +39,6 @@ void	stop_philo_processes(t_philo *philos, int count)
 
 	sem_post(philos->semaphores->stop.sem);
 	sem_post(philos->semaphores->exit_allowed.sem);
-	sem_post(philos->semaphores->start.sem);
 	i = 0;
 	while (i < count)
 	{

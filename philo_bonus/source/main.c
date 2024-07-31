@@ -39,7 +39,6 @@ int	main(int argc, char *argv[])
 	gettimeofday(&start_time, NULL);
 	if (!create_philo_processes(philos, rules.num_of_philos))
 		return (cleanup(philos, &semaphores, ERR_PROCESS), PROCESS_FAILURE);
-	sem_post(semaphores.start.sem);
 	monitor(&monitor_data);
 	cleanup(philos, &semaphores, NULL);
 	return (SUCCESS);
