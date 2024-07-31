@@ -18,19 +18,19 @@
 
 enum e_exit_codes
 {
-	SUCCESS			=		0,
-	INPUT_ERROR		=		1,
-	SEMAPHORE_FAILURE	=		2,
-	MALLOC_FAILURE	=		3,
-	PROCESS_FAILURE	=		4
+	SUCCESS				=	0,
+	INPUT_ERROR			=	1,
+	SEMAPHORE_FAILURE	=	2,
+	MALLOC_FAILURE		=	3,
+	PROCESS_FAILURE		=	4
 };
 
 typedef enum e_state
 {
-	ALIVE			=		0b000,
-	FULL			=		0b001,
-	DEAD			=		0b010,
-	STOPPED			=		0b100
+	ALIVE				=	0b000,
+	FULL				=	0b001,
+	DEAD				=	0b010,
+	STOPPED				=	0b100
 }	t_state;
 
 typedef struct s_rules
