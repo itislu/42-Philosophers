@@ -51,7 +51,7 @@ static void	*monitor_stop(void *arg)
 	semaphores = me->semaphores;
 	sem_wait(semaphores->stop.sem);
 	sem_post(semaphores->stop.sem);
-	me->state |= STOPPED;
+	set_is_stopped(me);
 	return (NULL);
 }
 
@@ -62,12 +62,12 @@ static void	clean_exit(t_philo *me, pthread_t monitor)
 	sem_post(me->semaphores->stop.sem);
 	pthread_join(monitor, NULL);
 	sem_post(me->semaphores->ready_to_exit.sem);
-	if (!(me->state & DEAD))
+	if (!me->is_dead)
 	{
 		sem_wait(me->semaphores->exit_allowed.sem);
 		sem_post(me->semaphores->exit_allowed.sem);
 	}
-	exit_status = me->state;
+	exit_status = me->is_dead;
 	destroy_semaphores(me->semaphores);
 	free(me->base_ptr);
 	exit(exit_status);

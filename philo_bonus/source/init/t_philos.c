@@ -31,7 +31,6 @@ bool	init_philos(
 		(*philos)[i].id = i + 1;
 		(*philos)[i].start_time = start_time;
 		(*philos)[i].rules = rules;
-		(*philos)[i].state = ALIVE;
 		(*philos)[i].semaphores = semaphores;
 		(*philos)[i].is_outsider = calc_is_outsider(rules, (*philos)[i].id);
 		(*philos)[i].initial_think_time_us = calc_initial_think_time_us(

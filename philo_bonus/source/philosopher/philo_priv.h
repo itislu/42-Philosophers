@@ -33,5 +33,7 @@ bool	take_forks(t_philo *me);
 void	release_forks(t_philo *me);
 bool	usleep_while_alive(unsigned long long us, t_philo *me);
 bool	usleep_while_alive_precise(unsigned long long us, t_philo *me);
+void	set_is_stopped(t_philo *me);
+bool	get_is_stopped(t_philo *me);
 
 #endif

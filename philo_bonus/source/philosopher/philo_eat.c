@@ -27,7 +27,7 @@ bool	philo_eat(t_philo *me)
 		&& (int)me->meals_eaten == me->rules->num_each_philo_must_eat)
 	{
 		sem_post(me->semaphores->full.sem);
-		me->state |= FULL;
+		me->is_full = true;
 		if (VERBOSE)
 			print_verbose(me, "got full");
 		// I did this in mand so the simulation is technically running still and everyone can die.

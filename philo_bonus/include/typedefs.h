@@ -25,14 +25,6 @@ enum e_exit_codes
 	PROCESS_FAILURE		=	4
 };
 
-typedef enum e_state
-{
-	ALIVE				=	0b000,
-	FULL				=	0b001,
-	DEAD				=	0b010,
-	STOPPED				=	0b100
-}	t_state;
-
 typedef struct s_rules
 {
 	int						num_of_philos;
@@ -70,6 +62,8 @@ typedef struct s_semaphore_named
  *
  * - `mon_mutex`: To protect against race conditions in the monitor threads.
  *
+ * - `philo_mutex`: To protect against race conditions in the philo threads.
+ *
  * - `print_mutex`: To protect against out of order timestamps in the outputs.
  */
 typedef struct s_semaphores
@@ -82,6 +76,7 @@ typedef struct s_semaphores
 	t_sem_named				ready_to_exit;
 	t_sem_named				exit_allowed;
 	t_sem_named				mon_mutex;
+	t_sem_named				philo_mutex;
 	t_sem_named				print_mutex;
 }	t_semaphores;
 
@@ -93,9 +88,11 @@ struct s_philo
 	int						id;
 	const struct timeval	*start_time;
 	const t_rules			*rules;
-	t_state					state;
 	t_semaphores			*semaphores;
 	int						forks_taken;
+	bool					is_stopped;
+	bool					is_full;
+	bool					is_dead;
 	bool					is_outsider;
 	unsigned long long		initial_think_time_us;
 	unsigned long long		think_time_us;
