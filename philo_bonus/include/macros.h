@@ -40,13 +40,23 @@
 # endif
 
 /* Text-Style Escape Codes */
-# define STY_RES		"\e[0m"
-# define STY_BOL		"\e[1m"
-# define STY_RED		"\e[31m"
-# define STY_GRE		"\e[32m"
-# define STY_YEL		"\e[33m"
-# define STY_BLU		"\e[34m"
-# define STY_MAG		"\e[35m"
+# if NO_COLOR
+#  define STY_RES		""
+#  define STY_BOL		""
+#  define STY_RED		""
+#  define STY_GRE		""
+#  define STY_YEL		""
+#  define STY_BLU		""
+#  define STY_MAG		""
+# else
+#  define STY_RES		"\e[0m"
+#  define STY_BOL		"\e[1m"
+#  define STY_RED		"\e[31m"
+#  define STY_GRE		"\e[32m"
+#  define STY_YEL		"\e[33m"
+#  define STY_BLU		"\e[34m"
+#  define STY_MAG		"\e[35m"
+# endif
 
 /* Messages */
 # if NO_COLOR
