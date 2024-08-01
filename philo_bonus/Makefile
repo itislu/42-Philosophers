@@ -195,7 +195,7 @@ help-nocolor	:
 
 verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor: re
 					$(MAKE) clean
-					if [ -n "$(ARGS)" ]; then \
+					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
 					fi
 
@@ -207,7 +207,7 @@ help-opt		:
 opt				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
 opt				:	re
 					$(MAKE) clean
-					if [ -n "$(ARGS)" ]; then \
+					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
 					fi
 
@@ -219,7 +219,7 @@ help-san		:
 san				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_DBG) $(CFLAGS_SAN)
 san				:	re
 					$(MAKE) clean
-					if [ -n "$(ARGS)" ]; then \
+					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
 					fi
 
@@ -286,7 +286,7 @@ help-clear		:
 clear			:
 					clear
 					$(MAKE) $(MODE)
-					if [ -n "$(ARGS)" ]; then \
+					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
 					fi
 

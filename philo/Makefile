@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/01 23:49:22 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/01 23:51:01 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -192,7 +192,7 @@ help-nocolor	:
 
 verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor: re
 					$(MAKE) clean
-					if [ -n "$(ARGS)" ]; then \
+					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
 					fi
 
@@ -204,7 +204,7 @@ help-opt		:
 opt				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
 opt				:	re
 					$(MAKE) clean
-					if [ -n "$(ARGS)" ]; then \
+					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
 					fi
 
@@ -216,7 +216,7 @@ help-san		:
 san				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_DBG) $(CFLAGS_SAN)
 san				:	re
 					$(MAKE) clean
-					if [ -n "$(ARGS)" ]; then \
+					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
 					fi
 
@@ -269,7 +269,7 @@ help-clear		:
 clear			:
 					clear
 					$(MAKE) $(MODE)
-					if [ -n "$(ARGS)" ]; then \
+					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
 					fi
 
