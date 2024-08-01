@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/01 23:51:01 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/02 00:47:05 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -452,6 +452,31 @@ endif
 MSG_NO_COLOR	:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_WHI_BRI)"------------- NO COLOR MODE --------------\n"$(STY_RES)
 ifneq (,$(filter nocolor,$(MAKECMDGOALS) $(MODE)))
 MSG_MODE		:=	$(MSG_MODE)$(MSG_NO_COLOR)
+endif
+################################################################################
+MSG_SAN			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_RED)"------------- SANITIZER MODE -------------\n"$(STY_RES)
+ifneq (,$(filter san,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_SAN)
+endif
+################################################################################
+MSG_OPT			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"----------- OPTIMIZATION MODE ------------\n"$(STY_RES)
+ifneq (,$(filter opt,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_OPT)
+endif
+################################################################################
+MSG_VAL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_CYA)"------------ VALGRIND MODE ---------------\n"$(STY_RES)
+ifneq (,$(filter val,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_VAL)
+endif
+################################################################################
+MSG_HEL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"------------ HELGRIND MODE ---------------\n"$(STY_RES)
+ifneq (,$(filter hel,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_HEL)
+endif
+################################################################################
+MSG_DRD			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"---------------- DRD MODE ----------------\n"$(STY_RES)
+ifneq (,$(filter drd,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_DRD)
 endif
 ################################################################################
 
