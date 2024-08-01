@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/02 00:53:08 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/02 01:43:15 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -367,12 +367,12 @@ help-clean		:
 
 clean			:
 					rm -f $(OBJ) $(DEP)
-ifneq (,$(wildcard $(OBJ_DIR)))
-					-find $(OBJ_DIR) -type d -empty -delete
-endif
-ifneq (,$(wildcard $(DEP_DIR)))
-					-find $(DEP_DIR) -type d -empty -delete
-endif
+                    ifneq (,$(wildcard $(OBJ_DIR)))
+						-find $(OBJ_DIR) -type d -empty -delete
+                    endif
+                    ifneq (,$(wildcard $(DEP_DIR)))
+						-find $(DEP_DIR) -type d -empty -delete
+                    endif
 
 
 help-fclean		:
