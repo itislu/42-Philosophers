@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/07/31 09:55:28 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/01 23:44:18 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,16 @@ VALGRINDFLAGS	=	--errors-for-leak-kinds=all \
 					--track-origins=yes \
 					--trace-children=yes
 
+HELGRINDFLAGS	=	--tool=helgrind \
+					--read-var-info=yes \
+					--show-error-list=yes \
+					--trace-children=yes
+
+DRDFLAGS		=	--tool=drd \
+					--read-var-info=yes \
+					--show-error-list=yes \
+					--trace-children=yes
+
 
 #	Terminal
 
@@ -121,7 +131,7 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 export				CC CFLAGS MAKECMDGOALS MAKEFLAGS
 
 PHONY_TARGETS	:=	all verbose verbose1 verbose2 verbose3 column1 column2 column3 nocolor \
-					opt san run val clear clean fclean ffclean re
+					opt san run val hel drd clear clean fclean ffclean re
 ENV_VARIABLES	:=	MODE ARGS
 HELP_TARGETS	:=	help help-print \
 					$(addprefix help-,$(PHONY_TARGETS) $(ENV_VARIABLES)) \
@@ -234,6 +244,42 @@ val				:	$(MODE)
 					$(VALGRIND) $(VALGRINDFLAGS) "./$(NAME)" $(ARGS)
 
 
+help-hel		:
+					echo "Build the project and run the executable with helgrind."
+					echo "The following helgrind flags are used:"
+					echo "$(HELGRINDFLAGS)" | tr ' ' '\n' | sed 's/^/  /'
+					echo "Arguments to the program can be passed via the ARGS variable."
+					echo "Usage: make hel ARGS=\"<arg1> <arg2> <...>\""
+					echo
+					echo "Disclaimer:"
+					echo "Helgrind will report \"sem_wait succeeded on semaphore without prior sem_post\" errors."
+					echo "This seems to be an issue with helgrind."
+					echo "When a semaphore gets increased by one process, and another process waits for that semaphore, helgrind does not see that and reports this error."
+					echo "You can see this happening by running DRD and adding '--trace-semaphore=yes' to the DRD flags."
+					echo "You will notice that even though one process increased the semaphore, for the other process it still shows as 0."
+
+hel				:	$(MODE)
+					$(VALGRIND) $(HELGRINDFLAGS) "./$(NAME)" $(ARGS)
+
+
+help-drd		:
+					echo "Build the project and run the executable with DRD."
+					echo "The following DRD flags are used:"
+					echo "$(DRDFLAGS)" | tr ' ' '\n' | sed 's/^/  /'
+					echo "Arguments to the program can be passed via the ARGS variable."
+					echo "Usage: make drd ARGS=\"<arg1> <arg2> <...>\""
+					echo
+					echo "Disclaimer:"
+					echo "DRD will report \"Invalid semaphore\" errors."
+					echo "This seems to be an issue with DRD."
+					echo "When a semaphore gets increased by one process, and another process waits for that semaphore, DRD does not see that and reports this error."
+					echo "You can see this by adding '--trace-semaphore=yes' to the DRD flags."
+					echo "You will notice that even though one process increased the semaphore, for the other process it still shows as 0."
+
+drd				:	$(MODE)
+					$(VALGRIND) $(DRDFLAGS) "./$(NAME)" $(ARGS)
+
+
 help-clear		:
 					echo "Clear the terminal and build the project."
 
@@ -257,6 +303,8 @@ help			:
 					echo "  san              Build the project with sanitizers"
 					echo "  run              Build and run the project"
 					echo "  val              Build and run the project with valgrind"
+					echo "  hel              Build and run the project with helgrind"
+					echo "  drd              Build and run the project with DRD"
 					echo "  clear            Clear the terminal and build the project"
 					echo "  clean            Remove build artifacts"
 					echo "  fclean           Remove build artifacts and executable"
