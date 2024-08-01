@@ -77,5 +77,6 @@
 # define ERR_SEMAPHORE	"Error: Semaphore initialization failed\n"
 # define ERR_MALLOC		"Error: Memory allocation failed\n"
 # define ERR_PROCESS	"Error: Process creation failed\n"
+# define ERR_THREAD		"Error: Thread creation failed\n"
 
 #endif

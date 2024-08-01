@@ -38,7 +38,8 @@ int	main(int argc, char *argv[])
 	gettimeofday(&start_time, NULL);
 	if (!create_philo_processes(philos, rules.num_of_philos))
 		return (cleanup(philos, &semaphores, ERR_PROCESS), PROCESS_FAILURE);
-	monitor(&monitor_data);
+	if (!monitor(&monitor_data))
+		return (cleanup(philos, &semaphores, ERR_THREAD), THREAD_FAILURE);
 	cleanup(philos, &semaphores, NULL);
 	return (SUCCESS);
 }

@@ -21,6 +21,6 @@
 # include <stdbool.h>
 # include <sys/wait.h>
 
-void	broadcast_death(t_mon *monitor);
+bool	broadcast_death(t_mon *monitor);
 
 #endif

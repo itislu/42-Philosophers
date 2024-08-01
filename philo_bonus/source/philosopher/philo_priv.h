@@ -19,6 +19,7 @@
 # include "philo_pub.h"
 # include "time_pub.h"
 # include "typedefs.h"
+# include "utils_pub.h"
 # include <pthread.h>
 # include <semaphore.h>
 # include <stdbool.h>

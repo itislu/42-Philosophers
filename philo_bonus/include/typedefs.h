@@ -16,14 +16,15 @@
 # include <semaphore.h>
 # include <stdbool.h>
 
-enum e_exit_codes
+typedef enum e_exit_codes
 {
 	SUCCESS				=	0,
 	INPUT_ERROR			=	1,
 	SEMAPHORE_FAILURE	=	2,
 	MALLOC_FAILURE		=	3,
-	PROCESS_FAILURE		=	4
-};
+	PROCESS_FAILURE		=	4,
+	THREAD_FAILURE		=	5
+}	t_exit;
 
 typedef struct s_rules
 {

@@ -16,7 +16,7 @@ static int	get_philo_id_with_pid(t_philo *philos, pid_t pid);
 static void	wait_all_stopped(t_mon *monitor, int num_of_philos);
 static void	print_death(t_philo *philos, int dead_philo);
 
-void	broadcast_death(t_mon *monitor)
+bool	broadcast_death(t_mon *monitor)
 {
 	int		status;
 	pid_t	pid;
@@ -26,6 +26,7 @@ void	broadcast_death(t_mon *monitor)
 	pid = waitpid(0, &status, 0);
 	print_death(monitor->philos, get_philo_id_with_pid(monitor->philos, pid));
 	sem_post(monitor->semaphores->exit_allowed.sem);
+	return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
 }
 
 static int	get_philo_id_with_pid(t_philo *philos, pid_t pid)

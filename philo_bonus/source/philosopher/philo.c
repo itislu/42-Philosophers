@@ -13,18 +13,19 @@
 #include "philo_priv.h"
 
 static void	*monitor_stop(void *arg);
-static void	clean_exit(t_philo *me, pthread_t monitor);
+static void	clean_exit(t_philo *me, pthread_t *monitor_thread, t_exit status);
 
 void	philosopher(t_philo *me)
 {
-	pthread_t	monitor;
+	pthread_t	monitor_thread;
 
-	pthread_create(&monitor, NULL, &monitor_stop, me);
+	if (pthread_create(&monitor_thread, NULL, &monitor_stop, me) != 0)
+		clean_exit(me, NULL, THREAD_FAILURE);
 	if (VERBOSE)
 		print_verbose(me, "has started routine");
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
-			clean_exit(me, monitor);
+			clean_exit(me, &monitor_thread, SUCCESS);
 	while (true)
 	{
 		if (!philo_eat(me))
@@ -35,7 +36,7 @@ void	philosopher(t_philo *me)
 			break ;
 	}
 	release_forks(me);
-	clean_exit(me, monitor);
+	clean_exit(me, &monitor_thread, SUCCESS);
 }
 
 static void	*monitor_stop(void *arg)
@@ -51,22 +52,25 @@ static void	*monitor_stop(void *arg)
 	return (NULL);
 }
 
-static void	clean_exit(t_philo *me, pthread_t monitor)
+static void	clean_exit(t_philo *me, pthread_t *monitor_thread, t_exit status)
 {
-	int	exit_status;
-
 	sem_post(me->semaphores->stop.sem);
-	pthread_join(monitor, NULL);
+	if (status == THREAD_FAILURE)
+	{
+		ft_putstr_fd(ERR_THREAD, STDERR_FILENO);
+		sem_post(me->semaphores->dead.sem);
+	}
+	if (monitor_thread)
+		pthread_join(*monitor_thread, NULL);
 	sem_post(me->semaphores->exit_ready.sem);
 	if (!me->is_dead)
 	{
 		sem_wait(me->semaphores->exit_allowed.sem);
 		sem_post(me->semaphores->exit_allowed.sem);
 	}
-	exit_status = me->is_dead;
 	if (VERBOSE)
 		print_verbose(me, "has exited routine");
 	destroy_semaphores(me->semaphores);
 	free(me->base_ptr);
-	exit(exit_status);
+	exit(status);
 }

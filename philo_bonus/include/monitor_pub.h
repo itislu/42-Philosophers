@@ -15,6 +15,6 @@
 
 # include "typedefs.h"
 
-void	monitor(t_mon *monitor);
+bool	monitor(t_mon *monitor);
 
 #endif

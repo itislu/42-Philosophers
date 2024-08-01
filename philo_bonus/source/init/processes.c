@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:51:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/30 01:23:43 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:11:08 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ bool	create_philo_processes(t_philo *philos, int count)
 void	stop_philo_processes(t_philo *philos, int count)
 {
 	int	i;
-	int	status;
 
 	sem_post(philos->semaphores->stop.sem);
 	sem_post(philos->semaphores->exit_allowed.sem);
 	i = 0;
 	while (i < count)
 	{
-		waitpid(philos[i].pid, &status, 0);
+		waitpid(philos[i].pid, NULL, 0);
 		i++;
 	}
 }
