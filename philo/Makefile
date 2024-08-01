@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/02 00:47:05 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/02 01:32:18 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -153,20 +153,20 @@ help-all		:
 
 all				:
 					if $(MAKE) --question $(NAME); then \
-						echo $(MSG_NO_CHNG); \
-						echo $(MSG_HELP); \
+						echo -n $(MSG_NO_CHNG); \
+						echo -n $(MSG_HELP); \
 					else \
 						echo -n $(MSG_MODE); \
 						echo -n $(MSG_COLUMN); \
-						echo " "$(MSG_INFO); \
-						echo " "$(MSG_HELP); \
+						echo -n " "$(MSG_INFO); \
+						echo -n " "$(MSG_HELP); \
 						echo -n $(MSG_START); \
 						if $(MAKE) $(NAME); then \
 							echo; \
-							echo $(MSG_SUCCESS); \
+							echo -n $(MSG_SUCCESS); \
 						else \
 							echo; \
-							echo $(MSG_FAILURE); \
+							echo -n $(MSG_FAILURE); \
 							exit 42; \
 						fi; \
 					fi
@@ -361,22 +361,25 @@ endif
 help-fclean		:
 					echo "Remove build artifacts and the executable."
 
-fclean			:	clean
+fclean			:
+					$(MAKE) clean
 					rm -f $(NAME)
 
 
 help-ffclean	:
 					echo "Remove build artifacts and the executable without checking for unknown files."
 
-ffclean			:	fclean
+ffclean			:
+					$(MAKE) fclean
 					rm -rf $(OBJ_DIR) $(DEP_DIR)
 
 
 help-re			:
 					echo "Rebuild the project."
 
-re				:	fclean
-					$(MAKE) all
+re				:
+					$(MAKE) fclean
+					MAKELEVEL=$(shell echo $$(($(MAKELEVEL)-1))) $(MAKE) all
 
 
 #	Include dependency files
@@ -418,29 +421,62 @@ STY_WHI_BRI_BG	:=	"\e[107m"
 # **************************** CUSTOM MESSAGES ******************************* #
 
 ################################################################################
-MSG_INFO		:=	$(STY_ITA)$(STY_WHI)"Make version: $(MAKE_VERSION)\n\
-					Compiler version: $(CC_VERSION)"$(STY_RES)
+MSG_PROGRESS	:=	"💭"
 ################################################################################
-MSG_HELP		:=	$(STY_ITA)$(STY_WHI)"Run 'make help' to see all available Makefile targets."$(STY_RES)
+
+ifeq ($(MAKELEVEL),0)
+################################################################################
+MSG_INFO		:=	$(STY_ITA)$(STY_WHI)"Make version: $(MAKE_VERSION)\n\
+					Compiler version: $(CC_VERSION)"$(STY_RES)"\n"
+################################################################################
+MSG_HELP		:=	$(STY_ITA)$(STY_WHI)"Run 'make help' to see all available Makefile targets."$(STY_RES)"\n"
 ################################################################################
 MSG_START		:=	$(STY_ITA)"Building $(NAME) ... "$(STY_RES)
 ################################################################################
-MSG_PROGRESS	:=	"💭"
+MSG_SUCCESS		:=	$(STY_BOL)$(STY_ITA)$(STY_WHI_BRI)"DONE!"$(STY_RES)"\n"
 ################################################################################
-MSG_SUCCESS		:=	$(STY_BOL)$(STY_ITA)$(STY_WHI_BRI)"DONE!"$(STY_RES)
+MSG_NO_CHNG		:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)"\n"
 ################################################################################
-MSG_NO_CHNG		:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)
+MSG_FAILURE		:=	$(STY_BOL)$(STY_ITA)$(STY_RED)"BUILD FAILED!"$(STY_RES)"\n"
 ################################################################################
-MSG_FAILURE		:=	$(STY_BOL)$(STY_ITA)$(STY_RED)"BUILD FAILED!"$(STY_RES)
-################################################################################
-MSG_VERBOSE		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_YEL)"-------------- VERBOSE MODE --------------\n"$(STY_RES)
+MSG_VERBOSE		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_YEL)"-------------- VERBOSE MODE --------------"$(STY_RES)"\n"
 ifneq (,$(filter verbose%,$(MAKECMDGOALS) $(MODE)))
 MSG_MODE		:=	$(MSG_VERBOSE)
 endif
 ################################################################################
-MSG_COLUMN1		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"--------- PRINTOUTS IN 1 COLUMN ----------\n"$(STY_RES)
-MSG_COLUMN2		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"--------- PRINTOUTS IN 2 COLUMNS ---------\n"$(STY_RES)
-MSG_COLUMN3		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"--------- PRINTOUTS IN 3 COLUMNS ---------\n"$(STY_RES)
+MSG_NO_COLOR	:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_WHI_BRI)"------------- NO COLOR MODE --------------"$(STY_RES)"\n"
+ifneq (,$(filter nocolor,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_NO_COLOR)
+endif
+################################################################################
+MSG_OPT			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"----------- OPTIMIZATION MODE ------------"$(STY_RES)"\n"
+ifneq (,$(filter opt,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_OPT)
+endif
+################################################################################
+MSG_SAN			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_RED)"------------- SANITIZER MODE -------------"$(STY_RES)"\n"
+ifneq (,$(filter san,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_SAN)
+endif
+################################################################################
+MSG_VAL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_CYA)"------------ VALGRIND MODE ---------------"$(STY_RES)"\n"
+ifneq (,$(filter val,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_VAL)
+endif
+################################################################################
+MSG_HEL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"------------ HELGRIND MODE ---------------"$(STY_RES)"\n"
+ifneq (,$(filter hel,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_HEL)
+endif
+################################################################################
+MSG_DRD			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"---------------- DRD MODE ----------------"$(STY_RES)"\n"
+ifneq (,$(filter drd,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_DRD)
+endif
+################################################################################
+MSG_COLUMN1		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"--------- PRINTOUTS IN 1 COLUMN ----------"$(STY_RES)"\n"
+MSG_COLUMN2		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"--------- PRINTOUTS IN 2 COLUMNS ---------"$(STY_RES)"\n"
+MSG_COLUMN3		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"--------- PRINTOUTS IN 3 COLUMNS ---------"$(STY_RES)"\n"
 ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS) $(MODE)))
 MSG_COLUMN		:=	$(MSG_COLUMN1)
 else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS) $(MODE)))
@@ -449,36 +485,7 @@ else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS) $(MODE)))
 MSG_COLUMN		:=	$(MSG_COLUMN3)
 endif
 ################################################################################
-MSG_NO_COLOR	:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_WHI_BRI)"------------- NO COLOR MODE --------------\n"$(STY_RES)
-ifneq (,$(filter nocolor,$(MAKECMDGOALS) $(MODE)))
-MSG_MODE		:=	$(MSG_MODE)$(MSG_NO_COLOR)
 endif
-################################################################################
-MSG_SAN			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_RED)"------------- SANITIZER MODE -------------\n"$(STY_RES)
-ifneq (,$(filter san,$(MAKECMDGOALS) $(MODE)))
-MSG_MODE		:=	$(MSG_MODE)$(MSG_SAN)
-endif
-################################################################################
-MSG_OPT			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"----------- OPTIMIZATION MODE ------------\n"$(STY_RES)
-ifneq (,$(filter opt,$(MAKECMDGOALS) $(MODE)))
-MSG_MODE		:=	$(MSG_MODE)$(MSG_OPT)
-endif
-################################################################################
-MSG_VAL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_CYA)"------------ VALGRIND MODE ---------------\n"$(STY_RES)
-ifneq (,$(filter val,$(MAKECMDGOALS) $(MODE)))
-MSG_MODE		:=	$(MSG_MODE)$(MSG_VAL)
-endif
-################################################################################
-MSG_HEL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"------------ HELGRIND MODE ---------------\n"$(STY_RES)
-ifneq (,$(filter hel,$(MAKECMDGOALS) $(MODE)))
-MSG_MODE		:=	$(MSG_MODE)$(MSG_HEL)
-endif
-################################################################################
-MSG_DRD			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"---------------- DRD MODE ----------------\n"$(STY_RES)
-ifneq (,$(filter drd,$(MAKECMDGOALS) $(MODE)))
-MSG_MODE		:=	$(MSG_MODE)$(MSG_DRD)
-endif
-################################################################################
 
 
 # *************************** MAKEFILE DEBUGGING ***************************** #
