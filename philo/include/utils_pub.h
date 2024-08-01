@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:13:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:08:39 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:07:19 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 # include <stddef.h>
+# include <unistd.h>
 
 int		ft_atoi(const char *nptr);
 void	ft_free_and_null(void **ptr);

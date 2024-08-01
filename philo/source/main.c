@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:41 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:39:36 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:07:26 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <unistd.h>
 
 int	main(int argc, char *argv[])
 {
