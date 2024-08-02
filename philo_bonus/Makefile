@@ -137,8 +137,10 @@ HELP_TARGETS	:=	help help-print \
 					$(addprefix help-,$(PHONY_TARGETS) $(ENV_VARIABLES)) \
 					$(addsuffix -help,$(PHONY_TARGETS) $(ENV_VARIABLES))
 PHONY_TARGETS	+=	$(HELP_TARGETS)
-
 export .PHONY	:	$(PHONY_TARGETS)
+
+REBUILD_TARGETS	:=	verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor \
+					opt san re
 
 .DEFAULT		:
 					$(MAKE) help
@@ -454,7 +456,11 @@ MSG_INFO		:=	$(STY_ITA)$(STY_WHI)"Make version: $(MAKE_VERSION)\n\
 ################################################################################
 MSG_HELP		:=	$(STY_ITA)$(STY_WHI)"Run 'make help' to see all available Makefile targets."$(STY_RES)"\n"
 ################################################################################
+ifneq (,$(filter $(REBUILD_TARGETS),$(MAKECMDGOALS) $(MODE)))
+MSG_START		:=	$(STY_ITA)"Rebuilding $(NAME) ... "$(STY_RES)
+else
 MSG_START		:=	$(STY_ITA)"Building $(NAME) ... "$(STY_RES)
+endif
 ################################################################################
 MSG_SUCCESS		:=	$(STY_BOL)$(STY_ITA)$(STY_WHI_BRI)"DONE!"$(STY_RES)"\n"
 ################################################################################
