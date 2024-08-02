@@ -62,6 +62,8 @@ typedef struct s_semaphore_named
  * - `mon_mutex`: To protect against race conditions in the monitor threads.
  *
  * - `philo_mutex`: To protect against race conditions in the philo threads.
+ *
+ * - `print_mutex`: To protect against out of order timestamps in the outputs.
  */
 typedef struct s_semaphores
 {
@@ -73,6 +75,7 @@ typedef struct s_semaphores
 	t_sem_named				exit_allowed;
 	t_sem_named				mon_mutex;
 	t_sem_named				philo_mutex;
+	t_sem_named				print_mutex;
 }	t_semaphores;
 
 typedef struct s_philo	t_philo;

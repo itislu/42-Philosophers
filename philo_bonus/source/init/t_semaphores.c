@@ -25,7 +25,8 @@ bool	init_semaphores(t_semaphores *semaphores, int num_of_philos)
 		|| !init_semaphore(&semaphores->exit_ready, "/philo_exit_ready", 0)
 		|| !init_semaphore(&semaphores->exit_allowed, "/philo_exit_allowed", 0)
 		|| !init_semaphore(&semaphores->mon_mutex, "/philo_mon_mutex", 1)
-		|| !init_semaphore(&semaphores->philo_mutex, "/philo_philo_mutex", 1))
+		|| !init_semaphore(&semaphores->philo_mutex, "/philo_philo_mutex", 1)
+		|| !init_semaphore(&semaphores->print_mutex, "/philo_print_mutex", 1))
 	{
 		destroy_semaphores(semaphores);
 		return (false);
