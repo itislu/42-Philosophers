@@ -379,7 +379,7 @@ help-re			:
 
 re				:
 					$(MAKE) fclean
-					MAKELEVEL=$(shell echo $$(($(MAKELEVEL)-1))) $(MAKE) all
+					MAKELEVEL=$$(( $(MAKELEVEL) - 1 )) $(MAKE) all
 
 
 #	Include dependency files
