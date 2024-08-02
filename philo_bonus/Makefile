@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/02 01:43:15 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/02 09:18:01 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -366,6 +366,7 @@ help-clean		:
 					echo "Remove build artifacts."
 
 clean			:
+					echo -n $(MSG_CLEAN)
 					rm -f $(OBJ) $(DEP)
                     ifneq (,$(wildcard $(OBJ_DIR)))
 						-find $(OBJ_DIR) -type d -empty -delete
@@ -373,22 +374,27 @@ clean			:
                     ifneq (,$(wildcard $(DEP_DIR)))
 						-find $(DEP_DIR) -type d -empty -delete
                     endif
+					echo -n $(MSG_SUCCESS)
 
 
 help-fclean		:
 					echo "Remove build artifacts and the executable."
 
 fclean			:
+					echo -n $(MSG_FCLEAN)
 					$(MAKE) clean
 					rm -f $(NAME)
+					echo -n $(MSG_SUCCESS)
 
 
 help-ffclean	:
 					echo "Remove build artifacts and the executable without checking for unknown files."
 
 ffclean			:
+					echo -n $(MSG_FFCLEAN)
 					$(MAKE) fclean
 					rm -rf $(OBJ_DIR) $(DEP_DIR)
+					echo -n $(MSG_SUCCESS)
 
 
 help-re			:
@@ -458,7 +464,7 @@ MSG_FAILURE		:=	$(STY_BOL)$(STY_ITA)$(STY_RED)"BUILD FAILED!"$(STY_RES)"\n"
 ################################################################################
 MSG_VERBOSE		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_YEL)"-------------- VERBOSE MODE --------------"$(STY_RES)"\n"
 ifneq (,$(filter verbose%,$(MAKECMDGOALS) $(MODE)))
-MSG_MODE		:=	$(MSG_VERBOSE)
+MSG_MODE		:=	$(MSG_MODE)$(MSG_VERBOSE)
 endif
 ################################################################################
 MSG_NO_COLOR	:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_WHI_BRI)"------------- NO COLOR MODE --------------"$(STY_RES)"\n"
@@ -501,6 +507,12 @@ MSG_COLUMN		:=	$(MSG_COLUMN2)
 else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS) $(MODE)))
 MSG_COLUMN		:=	$(MSG_COLUMN3)
 endif
+################################################################################
+MSG_CLEAN		:=	$(STY_ITA)"Cleaning up build artifacts ... "$(STY_RES)"\n"
+################################################################################
+MSG_FCLEAN		:=	$(STY_ITA)"Cleaning up build artifacts and executable ... "$(STY_RES)"\n"
+################################################################################
+MSG_FFCLEAN		:=	$(STY_ITA)"Forcefully cleaning up build artifacts and executable ... "$(STY_RES)"\n"
 ################################################################################
 endif
 
