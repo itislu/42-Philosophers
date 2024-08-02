@@ -6,11 +6,13 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:26:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/31 18:35:47 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:45:06 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print_priv.h"
+#if VERBOSE
+
+# include "print_priv.h"
 
 void	print_verbose(t_philo *me, const char *msg)
 {
@@ -91,3 +93,5 @@ void	print_actual_elapsed_time(
 			me, STY_BOL STY_RED "Actual sleep time:" STY_RES, actual_time_us);
 	}
 }
+
+#endif
