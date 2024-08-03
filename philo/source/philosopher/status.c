@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:41:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/03 18:37:27 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:33:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	check_alive(t_philo *me)
 	me->latest_timestamp_ms = get_elapsed_time_ms(
 			(struct timeval *)me->start_time);
 	if (me->latest_timestamp_ms - me->last_meal_timestamp_ms
-		> (unsigned long long)me->rules->time_to_die_ms)
+		>= (unsigned long long)me->rules->time_to_die_ms)
 	{
 		pthread_mutex_lock(me->state_mutex);
 		me->state |= (DEAD | CONFIRMED);
