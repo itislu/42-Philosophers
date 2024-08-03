@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:38:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:19:15 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ bool	philo_think_initial(t_philo *me)
 {
 	if (!print_if_alive(me, MSG_THINK))
 		return (false);
-	if (me->initial_think_time_us)
-		if (!usleep_while_alive(me->initial_think_time_us, me))
-			return (false);
+	if (!usleep_while_alive(me->initial_think_time_us, me))
+		return (false);
 	return (true);
 }
 
