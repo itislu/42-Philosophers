@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   death.c                                            :+:      :+:    :+:   */
+/*   broadcast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:36:09 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 13:52:41 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:35:21 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static void	wait_all_dead(t_philo *philos, int num_of_philos);
 
-void	broadcast_death(t_philo *philos, int num_of_philos)
+void	broadcast(t_philo *philos, t_state state, int num_of_philos)
 {
 	int	i;
 
 	if (VERBOSE)
-		print_verbose_monitor(philos, "broadcasts death");
+		print_verbose_monitor(philos, "broadcasts");
 	i = 0;
 	while (i < num_of_philos)
 	{
 		pthread_mutex_lock(philos[i].state_mutex);
-		philos[i].state |= DEAD;
+		philos[i].state |= state;
 		pthread_mutex_unlock(philos[i].state_mutex);
 		i++;
 	}

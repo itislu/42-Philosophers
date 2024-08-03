@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:51:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 13:48:17 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:38:26 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	create_philo_threads(t_philo *philos, int count)
 		if (pthread_create(
 				&philos[i].thread, NULL, &philosopher, &philos[i]) != 0)
 		{
-			broadcast_death(philos, i);
+			broadcast(philos, STOPPED, i);
 			pthread_mutex_unlock(philos[i].sync_mutex);
 			join_philo_threads(philos, i);
 			return (false);

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:41:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/11 10:38:14 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:37:27 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	check_alive(t_philo *me)
 {
 	pthread_mutex_lock(me->state_mutex);
-	if (me->state & DEAD)
+	if (me->state & (DEAD | STOPPED))
 	{
 		me->state |= CONFIRMED;
 		pthread_mutex_unlock(me->state_mutex);

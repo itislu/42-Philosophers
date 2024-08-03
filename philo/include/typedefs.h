@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/30 17:19:53 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:30:01 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ enum e_exit_codes
 
 typedef enum e_state
 {
-	ALIVE			=		0b000,
-	FULL			=		0b001,
-	DEAD			=		0b010,
-	CONFIRMED		=		0b100
+	ALIVE			=		0b0000,
+	FULL			=		0b0001,
+	DEAD			=		0b0010,
+	STOPPED			=		0b0100,
+	CONFIRMED		=		0b1000
 }	t_state;
 
 typedef struct s_rules

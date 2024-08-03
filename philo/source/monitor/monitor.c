@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:55:06 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/30 17:26:39 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:39:40 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ void	monitor(t_philo *philos, const t_rules *rules)
 		else if (state & FULL)
 		{
 			if (VERBOSE)
-				print_verbose_monitor(
-					philos, "detected all philosophers got full");
-			broadcast_death(philos, rules->num_of_philos);
+				print_verbose_monitor(philos, "detected all philos got full");
+			broadcast(philos, STOPPED, rules->num_of_philos);
 			return ;
 		}
 	}
@@ -52,7 +51,9 @@ t_state	monitor_cycle(t_philo *philos, int num_of_philos)
 		pthread_mutex_unlock(philos[i].state_mutex);
 		if (state & DEAD)
 		{
-			broadcast_death(philos, num_of_philos);
+			if (VERBOSE)
+				print_verbose_monitor(philos, "detected a philo died");
+			broadcast(philos, DEAD, num_of_philos);
 			print_death(philos, num_of_philos, i);
 			break ;
 		}
