@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/03 18:46:43 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/03 22:11:30 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ unsigned long long	calc_think_odd_us(t_philo *me)
 	else
 	{
 		me->is_outsider = false;
-		think_time_ms = me->rules->time_to_eat_ms
+		think_time_ms = me->rules->time_to_eat_ms * 2LL
 			- me->rules->time_to_sleep_ms;
 	}
 	if (think_time_ms > MARGIN_MS / 2)
-		return ((think_time_ms - MARGIN_MS / 2) * 1000ULL);
+		return (((think_time_ms - MARGIN_MS / 2) * 1000ULL) / (me->rules->num_of_philos / 2));
 	else
 		return (0);
 }

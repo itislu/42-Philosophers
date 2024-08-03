@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/11 10:21:10 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/03 22:12:01 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	init_philos(
 		(*philos)[i].is_outsider = calc_is_outsider(rules, (*philos)[i].id);
 		(*philos)[i].initial_think_time_us = calc_initial_think_time_us(
 				rules, (*philos)[i].id);
-		(*philos)[i].think_time_us = calc_think_time_us(rules);
+		(*philos)[i].think_time_us = calc_think_time_us(rules)/*  / (rules->num_of_philos / 2) */;
 		(*philos)[i].rules = rules;
 		i++;
 	}
