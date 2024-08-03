@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:01 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/03 19:01:30 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:05:42 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id)
 			return (MARGIN_MS);
 	}
 	else if (id % 2 == 0)
-		return (MARGIN_MS / 2 * 1000);
+		return (rules->time_to_eat_ms / 2 * 1000ULL);
 	else
 		return (0);
 }
