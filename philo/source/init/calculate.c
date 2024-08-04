@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:01 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/03 22:17:42 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 02:01:34 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,47 +22,26 @@ bool	calc_is_outsider(const t_rules *rules, int id)
 
 unsigned long long	calc_think_time_us(const t_rules *rules)
 {
-	if ((unsigned long long)rules->time_to_eat_ms
-		> (unsigned long long)rules->time_to_sleep_ms + MARGIN_MS / 2)
-		return ((rules->time_to_eat_ms - rules->time_to_sleep_ms
-				- MARGIN_MS / 2) * 1000ULL);
-	else
-		return (0);
+	// if ((unsigned long long)rules->time_to_eat_ms
+	// 	> (unsigned long long)rules->time_to_sleep_ms + MARGIN_MS / 2)
+	// 	return ((rules->time_to_eat_ms - rules->time_to_sleep_ms
+	// 			- MARGIN_MS / 2) * 1000ULL);
+	// else
+	// 	return (0);
+	return (2ULL * rules->time_to_eat_ms / (rules->num_of_philos - rules->num_of_philos % 2) * 1000ULL);
 }
 
-unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id)
+unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id, unsigned long long think_time_us)
 {
 	if (rules->num_of_philos < 2)
 		return ((rules->time_to_die_ms + 1ULL) * 1000ULL);
-	else if (calc_is_outsider(rules, id))
-	{
-		if (rules->time_to_eat_ms * 2ULL > MARGIN_MS)
-			return ((rules->time_to_eat_ms * 2ULL - MARGIN_MS / 2) * 1000ULL);
-		else
-			return (MARGIN_MS);
-	}
-	else if (id % 2 == 0)
-		return (rules->time_to_eat_ms / 2 * 1000ULL);
-	else if (id == 1)
-		return ((rules->time_to_eat_ms / 2) * 1000ULL);
-	// else if (id == 3)
-	// 	return ((rules->time_to_eat_ms / 2 - id * 4) * 1000ULL);
-	// else if (id == 5)
-	// 	return ((rules->time_to_eat_ms / 2 - id * 4) * 1000ULL);
-	// else if (id == 7)
-	// 	return ((rules->time_to_eat_ms / 2 - id * 4) * 1000ULL);
-	// else if (id == 9)
-	// 	return ((rules->time_to_eat_ms / 2 - id * 4) * 1000ULL);
-	// else if (id == 11)
-	// 	return ((rules->time_to_eat_ms / 2 - id * 4) * 1000ULL);
-	// else if (id == 13)
-	// 	return ((rules->time_to_eat_ms / 2 - id * 4) * 1000ULL);
-	// else if (id == 15)
-	// 	return ((rules->time_to_eat_ms / 2 - id * 4) * 1000ULL);
-	// else if (id == 17)
-	// 	return ((rules->time_to_eat_ms / 2 - id * 4) * 1000ULL);
-	// else if (id == 19)
-	// 	return ((rules->time_to_eat_ms / 2 - id * 4) * 1000ULL);
 	else
-		return (0);
+	{
+		int	block_amount;
+
+		block_amount = id / 2;
+		if (id % 2 == 0)
+			block_amount += rules->num_of_philos / 2;
+		return (think_time_us * block_amount);
+	}
 }

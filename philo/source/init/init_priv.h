@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/11 10:21:01 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 01:52:21 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <string.h>
 
 bool				calc_is_outsider(const t_rules *rules, int id);
-unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id);
+unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id, unsigned long long think_time_us);
 unsigned long long	calc_think_time_us(const t_rules *rules);
 
 #endif

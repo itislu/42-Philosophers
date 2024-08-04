@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/03 22:11:30 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 01:54:15 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static inline unsigned long long	calc_think_us(
 										t_philo *me,
 										unsigned long long think_time_us)
 									__attribute__((always_inline));
-static inline unsigned long long	calc_think_odd_us(t_philo *me)
-									__attribute__((always_inline));
+// static inline unsigned long long	calc_think_odd_us(t_philo *me)
+// 									__attribute__((always_inline));
 
 bool	philo_think_initial(t_philo *me)
 {
@@ -49,33 +49,33 @@ unsigned long long	calc_think_us(
 	if (me->rules->num_each_philo_must_eat > 0
 		&& (int)me->meals_eaten == me->rules->num_each_philo_must_eat)
 		return (me->rules->time_to_die_ms * 1000ULL);
-	else if (me->rules->num_of_philos % 2 == 1)
-		return (calc_think_odd_us(me));
+	// else if (me->rules->num_of_philos % 2 == 1)
+	// 	return (calc_think_odd_us(me));
 	else
 		return (think_time_us);
 }
 
-static inline __attribute__((always_inline))
-unsigned long long	calc_think_odd_us(t_philo *me)
-{
-	long long	think_time_ms;
+// static inline __attribute__((always_inline))
+// unsigned long long	calc_think_odd_us(t_philo *me)
+// {
+// 	long long	think_time_ms;
 
-	if ((me->meals_eaten - 1) % (me->rules->num_of_philos / 2)
-		== (me->id - 1 - (me->id == me->rules->num_of_philos))
-		/ 2ULL)
-	{
-		me->is_outsider = true;
-		think_time_ms = me->rules->time_to_eat_ms * 2LL
-			- me->rules->time_to_sleep_ms;
-	}
-	else
-	{
-		me->is_outsider = false;
-		think_time_ms = me->rules->time_to_eat_ms * 2LL
-			- me->rules->time_to_sleep_ms;
-	}
-	if (think_time_ms > MARGIN_MS / 2)
-		return (((think_time_ms - MARGIN_MS / 2) * 1000ULL) / (me->rules->num_of_philos / 2));
-	else
-		return (0);
-}
+// 	if ((me->meals_eaten - 1) % (me->rules->num_of_philos / 2)
+// 		== (me->id - 1 - (me->id == me->rules->num_of_philos))
+// 		/ 2ULL)
+// 	{
+// 		me->is_outsider = true;
+// 		think_time_ms = me->rules->time_to_eat_ms * 2LL
+// 			- me->rules->time_to_sleep_ms;
+// 	}
+// 	else
+// 	{
+// 		me->is_outsider = false;
+// 		think_time_ms = me->rules->time_to_eat_ms * 2LL
+// 			- me->rules->time_to_sleep_ms;
+// 	}
+// 	if (think_time_ms > MARGIN_MS / 2)
+// 		return (((think_time_ms - MARGIN_MS / 2) * 1000ULL) / (me->rules->num_of_philos / 2));
+// 	else
+// 		return (0);
+// }
