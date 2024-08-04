@@ -6,12 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:01 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 12:27:37 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:26:07 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_priv.h"
-#include "utils_pub.h"
 
 static unsigned long long	calc_think_block(const t_rules *rules);
 
@@ -28,7 +27,7 @@ unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id)
 	int	block_amount;
 
 	if (rules->num_of_philos < 2)
-		return ((rules->time_to_die_ms + 1ULL) * 1000ULL);
+		return (rules->time_to_die_ms * 1000ULL);
 	else if (ft_iseven(rules->num_of_philos))
 	{
 		if (ft_iseven(id))
