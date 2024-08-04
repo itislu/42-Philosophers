@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/04 16:18:33 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/04 16:52:27 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,26 +49,16 @@ MAKEFLAGS		:=	-j -s
 
 #	Macro definitions
 
-COLUMN1			:=	'""'
-COLUMN2			:=	'"                                   "'
-COLUMN3			:=	'"                                                                      "'
+COLUMN1			?=	'""'
+COLUMN2			?=	'"                                   "'
 
 export				MACROS
 ifneq (,$(filter verbose%,$(MAKECMDGOALS) $(MODE)))
 MACROS			:=	-D VERBOSE=1
 endif
-ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS) $(MODE)))
+ifneq (,$(filter columns,$(MAKECMDGOALS) $(MODE)))
 MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
-					-D COLUMN2='"$(COLUMN1)"' \
-					-D COLUMN3='"$(COLUMN1)"'
-else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS) $(MODE)))
-MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
-					-D COLUMN2='"$(COLUMN2)"' \
-					-D COLUMN3='"$(COLUMN2)"'
-else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS) $(MODE)))
-MACROS			+=	-D COLUMN1='"$(COLUMN1)"' \
-					-D COLUMN2='"$(COLUMN2)"' \
-					-D COLUMN3='"$(COLUMN3)"'
+					-D COLUMN2='"$(COLUMN2)"'
 endif
 ifneq (,$(filter nocolor,$(MAKECMDGOALS) $(MODE)))
 MACROS			+=	-D NO_COLOR=1
@@ -127,8 +117,7 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 
 export				CC CFLAGS MAKECMDGOALS MAKEFLAGS
 
-PHONY_TARGETS	:=	all verbose verbose1 verbose2 verbose3 column1 column2 column3 nocolor \
-					opt san run val hel drd clear clean fclean ffclean re
+PHONY_TARGETS	:=	all verbose columns nocolor opt san run val hel drd clear clean fclean ffclean re
 ENV_VARIABLES	:=	MODE ARGS
 HELP_TARGETS	:=	help help-print \
 					$(addprefix help-,$(PHONY_TARGETS) $(ENV_VARIABLES)) \
@@ -136,8 +125,7 @@ HELP_TARGETS	:=	help help-print \
 PHONY_TARGETS	+=	$(HELP_TARGETS)
 export .PHONY	:	$(PHONY_TARGETS)
 
-REBUILD_TARGETS	:=	verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor \
-					opt san re
+REBUILD_TARGETS	:=	verbose	columns nocolor opt san re
 
 .DEFAULT		:
 					$(MAKE) help
@@ -159,7 +147,6 @@ all				:
 						echo -n $(MSG_HELP); \
 					else \
 						echo -n $(MSG_MODE); \
-						echo -n $(MSG_COLUMN); \
 						echo -n " "$(MSG_INFO); \
 						echo -n " "$(MSG_HELP); \
 						echo -n $(MSG_START); \
@@ -174,19 +161,16 @@ all				:
 					fi
 
 
-help-verbose help-verbose1 help-verbose2 help-verbose3:
+help-verbose	:
 					echo "Build the project in verbose mode."
-					echo "Verbose mode prints extra information to see what each process is doing."
-					echo "Optionally, printouts can be split into 1, 2, or 3 columns (default is 1)."
-					echo "  Column 1: The philosophers with uneven ID."
-					echo "  Column 2: The philosophers with even ID."
-					echo "  Column 3 (only for uneven amount of philosophers): The philosophers which have to wait double the time to eat."
+					echo "Verbose mode prints extra information to see what each thread is doing."
+					echo "Printouts can be split into 2 columns with the MODE variable."
+					echo "Usage: make verbose MODE=columns"
 
-help-column1 help-column2 help-column3:
-					echo "Build the project with printouts split into 1, 2, or 3 columns."
+help-columns	:
+					echo "Build the project with printouts split into 2 columns."
 					echo "  Column 1: The philosophers with uneven ID."
 					echo "  Column 2: The philosophers with even ID."
-					echo "  Column 3 (only for uneven amount of philosophers): The philosophers which have to wait double the time to eat."
 
 help-nocolor	:
 					echo "Build the project without colors in printouts."
@@ -202,7 +186,7 @@ help-san		:
 
 opt				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
 san				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_DBG) $(CFLAGS_SAN)
-verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor opt san: re
+verbose	columns nocolor opt san: re
 					$(MAKE) clean
 					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
@@ -267,8 +251,8 @@ help			:
 					echo
 					echo "Targets:"
 					echo "  all              Build the project (default target)"
-					echo "  verbose[1|2|3]   Build the project in verbose mode with printouts in 1, 2, or 3 columns (default: 1)"
-					echo "  column<1|2|3>    Build the project with printouts in 1, 2, or 3 columns"
+					echo "  verbose          Build the project in verbose mode"
+					echo "  columns          Build the project with printouts in 2 columns"
 					echo "  nocolor          Build the project without colors in printouts"
 					echo "  opt              Build the project with optimizations"
 					echo "  san              Build the project with sanitizers"
@@ -438,8 +422,13 @@ MSG_NO_CHNG		:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)"\n"
 MSG_FAILURE		:=	$(STY_BOL)$(STY_ITA)$(STY_RED)"BUILD FAILED!"$(STY_RES)"\n"
 ################################################################################
 MSG_VERBOSE		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_YEL)"-------------- VERBOSE MODE --------------"$(STY_RES)"\n"
-ifneq (,$(filter verbose%,$(MAKECMDGOALS) $(MODE)))
+ifneq (,$(filter verbose,$(MAKECMDGOALS) $(MODE)))
 MSG_MODE		:=	$(MSG_MODE)$(MSG_VERBOSE)
+endif
+################################################################################
+MSG_COLUMNS		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"-------------- COLUMNS MODE --------------"$(STY_RES)"\n"
+ifneq (,$(filter columns,$(MAKECMDGOALS) $(MODE)))
+MSG_MODE		:=	$(MSG_MODE)$(MSG_COLUMNS)
 endif
 ################################################################################
 MSG_NO_COLOR	:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_WHI_BRI)"------------- NO COLOR MODE --------------"$(STY_RES)"\n"
@@ -470,17 +459,6 @@ endif
 MSG_DRD			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"---------------- DRD MODE ----------------"$(STY_RES)"\n"
 ifneq (,$(filter drd,$(MAKECMDGOALS) $(MODE)))
 MSG_MODE		:=	$(MSG_MODE)$(MSG_DRD)
-endif
-################################################################################
-MSG_COLUMN1		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"--------- PRINTOUTS IN 1 COLUMN ----------"$(STY_RES)"\n"
-MSG_COLUMN2		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_BLU)"--------- PRINTOUTS IN 2 COLUMNS ---------"$(STY_RES)"\n"
-MSG_COLUMN3		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"--------- PRINTOUTS IN 3 COLUMNS ---------"$(STY_RES)"\n"
-ifneq (,$(filter verbose1 column1,$(MAKECMDGOALS) $(MODE)))
-MSG_COLUMN		:=	$(MSG_COLUMN1)
-else ifneq (,$(filter verbose2 column2,$(MAKECMDGOALS) $(MODE)))
-MSG_COLUMN		:=	$(MSG_COLUMN2)
-else ifneq (,$(filter verbose3 column3,$(MAKECMDGOALS) $(MODE)))
-MSG_COLUMN		:=	$(MSG_COLUMN3)
 endif
 ################################################################################
 MSG_CLEAN		:=	$(STY_ITA)"Cleaning up build artifacts ... "$(STY_RES)"\n"

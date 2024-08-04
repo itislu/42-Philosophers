@@ -6,21 +6,13 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:01 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 14:07:16 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:42:31 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_priv.h"
 
 static unsigned long long	calc_think_block(const t_rules *rules);
-
-bool	calc_is_outsider(const t_rules *rules, int id)
-{
-	if (rules->num_of_philos % 2 == 1 && rules->num_of_philos > 1
-		&& id == rules->num_of_philos)
-		return (true);
-	return (false);
-}
 
 unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id)
 {

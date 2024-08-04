@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:26:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/02 09:51:03 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:48:33 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	print_verbose(t_philo *me, const char *msg)
 
 	if (!VERBOSE)
 		return ;
-	if (COLUMN3 && me->is_outsider)
-		spacing = COLUMN3;
-	else if (COLUMN2 && me->id % 2 == 0)
+	if (COLUMN2 && me->id % 2 == 0)
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;
@@ -38,9 +36,7 @@ void	print_verbose_us(t_philo *me, const char *msg, unsigned long long us)
 
 	if (!VERBOSE)
 		return ;
-	if (COLUMN3 && me->is_outsider)
-		spacing = COLUMN3;
-	else if (COLUMN2 && me->id % 2 == 0)
+	if (COLUMN2 && me->id % 2 == 0)
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;
@@ -56,9 +52,7 @@ void	print_verbose_death(t_philo *me)
 
 	if (!VERBOSE)
 		return ;
-	if (COLUMN3 && me->is_outsider)
-		spacing = COLUMN3;
-	else if (COLUMN2 && me->id % 2 == 0)
+	if (COLUMN2 && me->id % 2 == 0)
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;
