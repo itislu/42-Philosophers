@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:13:48 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 11:26:40 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:46:34 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int			ft_atoi(const char *nptr);
 void		ft_free_and_null(void **ptr);
 int			ft_isdigit(int c);
 bool		ft_iseven(int value);
-bool		ft_isodd(int value);
 bool		ft_isoverflow_int(const char *nptr);
 int			ft_issign(int c);
 int			ft_isspace(int c);

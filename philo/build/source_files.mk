@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/04 11:32:47 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/04 17:45:04 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,6 @@ SRC		+=	$(addprefix $(DIR), \
             ft_free_and_null.c \
             ft_isdigit.c \
             ft_iseven.c \
-            ft_isodd.c \
             ft_isoverflow_int.c \
             ft_issign.c \
             ft_isspace.c \
