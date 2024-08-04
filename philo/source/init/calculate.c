@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:01 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 15:42:31 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:54:32 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ unsigned long long	calc_think_time_us(const t_rules *rules)
 				- MARGIN_MS / 2) * 1000LL;
 	else
 		think_time_us = (long long)calc_think_block(rules)
-			+ (rules->time_to_eat_ms - rules->time_to_sleep_ms) * 1000LL;
+			+ (rules->time_to_eat_ms - rules->time_to_sleep_ms - MARGIN_MS / 2)
+			* 1000LL;
 	return (ft_max(think_time_us, 0));
 }
 
