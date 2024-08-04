@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:36:09 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/03 18:35:21 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:14:15 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static void	wait_all_dead(t_philo *philos, int num_of_philos)
 	t_state	state;
 	int		i;
 
+	if (VERBOSE)
+		print_verbose_monitor(philos, "waits for all death confirms");
 	while (true)
 	{
-		if (VERBOSE)
-			print_verbose_monitor(philos, "waits for all death confirms");
 		usleep(MONITOR_INTERVAL_US);
 		i = 0;
 		state = ~0;
@@ -60,4 +60,6 @@ static void	wait_all_dead(t_philo *philos, int num_of_philos)
 		if ((state & (DEAD | CONFIRMED)) == (DEAD | CONFIRMED))
 			break ;
 	}
+	if (VERBOSE)
+		print_verbose_monitor(philos, "got all death confirms");
 }
