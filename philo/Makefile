@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/02 09:21:45 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/04 16:18:33 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -192,31 +192,17 @@ help-nocolor	:
 					echo "Build the project without colors in printouts."
 					echo "Useful for redirecting the output into a file and pasting it into the philosophers-visualizer."
 
-verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor: re
-					$(MAKE) clean
-					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
-						"./$(NAME)" $(ARGS); \
-					fi
-
-
 help-opt		:
 					echo "Build the project with the following compiler optimization flags:"
 					echo "  $(CFLAGS_OPT)"
-
-opt				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
-opt				:	re
-					$(MAKE) clean
-					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
-						"./$(NAME)" $(ARGS); \
-					fi
-
 
 help-san		:
 					echo "Rebuild the project with the following sanitizers enabled:"
 					echo "  $(CFLAGS_SAN)"
 
+opt				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
 san				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_DBG) $(CFLAGS_SAN)
-san				:	re
+verbose	verbose1 verbose2 verbose3 column1 column2 column3 nocolor opt san: re
 					$(MAKE) clean
 					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
