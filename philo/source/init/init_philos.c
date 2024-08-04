@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 02:51:34 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 12:16:29 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ bool	init_philos(
 		(*philos)[i].print_mutex = mutexes->print_mutex;
 		set_forks(*philos, mutexes->forks, rules, i);
 		(*philos)[i].is_outsider = calc_is_outsider(rules, (*philos)[i].id);
-		(*philos)[i].think_time_us = calc_think_time_us(rules);
 		(*philos)[i].initial_think_time_us = calc_initial_think_time_us(
-				rules, (*philos)[i].id, (*philos)[i].think_time_us);
+				rules, (*philos)[i].id);
+		(*philos)[i].think_time_us = calc_think_time_us(rules);
 		(*philos)[i].rules = rules;
 		printf("think_time: %llu ms / %llu us\n", (*philos)[i].think_time_us / 1000, (*philos)[i].think_time_us);
 		printf("initial_think_time: %llu ms\n", (*philos)[i].initial_think_time_us / 1000);
