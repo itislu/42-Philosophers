@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:01 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 13:26:07 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:07:16 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ unsigned long long	calc_think_time_us(const t_rules *rules)
 
 static unsigned long long	calc_think_block(const t_rules *rules)
 {
-	return (2ULL * rules->time_to_eat_ms * 1000ULL
-		/ ft_round_down_even(rules->num_of_philos));
+	if (rules->num_of_philos < 2)
+		return (rules->time_to_die_ms * 1000ULL);
+	else
+		return (2ULL * rules->time_to_eat_ms * 1000ULL
+			/ ft_round_down_even(rules->num_of_philos));
 }
