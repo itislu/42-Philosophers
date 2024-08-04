@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:01 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 02:53:20 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 10:16:03 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ unsigned long long	calc_think_time_us(const t_rules *rules)
 	unsigned long long	think_time_us;
 
 	think_time_us = 2ULL * rules->time_to_eat_ms * 1000ULL / (rules->num_of_philos - rules->num_of_philos % 2);
-	return (rules->time_to_eat_ms * 1000ULL) + think_time_us - (rules->time_to_sleep_ms * 1000ULL);
+	if ((rules->time_to_eat_ms * 1000ULL) + think_time_us > rules->time_to_sleep_ms * 1000ULL)
+		return (rules->time_to_eat_ms * 1000ULL) + think_time_us - (rules->time_to_sleep_ms * 1000ULL);
+	else
+		return (0);
 }
 
 unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id, unsigned long long think_time_us)
