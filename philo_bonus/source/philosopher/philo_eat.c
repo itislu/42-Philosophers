@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:02 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 13:47:54 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:00:53 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ bool	philo_eat(t_philo *me)
 		== (unsigned long long)me->rules->num_each_philo_must_eat)
 	{
 		sem_post(me->semaphores->full.sem);
-		me->is_full = true;
 		if (VERBOSE)
 			print_verbose(me, "got full");
+		me->is_full = true;
 	}
 	return (true);
 }

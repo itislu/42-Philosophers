@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:21 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/31 18:32:28 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:17:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@
 # endif
 # ifndef COLUMN2
 #  define COLUMN2		""
-# endif
-# ifndef COLUMN3
-#  define COLUMN3		""
 # endif
 # ifndef NO_COLOR
 #  define NO_COLOR		0

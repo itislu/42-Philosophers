@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_priv.h                                       :+:      :+:    :+:   */
+/*   ft_iseven.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 15:43:08 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 18:28:15 by ldulling         ###   ########.fr       */
+/*   Created: 2024/08/04 11:22:01 by ldulling          #+#    #+#             */
+/*   Updated: 2024/08/04 11:26:15 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_PRIV_H
-# define PRINT_PRIV_H
+#include "utils_priv.h"
 
-# include "macros.h"
-# include "philo_pub.h"
-# include "time_pub.h"
-# include "typedefs.h"
-# include "utils_pub.h"
-# include <semaphore.h>
-# include <stdbool.h>
-# include <stdio.h>
-
-void	print_msg(t_philo *me, const char *msg);
-
-#endif
+/**
+ * The ft_iseven function checks if an integer is even.
+ *
+ * @param value    The integer to check.
+ *
+ * @return         Returns true if the integer is even, false if it is odd.
+ */
+bool	ft_iseven(int value)
+{
+	return (!(value & 1));
+}

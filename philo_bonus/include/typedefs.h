@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/30 01:44:20 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:04:31 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ struct s_philo
 	bool					is_stopped;
 	bool					is_dead;
 	bool					is_full;
-	bool					is_outsider;
 	unsigned long long		initial_think_time_us;
 	unsigned long long		think_time_us;
 	unsigned long long		latest_timestamp_ms;

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/30 01:34:56 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:41:21 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-bool				calc_is_outsider(const t_rules *rules, int id);
 unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id);
 unsigned long long	calc_think_time_us(const t_rules *rules);
 

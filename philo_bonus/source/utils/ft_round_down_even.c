@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_priv.h                                       :+:      :+:    :+:   */
+/*   ft_round_down_even.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 15:43:08 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 18:28:15 by ldulling         ###   ########.fr       */
+/*   Created: 2024/08/04 10:56:43 by ldulling          #+#    #+#             */
+/*   Updated: 2024/08/04 11:17:19 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_PRIV_H
-# define PRINT_PRIV_H
-
-# include "macros.h"
-# include "philo_pub.h"
-# include "time_pub.h"
-# include "typedefs.h"
-# include "utils_pub.h"
-# include <semaphore.h>
-# include <stdbool.h>
-# include <stdio.h>
-
-void	print_msg(t_philo *me, const char *msg);
-
-#endif
+/**
+ * The ft_round_down_even function rounds down an integer to the nearest even
+ * number.
+ *
+ * If the value is already even, the function returns the value unchanged.
+ *
+ * @param value    The integer to round down.
+ *
+ * @return         Returns the nearest even integer less than or equal to the
+ *                 input.
+ */
+long long	ft_round_down_even(long long value)
+{
+	return (value & ~1);
+}

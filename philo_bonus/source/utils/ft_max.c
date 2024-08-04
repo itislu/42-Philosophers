@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_priv.h                                       :+:      :+:    :+:   */
+/*   ft_max.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 15:43:08 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 18:28:15 by ldulling         ###   ########.fr       */
+/*   Created: 2024/08/04 11:02:14 by ldulling          #+#    #+#             */
+/*   Updated: 2024/08/04 11:17:12 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_PRIV_H
-# define PRINT_PRIV_H
-
-# include "macros.h"
-# include "philo_pub.h"
-# include "time_pub.h"
-# include "typedefs.h"
-# include "utils_pub.h"
-# include <semaphore.h>
-# include <stdbool.h>
-# include <stdio.h>
-
-void	print_msg(t_philo *me, const char *msg);
-
-#endif
+/**
+ * The ft_max function returns the maximum of two integers.
+ *
+ * @param a    The first integer to compare.
+ * @param b    The second integer to compare.
+ *
+ * @return     Returns the larger of the two integers.
+ */
+long long	ft_max(long long a, long long b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
