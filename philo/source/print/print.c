@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:20:29 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 16:55:02 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:44:30 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_msg(t_philo *me, const char *msg)
 {
 	char	*spacing;
 
-	if (COLUMN2 && me->id % 2 == 0)
+	if (COLUMN2 && ft_iseven(me->id))
 		spacing = COLUMN2;
 	else
 		spacing = COLUMN1;

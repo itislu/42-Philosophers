@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:43:08 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:36:23 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:55:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "philo_pub.h"
 # include "time_pub.h"
 # include "typedefs.h"
+# include "utils_pub.h"
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdio.h>
