@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 12:40:43 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:43:28 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ bool	philo_think(t_philo *me)
 
 	if (!print_if_alive(me, MSG_THINK))
 		return (false);
-	if (me->rules->num_each_philo_must_eat > 0
-		&& me->meals_eaten
-		== (unsigned long long)me->rules->num_each_philo_must_eat)
+	if (me->is_full)
 		think_time_us = me->rules->time_to_die_ms * 1000ULL;
 	else
 		think_time_us = me->think_time_us;

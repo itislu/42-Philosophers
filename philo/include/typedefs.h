@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/03 18:30:01 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:43:00 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_philo
 	const struct timeval	*start_time;
 	const t_rules			*rules;
 	t_state					state;
+	bool					is_full;
 	pthread_mutex_t			*state_mutex;
 	pthread_mutex_t			*sync_mutex;
 	pthread_mutex_t			*print_mutex;
