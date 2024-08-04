@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/03 18:48:22 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:48:08 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ unsigned long long	calc_think_us(
 						t_philo *me,
 						unsigned long long think_time_us)
 {
-	if (me->rules->num_each_philo_must_eat > 0
-		&& (int)me->meals_eaten == me->rules->num_each_philo_must_eat)
+	if (me->rules->num_each_philo_must_eat > 0 && me->meals_eaten
+		== (unsigned long long)me->rules->num_each_philo_must_eat)
 		return (me->rules->time_to_die_ms * 1000ULL);
 	else if (me->rules->num_of_philos % 2 == 1)
 		return (calc_think_odd_us(me));

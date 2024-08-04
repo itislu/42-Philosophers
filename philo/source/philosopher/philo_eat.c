@@ -23,8 +23,8 @@ bool	philo_eat(t_philo *me)
 		return (false);
 	me->release_forks(me);
 	me->meals_eaten++;
-	if (me->rules->num_each_philo_must_eat > 0
-		&& (int)me->meals_eaten == me->rules->num_each_philo_must_eat)
+	if (me->rules->num_each_philo_must_eat > 0 && me->meals_eaten
+		== (unsigned long long)me->rules->num_each_philo_must_eat)
 	{
 		pthread_mutex_lock(me->state_mutex);
 		me->state |= FULL;
