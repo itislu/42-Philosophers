@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 01:52:33 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/04 02:51:34 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	set_forks(
 				const t_rules *rules,
 				int i);
 
+#include <stdio.h>
 bool	init_philos(
 			t_philo **philos,
 			t_mutexes *mutexes,
@@ -45,6 +46,8 @@ bool	init_philos(
 		(*philos)[i].initial_think_time_us = calc_initial_think_time_us(
 				rules, (*philos)[i].id, (*philos)[i].think_time_us);
 		(*philos)[i].rules = rules;
+		printf("think_time: %llu ms / %llu us\n", (*philos)[i].think_time_us / 1000, (*philos)[i].think_time_us);
+		printf("initial_think_time: %llu ms\n", (*philos)[i].initial_think_time_us / 1000);
 		i++;
 	}
 	return (true);
