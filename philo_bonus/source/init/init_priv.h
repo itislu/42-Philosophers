@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 17:41:21 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/06 01:31:19 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@
 
 unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id);
 unsigned long long	calc_think_time_us(const t_rules *rules);
+unsigned long long	calc_initial_cycle_time_us(const t_rules *rules);
+unsigned long long	calc_cycle_time_us(t_philo *philo);
 
 #endif

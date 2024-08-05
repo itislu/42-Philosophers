@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/05 12:28:27 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/06 01:53:09 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct s_philo
 	pthread_t				thread;
 	int						id;
 	const struct timeval	*start_time;
-	struct timeval			target_time;
 	const t_rules			*rules;
 	t_state					state;
 	bool					is_full;
@@ -72,6 +71,9 @@ typedef struct s_philo
 	void					(*release_forks)(struct s_philo *me);
 	unsigned long long		initial_think_time_us;
 	unsigned long long		think_time_us;
+	struct timeval			cycle_target_time;
+	unsigned long long		initial_cycle_time_us;
+	unsigned long long		cycle_time_us;
 	unsigned long long		latest_timestamp_ms;
 	unsigned long long		last_meal_timestamp_ms;
 	unsigned long long		meals_eaten;

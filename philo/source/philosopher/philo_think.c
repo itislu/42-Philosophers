@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/05 14:22:43 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/06 01:53:09 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ bool	philo_think_initial(t_philo *me)
 {
 	if (!print_if_alive(me, MSG_THINK))
 		return (false);
-	increase_target_time(&me->target_time, me->initial_think_time_us);
-	if (!usleep_while_alive_precise_target(&me->target_time, me))
+	increase_target_time(&me->cycle_target_time, me->initial_think_time_us);
+	if (!usleep_while_alive_precise_target(&me->cycle_target_time, me))
 		return (false);
+	increase_target_time(&me->cycle_target_time, me->initial_cycle_time_us);
 	return (true);
 }
 
@@ -34,10 +35,9 @@ bool	philo_think(t_philo *me)
 		think_time_us = me->think_time_us;
 	if (think_time_us)
 	{
-		increase_target_time(&me->target_time, think_time_us);
-		if (!usleep_while_alive_precise_target(&me->target_time, me))
+		if (!usleep_while_alive_precise_target(&me->cycle_target_time, me))
 			return (false);
-		increase_target_time(&me->target_time, MARGIN_MS / 2 * 1000);
+		increase_target_time(&me->cycle_target_time, me->cycle_time_us);
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/05 12:28:31 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/06 01:48:50 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ struct s_philo
 	pid_t					pid;
 	int						id;
 	const struct timeval	*start_time;
-	struct timeval			target_time;
 	const t_rules			*rules;
 	t_semaphores			*semaphores;
 	int						forks_taken;
@@ -95,6 +94,9 @@ struct s_philo
 	bool					is_full;
 	unsigned long long		initial_think_time_us;
 	unsigned long long		think_time_us;
+	struct timeval			cycle_target_time;
+	unsigned long long		initial_cycle_time_us;
+	unsigned long long		cycle_time_us;
 	unsigned long long		latest_timestamp_ms;
 	unsigned long long		last_meal_timestamp_ms;
 	unsigned long long		meals_eaten;

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 17:41:33 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/06 01:31:32 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ bool	init_philos(
 		(*philos)[i].initial_think_time_us = calc_initial_think_time_us(
 				rules, (*philos)[i].id);
 		(*philos)[i].think_time_us = calc_think_time_us(rules);
+		(*philos)[i].initial_cycle_time_us = calc_initial_cycle_time_us(rules);
+		(*philos)[i].cycle_time_us = calc_cycle_time_us(&(*philos)[i]);
 		i++;
 	}
 	return (true);
