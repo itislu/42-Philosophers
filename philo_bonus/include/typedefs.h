@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 18:04:31 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:28:31 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <semaphore.h>
 # include <stdbool.h>
+# include <sys/time.h>
 
 typedef enum e_exit_codes
 {
@@ -85,6 +86,7 @@ struct s_philo
 	pid_t					pid;
 	int						id;
 	const struct timeval	*start_time;
+	struct timeval			target_time;
 	const t_rules			*rules;
 	t_semaphores			*semaphores;
 	int						forks_taken;

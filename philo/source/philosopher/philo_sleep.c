@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:42 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:38:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:19:03 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,7 @@ bool	philo_sleep(t_philo *me)
 		return (false);
 	if (!usleep_while_alive_precise(me->rules->time_to_sleep_ms * 1000ULL, me))
 		return (false);
+	increase_target_time(
+		&me->target_time, me->rules->time_to_sleep_ms * 1000ULL);
 	return (true);
 }

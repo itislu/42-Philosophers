@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/30 01:39:18 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:37:30 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	philosopher(t_philo *me)
 		clean_exit(me, NULL, THREAD_FAILURE);
 	if (VERBOSE)
 		print_verbose(me, "has started routine");
+	me->target_time = *me->start_time;
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
 			clean_exit(me, &monitor_thread, SUCCESS);

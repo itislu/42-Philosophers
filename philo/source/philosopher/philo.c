@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:38:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:20:10 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	*philosopher(void *arg)
 	pthread_mutex_unlock(me->sync_mutex);
 	if (VERBOSE)
 		print_verbose(me, "has started routine");
+	me->target_time = *me->start_time;
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
 			return (verbose_exit(me));

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:09:47 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/30 01:39:56 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/05 10:52:18 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ bool	take_forks(t_philo *me);
 void	release_forks(t_philo *me);
 bool	usleep_while_alive(unsigned long long us, t_philo *me);
 bool	usleep_while_alive_precise(unsigned long long us, t_philo *me);
+bool	usleep_while_alive_precise_target(
+			const struct timeval *target_time, t_philo *me);
 void	set_is_stopped(t_philo *me);
 bool	get_is_stopped(t_philo *me);
 

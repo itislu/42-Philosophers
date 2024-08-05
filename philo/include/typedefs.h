@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 15:42:36 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:28:27 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <stdbool.h>
+# include <sys/time.h>
 
 enum e_exit_codes
 {
@@ -56,6 +57,7 @@ typedef struct s_philo
 	pthread_t				thread;
 	int						id;
 	const struct timeval	*start_time;
+	struct timeval			target_time;
 	const t_rules			*rules;
 	t_state					state;
 	bool					is_full;

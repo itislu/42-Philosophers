@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:38:57 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:23:25 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,32 @@ bool	usleep_while_alive_precise(unsigned long long us, t_philo *me)
 		print_actual_elapsed_time(&start_time, us, me);
 	return (true);
 }
+
+bool	usleep_while_alive_precise_target(
+			const struct timeval *target_time, t_philo *me)
+{
+	return (usleep_while_alive_precise(get_remaining_time_us(target_time), me));
+}
+
+// bool	usleep_while_alive_timeval_precise(unsigned long long us, struct timeval *start_time, t_philo *me)
+// {
+// 	unsigned long long	slept_time_us;
+
+// 	slept_time_us = 0;
+// 	while (slept_time_us + USLEEP_SHORT_THRESHOLD_US < us)
+// 	{
+// 		if (!check_alive(me))
+// 			return (false);
+// 		slept_time_us = usleep_return(USLEEP_LONG_US, (struct timeval *)me->start_time);
+// 	}
+// 	while (slept_time_us + BUSY_WAIT_THRESHOLD_US < us)
+// 		slept_time_us = usleep_return(USLEEP_SHORT_US, (struct timeval *)me->start_time);
+// 	if (slept_time_us < us && check_alive(me))
+// 		busy_wait(us, us - slept_time_us, (struct timeval *)me->start_time, me);
+// 	if (VERBOSE)
+// 		print_actual_elapsed_time((struct timeval *)me->start_time, us, me);
+// 	return (true);
+// }
 
 static inline __attribute__((always_inline))
 unsigned long long	usleep_return(
