@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:28 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/04 16:52:27 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/06 02:12:18 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ CFLAGS_SAN		:=	-fsanitize=thread,undefined,bounds,float-divide-by-zero
 CFLAGS_OPT		:=	-O3
 CFLAGS 			?=	$(CFLAGS_STD) $(CFLAGS_DBG)
 INCFLAGS 		:=	$(addprefix -I,$(INC_DIR))
-LDLIBS			:=	-pthread
+LDLIBS			:=	-pthread -lft
 MAKEFLAGS		:=	-j -s
 
 
@@ -294,7 +294,7 @@ help-ARGS ARGS-help:
 #	Executable linking
 
 $(NAME)			:	$(LIBRARIES) $(OBJ)
-					$(CC) $(CFLAGS) $(OBJ) $(LDLIBS) -o $(NAME)
+					$(CC) $(CFLAGS) -L. $(OBJ) $(LDLIBS) -o $(NAME)
 
 
 #	Source file compiling
