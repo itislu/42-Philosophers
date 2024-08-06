@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/06 04:12:36 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/06 05:19:14 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	usleep_while_alive(unsigned long long us, t_philo *me)
 			return (false);
 		slept_time_us = usleep_return(USLEEP_LONG_US, &start_time);
 	}
-	return (true);
+	return (check_alive(me));
 }
 
 bool	usleep_while_alive_precise(unsigned long long us, t_philo *me)
