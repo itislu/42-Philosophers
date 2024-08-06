@@ -12,8 +12,13 @@
 
 #include "init_priv.h"
 
+static void	init_philo(
+				t_philo *philo,
+				t_mutexes *mutexes,
+				const t_rules *rules,
+				struct timeval *start_time);
 static void	set_forks(
-				t_philo *philos,
+				t_philo *philo,
 				pthread_mutex_t *forks,
 				const t_rules *rules,
 				int i);
@@ -33,40 +38,51 @@ bool	init_philos(
 	i = 0;
 	while (i < rules->num_of_philos)
 	{
-		(*philos)[i].id = i + 1;
-		(*philos)[i].start_time = start_time;
-		(*philos)[i].rules = rules;
-		(*philos)[i].state = ALIVE;
-		(*philos)[i].state_mutex = &mutexes->state_mutexes[i];
-		(*philos)[i].sync_mutex = mutexes->sync_mutex;
-		(*philos)[i].print_mutex = mutexes->print_mutex;
-		set_forks(*philos, mutexes->forks, rules, i);
-		(*philos)[i].initial_think_time_us = calc_initial_think_time_us(
-				rules, (*philos)[i].id);
-		(*philos)[i].think_time_us = calc_think_time_us(rules);
-		(*philos)[i].initial_cycle_time_us = calc_initial_cycle_time_us(rules, &(*philos)[i]);
-		(*philos)[i].cycle_time_us = calc_cycle_time_us(&(*philos)[i]);
+		init_philo(&(*philos)[i], mutexes, rules, start_time);
 		i++;
 	}
 	return (true);
 }
 
+static void	init_philo(
+				t_philo *philo,
+				t_mutexes *mutexes,
+				const t_rules *rules,
+				struct timeval *start_time)
+{
+	static int	i = 0;
+
+	philo->id = i + 1;
+	philo->start_time = start_time;
+	philo->rules = rules;
+	philo->state = ALIVE;
+	philo->state_mutex = &mutexes->state_mutexes[i];
+	philo->sync_mutex = mutexes->sync_mutex;
+	philo->print_mutex = mutexes->print_mutex;
+	set_forks(philo, mutexes->forks, rules, i);
+	philo->initial_think_time_us = calc_initial_think_time_us(rules, philo->id);
+	philo->think_time_us = calc_think_time_us(rules);
+	philo->initial_cycle_time_us = calc_initial_cycle_time_us(rules, philo);
+	philo->cycle_time_us = calc_cycle_time_us(philo);
+	i++;
+}
+
 static void	set_forks(
-				t_philo *philos,
+				t_philo *philo,
 				pthread_mutex_t *forks,
 				const t_rules *rules,
 				int i)
 {
-	philos[i].left_fork = &forks[i];
-	philos[i].right_fork = &forks[(i + 1) % rules->num_of_philos];
+	philo->left_fork = &forks[i];
+	philo->right_fork = &forks[(i + 1) % rules->num_of_philos];
 	if (ft_iseven(i))
 	{
-		philos[i].take_forks = &take_forks_left_first;
-		philos[i].release_forks = &release_forks_left_first;
+		philo->take_forks = &take_forks_left_first;
+		philo->release_forks = &release_forks_left_first;
 	}
 	else
 	{
-		philos[i].take_forks = &take_forks_right_first;
-		philos[i].release_forks = &release_forks_right_first;
+		philo->take_forks = &take_forks_right_first;
+		philo->release_forks = &release_forks_right_first;
 	}
 }
