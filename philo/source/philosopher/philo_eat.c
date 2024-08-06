@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:02 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/06 00:40:21 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:44:53 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ bool	philo_eat(t_philo *me)
 		pthread_mutex_unlock(me->state_mutex);
 		if (VERBOSE)
 			print_verbose(me, "got full");
-		me->is_full = true;
 	}
 	return (true);
 }

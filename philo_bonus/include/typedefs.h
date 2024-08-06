@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/06 01:48:50 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:45:03 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ struct s_philo
 	int						forks_taken;
 	bool					is_stopped;
 	bool					is_dead;
-	bool					is_full;
 	unsigned long long		initial_think_time_us;
 	unsigned long long		think_time_us;
 	struct timeval			cycle_target_time;
