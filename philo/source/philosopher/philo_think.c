@@ -19,7 +19,6 @@ bool	philo_think_initial(t_philo *me)
 	increase_target_time(&me->cycle_target_time, me->initial_think_time_us);
 	if (!usleep_while_alive_precise_target(&me->cycle_target_time, me))
 		return (false);
-	increase_target_time(&me->cycle_target_time, me->initial_cycle_time_us);
 	return (true);
 }
 

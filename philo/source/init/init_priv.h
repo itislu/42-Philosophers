@@ -27,7 +27,8 @@
 
 unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id);
 unsigned long long	calc_think_time_us(const t_rules *rules);
-unsigned long long	calc_initial_cycle_time_us(const t_rules *rules);
+unsigned long long	calc_initial_cycle_time_us(
+						const t_rules *rules, t_philo *philo);
 unsigned long long	calc_cycle_time_us(t_philo *philo);
 
 #endif

@@ -27,6 +27,7 @@ void	*philosopher(void *arg)
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
 			return (verbose_exit(me));
+	increase_target_time(&me->cycle_target_time, me->initial_cycle_time_us);
 	while (true)
 	{
 		if (!philo_eat(me))

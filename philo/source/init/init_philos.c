@@ -44,7 +44,7 @@ bool	init_philos(
 		(*philos)[i].initial_think_time_us = calc_initial_think_time_us(
 				rules, (*philos)[i].id);
 		(*philos)[i].think_time_us = calc_think_time_us(rules);
-		(*philos)[i].initial_cycle_time_us = calc_initial_cycle_time_us(rules);
+		(*philos)[i].initial_cycle_time_us = calc_initial_cycle_time_us(rules, &(*philos)[i]);
 		(*philos)[i].cycle_time_us = calc_cycle_time_us(&(*philos)[i]);
 		i++;
 	}

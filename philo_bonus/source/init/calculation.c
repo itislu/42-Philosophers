@@ -50,10 +50,11 @@ unsigned long long	calc_think_time_us(const t_rules *rules)
 	return (ft_max(think_time_us, 0));
 }
 
-unsigned long long	calc_initial_cycle_time_us(const t_rules *rules)
+unsigned long long	calc_initial_cycle_time_us(
+						const t_rules *rules, t_philo *philo)
 {
 	return (((unsigned long long)rules->time_to_eat_ms
-			+ rules->time_to_sleep_ms) * 1000);
+			+ rules->time_to_sleep_ms) * 1000 + philo->think_time_us);
 }
 
 unsigned long long	calc_cycle_time_us(t_philo *philo)
@@ -62,7 +63,7 @@ unsigned long long	calc_cycle_time_us(t_philo *philo)
 
 	cycle_time_us = philo->initial_cycle_time_us;
 	if (philo->think_time_us)
-		cycle_time_us += philo->think_time_us + MARGIN_MS / 2 * 1000;
+		cycle_time_us += MARGIN_MS / 2 * 1000;
 	return (cycle_time_us);
 }
 
