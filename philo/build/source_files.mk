@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/07 01:05:24 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/07 01:14:49 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,17 +17,17 @@ SRC		:=	main.c
 DIR		:=	init/
 SRC		+=	$(addprefix $(DIR), \
             calculation.c \
-            create_threads.c \
-            init_mutexes.c \
-            init_philos.c \
             margin.c \
+            mutexes.c \
+            philo_data.c \
+            threads.c \
 )
 
 # User input:
 DIR		:=	input/
 SRC		+=	$(addprefix $(DIR), \
             feedback.c \
-            parsing.c \
+            rules.c \
 )
 
 # Monitor Thread:

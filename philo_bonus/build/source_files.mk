@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/07 01:01:48 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/07 01:19:12 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,23 +18,23 @@ DIR		:=	init/
 SRC		+=	$(addprefix $(DIR), \
             calculation.c \
             margin.c \
+            monitor_data.c \
+            philo_data.c \
             processes.c \
-            t_mon.c \
-            t_philos.c \
-            t_semaphores.c \
+            semaphores.c \
 )
 
 # User input:
 DIR		:=	input/
 SRC		+=	$(addprefix $(DIR), \
             feedback.c \
-            parsing.c \
+            rules.c \
 )
 
 # Monitor Thread:
 DIR		:=	monitor/
 SRC		+=	$(addprefix $(DIR), \
-            death.c \
+            broadcast.c \
             monitor.c \
 )
 

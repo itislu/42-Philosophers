@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philos.c                                      :+:      :+:    :+:   */
+/*   philo_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:16:53 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/06 01:26:48 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:15:45 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,13 @@
 
 static void	init_philo(
 				t_philo *philo,
-				t_mutexes *mutexes,
+				t_semaphores *semaphores,
 				const t_rules *rules,
 				struct timeval *start_time);
-static void	set_forks(
-				t_philo *philo,
-				pthread_mutex_t *forks,
-				const t_rules *rules,
-				int i);
 
 bool	init_philos(
 			t_philo **philos,
-			t_mutexes *mutexes,
+			t_semaphores *semaphores,
 			const t_rules *rules,
 			struct timeval *start_time)
 {
@@ -38,51 +33,39 @@ bool	init_philos(
 	i = 0;
 	while (i < rules->num_of_philos)
 	{
-		init_philo(&(*philos)[i], mutexes, rules, start_time);
+		init_philo(*philos, semaphores, rules, start_time);
 		i++;
 	}
 	return (true);
 }
 
+void	cleanup(t_philo *philos, t_semaphores *semaphores, char *error_msg)
+{
+	if (error_msg)
+		ft_putstr_fd(error_msg, STDERR_FILENO);
+	stop_philo_processes(philos, philos->rules->num_of_philos);
+	free(philos);
+	destroy_semaphores(semaphores);
+}
+
 static void	init_philo(
-				t_philo *philo,
-				t_mutexes *mutexes,
+				t_philo *philos,
+				t_semaphores *semaphores,
 				const t_rules *rules,
 				struct timeval *start_time)
 {
 	static int	i = 0;
+	t_philo		*philo;
 
+	philo = &philos[i];
+	philo->base_ptr = philos;
 	philo->id = i + 1;
 	philo->start_time = start_time;
 	philo->rules = rules;
-	philo->state = ALIVE;
-	philo->state_mutex = &mutexes->state_mutexes[i];
-	philo->sync_mutex = mutexes->sync_mutex;
-	philo->print_mutex = mutexes->print_mutex;
-	set_forks(philo, mutexes->forks, rules, i);
+	philo->semaphores = semaphores;
 	philo->initial_think_time_us = calc_initial_think_time_us(rules, philo->id);
 	philo->think_time_us = calc_think_time_us(rules);
 	philo->initial_cycle_time_us = calc_initial_cycle_time_us(rules, philo);
 	philo->cycle_time_us = calc_cycle_time_us(rules, philo);
 	i++;
-}
-
-static void	set_forks(
-				t_philo *philo,
-				pthread_mutex_t *forks,
-				const t_rules *rules,
-				int i)
-{
-	philo->left_fork = &forks[i];
-	philo->right_fork = &forks[(i + 1) % rules->num_of_philos];
-	if (ft_iseven(i))
-	{
-		philo->take_forks = &take_forks_left_first;
-		philo->release_forks = &release_forks_left_first;
-	}
-	else
-	{
-		philo->take_forks = &take_forks_right_first;
-		philo->release_forks = &release_forks_right_first;
-	}
 }
