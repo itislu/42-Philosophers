@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:26:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/04 18:07:10 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/06 02:37:09 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	print_verbose(t_philo *me, const char *msg)
 {
 	char	*spacing;
 
-	if (!VERBOSE)
-		return ;
 	if (COLUMN2 && ft_iseven(me->id))
 		spacing = COLUMN2;
 	else
@@ -34,8 +32,6 @@ void	print_verbose_us(t_philo *me, const char *msg, unsigned long long us)
 {
 	char	*spacing;
 
-	if (!VERBOSE)
-		return ;
 	if (COLUMN2 && ft_iseven(me->id))
 		spacing = COLUMN2;
 	else
@@ -50,8 +46,6 @@ void	print_verbose_death(t_philo *me)
 {
 	char	*spacing;
 
-	if (!VERBOSE)
-		return ;
 	if (COLUMN2 && ft_iseven(me->id))
 		spacing = COLUMN2;
 	else
@@ -65,8 +59,6 @@ void	print_verbose_death(t_philo *me)
 
 void	print_verbose_monitor(t_mon *monitor, const char *msg)
 {
-	if (!VERBOSE)
-		return ;
 	sem_wait(monitor->semaphores->print_mutex.sem);
 	printf(STY_BOL "%s%llu %c %s" STY_RES "\n", COLUMN1,
 		get_elapsed_time_ms(monitor->philos->start_time), 'm', msg);
@@ -82,8 +74,6 @@ void	print_actual_elapsed_time(
 	struct timeval		result;
 	unsigned long long	actual_time_us;
 
-	if (!VERBOSE)
-		return ;
 	gettimeofday(&end, NULL);
 	timersub(&end, start, &result);
 	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
