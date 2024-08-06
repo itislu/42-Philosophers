@@ -23,7 +23,7 @@ void	*philosopher(void *arg)
 	pthread_mutex_unlock(me->sync_mutex);
 	if (VERBOSE)
 		print_verbose(me, "has started routine");
-	me->cycle_target_time = *me->start_time;
+	timeradd(&me->cycle_target_time, me->start_time, &me->cycle_target_time);
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
 			return (verbose_exit(me));
