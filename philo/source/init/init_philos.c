@@ -63,7 +63,7 @@ static void	init_philo(
 	philo->initial_think_time_us = calc_initial_think_time_us(rules, philo->id);
 	philo->think_time_us = calc_think_time_us(rules);
 	philo->initial_cycle_time_us = calc_initial_cycle_time_us(rules, philo);
-	philo->cycle_time_us = calc_cycle_time_us(philo);
+	philo->cycle_time_us = calc_cycle_time_us(rules, philo);
 	i++;
 }
 
