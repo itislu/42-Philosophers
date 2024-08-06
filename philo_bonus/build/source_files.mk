@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/04 17:45:48 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/07 01:01:48 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC		:=	main.c
 DIR		:=	init/
 SRC		+=	$(addprefix $(DIR), \
             calculation.c \
+            margin.c \
             processes.c \
             t_mon.c \
             t_philos.c \
