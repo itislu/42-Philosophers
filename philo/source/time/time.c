@@ -49,9 +49,8 @@ unsigned long long	get_remaining_time_us(
 		if (VERBOSE)
 		{
 			timersub(&current_time, target_time, &result);
-			print_verbose_us(me,
-				STY_BOL STY_BLU "is behind cycle target time by" STY_RES,
-				to_us(&result));
+			print_verbose_us(
+				me, STY_BOL STY_RED "Cycle delay:" STY_RES, to_us(&result));
 		}
 		return (0);
 	}
