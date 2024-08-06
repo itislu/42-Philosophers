@@ -40,13 +40,10 @@ unsigned long long	calc_think_time_us(const t_rules *rules)
 {
 	long long	think_time_us;
 
-	if (ft_iseven(rules->num_of_philos))
-		think_time_us = (rules->time_to_eat_ms - rules->time_to_sleep_ms
-				- MARGIN_MS / 2) * 1000LL;
-	else
-		think_time_us = (long long)calc_think_block(rules)
-			+ (rules->time_to_eat_ms - rules->time_to_sleep_ms - MARGIN_MS / 2)
-			* 1000LL;
+	think_time_us = (rules->time_to_eat_ms - rules->time_to_sleep_ms
+			- MARGIN_MS / 2) * 1000LL;
+	if (!ft_iseven(rules->num_of_philos))
+		think_time_us += (long long)calc_think_block(rules);
 	return (ft_max(think_time_us, 0));
 }
 
