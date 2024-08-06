@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:54:03 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/06 01:54:19 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/06 04:43:49 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,14 @@ void	philosopher(t_philo *me)
 	if (me->initial_think_time_us)
 		if (!philo_think_initial(me))
 			clean_exit(me, &monitor_thread, SUCCESS);
-	if (VERBOSE)
-		print_verbose_us(me, STY_BOL STY_YEL "cycle_target_time: " STY_RES, me->cycle_target_time.tv_sec * 1000 + me->cycle_target_time.tv_usec / 1000 - (me->start_time->tv_sec * 1000 + me->start_time->tv_usec / 1000));
 	while (true)
 	{
 		if (!philo_eat(me))
 			break ;
-		if (VERBOSE)
-			print_verbose_us(me, STY_BOL STY_MAG "cycle_target_time: " STY_RES, me->cycle_target_time.tv_sec * 1000 + me->cycle_target_time.tv_usec / 1000 - (me->start_time->tv_sec * 1000 + me->start_time->tv_usec / 1000));
 		if (!philo_sleep(me))
 			break ;
-		if (VERBOSE)
-			print_verbose_us(me, STY_BOL STY_BLU "cycle_target_time: " STY_RES, me->cycle_target_time.tv_sec * 1000 + me->cycle_target_time.tv_usec / 1000 - (me->start_time->tv_sec * 1000 + me->start_time->tv_usec / 1000));
 		if (!philo_think(me))
 			break ;
-		if (VERBOSE)
-			print_verbose_us(me, STY_BOL STY_YEL "cycle_target_time: " STY_RES, me->cycle_target_time.tv_sec * 1000 + me->cycle_target_time.tv_usec / 1000 - (me->start_time->tv_sec * 1000 + me->start_time->tv_usec / 1000));
 	}
 	release_forks(me);
 	clean_exit(me, &monitor_thread, SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:26:22 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/06 02:37:09 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/06 04:45:08 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	print_actual_elapsed_time(
 
 	gettimeofday(&end, NULL);
 	timersub(&end, start, &result);
-	actual_time_us = result.tv_sec * 1000000ULL + result.tv_usec;
+	actual_time_us = to_us(&result);
 	if (actual_time_us - target_time_us >= VERBOSE_DELAY_PRINT_THRESHOLD_US)
 	{
 		print_verbose_us(

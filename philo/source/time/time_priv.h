@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_pub.h                                         :+:      :+:    :+:   */
+/*   time_priv.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 09:04:05 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/06 04:43:23 by ldulling         ###   ########.fr       */
+/*   Created: 2024/08/06 04:15:28 by ldulling          #+#    #+#             */
+/*   Updated: 2024/08/06 04:16:57 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIME_PUB_H
-# define TIME_PUB_H
+#ifndef TIME_PRIV_H
+# define TIME_PRIV_H
 
+# include "macros.h"
+# include "print_pub.h"
 # include "typedefs.h"
+# include <stddef.h>
 # include <sys/time.h>
-
-unsigned long long	to_us(const struct timeval *time);
-unsigned long long	get_elapsed_time_ms(const struct timeval *start_time);
-unsigned long long	get_elapsed_time_us(const struct timeval *start_time);
-unsigned long long	get_remaining_time_us(
-						const struct timeval *target_time, t_philo *me);
-struct timeval		*increase_target_time(
-						struct timeval *target_time,
-						unsigned long long increase_us);
 
 #endif
