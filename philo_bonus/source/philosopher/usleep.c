@@ -64,8 +64,12 @@ bool	usleep_while_alive_precise(unsigned long long us, t_philo *me)
 bool	usleep_while_alive_precise_target(
 			const struct timeval *target_time, t_philo *me)
 {
-	return (
-		usleep_while_alive_precise(get_remaining_time_us(target_time, me), me));
+	unsigned long long	remaining_time_us;
+
+	remaining_time_us = get_remaining_time_us(target_time, me);
+	if (VERBOSE && remaining_time_us)
+		print_verbose_us(me, "thinks for", remaining_time_us);
+	return (usleep_while_alive_precise(remaining_time_us, me));
 }
 
 static inline __attribute__((always_inline))
