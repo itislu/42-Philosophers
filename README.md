@@ -60,6 +60,11 @@
 ## `./philo 199 410 200 200`
 ![199_philos](/media/199_philos.png)
 
+---
+
+## How it started
+![how_it_started](/media/how_it_started.png)
+
 </div>
 
 ---
