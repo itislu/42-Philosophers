@@ -467,7 +467,7 @@ MSG_CLEAN		:=	$(STY_ITA)"Cleaning up build artifacts ... "$(STY_RES)"\n"
 ################################################################################
 MSG_FCLEAN		:=	$(STY_ITA)"Cleaning up build artifacts and executable ... "$(STY_RES)"\n"
 ################################################################################
-MSG_FFCLEAN		:=	$(STY_ITA)"Forcefully cleaning up build artifacts and executable ... "$(STY_RES)"\n"
+MSG_FFCLEAN		:=	$(STY_ITA)"Forcefully cleaning up build artifacts directory and executable ... "$(STY_RES)"\n"
 ################################################################################
 endif
 
