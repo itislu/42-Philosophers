@@ -60,6 +60,8 @@ typedef struct s_semaphore_named
  * - `exit_allowed`: To signal that a philosopher is allowed to exit.
  *     Important to ensure the philosopher who died exits before the others.
  *
+ * - `forks_mutex`: To protect against deadlocks when taking forks.
+ *
  * - `mon_mutex`: To protect against race conditions in the monitor threads.
  *
  * - `philo_mutex`: To protect against race conditions in the philo threads.
