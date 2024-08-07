@@ -129,6 +129,7 @@ PHONY_TARGETS	+=	$(HELP_TARGETS)
 export .PHONY	:	$(PHONY_TARGETS)
 
 REBUILD_TARGETS	:=	verbose	columns nocolor opt san re
+CLEAN_TARGETS	:=	clean fclean ffclean
 
 .DEFAULT		:
 					$(MAKE) help
@@ -380,7 +381,7 @@ re				:
 
 #	Include dependency files
 
-ifeq (,$(filter $(HELP_TARGETS) $(REBUILD_TARGETS) clean fclean ffclean,$(MAKECMDGOALS)))
+ifeq (,$(filter $(HELP_TARGETS) $(REBUILD_TARGETS) $(CLEAN_TARGETS),$(MAKECMDGOALS)))
     ifneq (,$(wildcard $(OBJ_DIR)))
         -include	$(DEP)
     endif
