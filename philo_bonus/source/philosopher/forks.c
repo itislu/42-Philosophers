@@ -29,9 +29,16 @@ bool	take_forks(t_philo *me)
 {
 	if (VERBOSE)
 		print_verbose(me, "is trying to take forks");
+	sem_wait(me->semaphores->forks_mutex.sem);
 	while (me->forks_taken < 2)
+	{
 		if (!philo_take_fork(me, me->semaphores->forks.sem))
+		{
+			sem_post(me->semaphores->forks_mutex.sem);
 			return (false);
+		}
+	}
+	sem_post(me->semaphores->forks_mutex.sem);
 	return (true);
 }
 

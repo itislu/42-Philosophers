@@ -74,6 +74,7 @@ typedef struct s_semaphores
 	t_sem_named				full;
 	t_sem_named				exit_ready;
 	t_sem_named				exit_allowed;
+	t_sem_named				forks_mutex;
 	t_sem_named				mon_mutex;
 	t_sem_named				philo_mutex;
 	t_sem_named				print_mutex;
