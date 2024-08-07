@@ -279,7 +279,8 @@ help-help		:
 
 help-MODE MODE-help:
 					echo "Build mode to combine with other targets."
-					echo "Usage: make <target> MODE=<mode>"
+					echo "Multiple modes can be combined by separating them with a space."
+					echo "Usage: make <target> MODE=\"<mode1> [mode2] [...]\""
 
 help-ARGS ARGS-help:
 					echo "If specified, the program will run with those arguments after compilation."
