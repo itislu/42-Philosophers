@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/07 01:19:12 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/07 17:28:52 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,21 +31,19 @@ SRC		+=	$(addprefix $(DIR), \
             rules.c \
 )
 
-# Monitor Thread:
+# Monitor Process:
 DIR		:=	monitor/
 SRC		+=	$(addprefix $(DIR), \
             broadcast.c \
             monitor.c \
 )
 
-# Philosopher Threads:
+# Philosopher Processes:
 DIR		:=	philosopher/
 SRC		+=	$(addprefix $(DIR), \
             forks.c \
             philo.c \
-            philo_eat.c \
-            philo_sleep.c \
-            philo_think.c \
+            philo_action.c \
             status.c \
             usleep.c \
 )

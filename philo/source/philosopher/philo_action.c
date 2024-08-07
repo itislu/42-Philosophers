@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_eat.c                                        :+:      :+:    :+:   */
+/*   philo_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:02 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/07 01:44:53 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:27:12 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,39 @@ bool	philo_eat(t_philo *me)
 		if (VERBOSE)
 			print_verbose(me, "got full");
 	}
+	return (true);
+}
+
+bool	philo_sleep(t_philo *me)
+{
+	if (!print_if_alive(me, MSG_SLEEP))
+		return (false);
+	if (!usleep_while_alive_precise(me->rules->time_to_sleep_ms * 1000ULL, me))
+		return (false);
+	return (true);
+}
+
+bool	philo_think(t_philo *me)
+{
+	if (!print_if_alive(me, MSG_THINK))
+		return (false);
+	if (me->think_time_us)
+	{
+		if (!usleep_while_alive_precise_target(
+				&me->cycle_target_time, me, "thinks for"))
+			return (false);
+		increase_target_time(&me->cycle_target_time, me->cycle_time_us);
+	}
+	return (true);
+}
+
+bool	philo_think_initial(t_philo *me)
+{
+	if (!print_if_alive(me, MSG_THINK))
+		return (false);
+	increase_target_time(&me->cycle_target_time, me->initial_think_time_us);
+	if (!usleep_while_alive_precise_target(
+			&me->cycle_target_time, me, "thinks for"))
+		return (false);
 	return (true);
 }

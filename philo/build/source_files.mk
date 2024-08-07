@@ -6,7 +6,7 @@
 #    By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/19 22:39:40 by ldulling          #+#    #+#              #
-#    Updated: 2024/08/07 01:14:49 by ldulling         ###   ########.fr        #
+#    Updated: 2024/08/07 17:27:59 by ldulling         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,9 +42,7 @@ DIR		:=	philosopher/
 SRC		+=	$(addprefix $(DIR), \
             forks.c \
             philo.c \
-            philo_eat.c \
-            philo_sleep.c \
-            philo_think.c \
+            philo_action.c \
             status.c \
             usleep.c \
 )
