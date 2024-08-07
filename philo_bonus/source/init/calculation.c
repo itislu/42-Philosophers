@@ -78,6 +78,6 @@ static unsigned long long	calc_think_block_us(const t_rules *rules)
 	if (rules->num_of_philos < 2)
 		return (rules->time_to_die_ms * 1000ULL);
 	else
-		return (2ULL * rules->time_to_eat_ms * 1000ULL
+		return (2ULL * rules->time_to_eat_ms * 1000
 			/ ft_round_down_even(rules->num_of_philos));
 }
