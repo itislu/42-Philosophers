@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:09:47 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/05 12:18:49 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/07 02:02:48 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ bool	philo_think(t_philo *me);
 bool	usleep_while_alive(unsigned long long us, t_philo *me);
 bool	usleep_while_alive_precise(unsigned long long us, t_philo *me);
 bool	usleep_while_alive_precise_target(
-			const struct timeval *target_time, t_philo *me);
+			const struct timeval *target_time, t_philo *me, const char *msg);
 
 #endif

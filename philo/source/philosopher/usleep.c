@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 19:15:26 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/06 05:19:14 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/07 02:01:49 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ bool	usleep_while_alive_precise(unsigned long long us, t_philo *me)
 }
 
 bool	usleep_while_alive_precise_target(
-			const struct timeval *target_time, t_philo *me)
+			const struct timeval *target_time, t_philo *me, const char *msg)
 {
 	unsigned long long	remaining_time_us;
 
 	remaining_time_us = get_remaining_time_us(target_time, me);
 	if (VERBOSE && remaining_time_us)
-		print_verbose_us(me, "thinks for", remaining_time_us);
+		print_verbose_us(me, msg, remaining_time_us);
 	return (usleep_while_alive_precise(remaining_time_us, me));
 }
 

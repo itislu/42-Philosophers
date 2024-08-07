@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:19:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/07 01:44:34 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/07 02:03:39 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ bool	philo_think_initial(t_philo *me)
 	if (!print_if_alive(me, MSG_THINK))
 		return (false);
 	increase_target_time(&me->cycle_target_time, me->initial_think_time_us);
-	if (!usleep_while_alive_precise_target(&me->cycle_target_time, me))
+	if (!usleep_while_alive_precise_target(
+			&me->cycle_target_time, me, "thinks for"))
 		return (false);
 	return (true);
 }
@@ -28,7 +29,8 @@ bool	philo_think(t_philo *me)
 		return (false);
 	if (me->think_time_us)
 	{
-		if (!usleep_while_alive_precise_target(&me->cycle_target_time, me))
+		if (!usleep_while_alive_precise_target(
+				&me->cycle_target_time, me, "thinks for"))
 			return (false);
 		increase_target_time(&me->cycle_target_time, me->cycle_time_us);
 	}
