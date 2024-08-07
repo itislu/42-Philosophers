@@ -48,6 +48,15 @@ unsigned long long	calc_think_time_us(const t_rules *rules)
 	return (ft_max(think_time_us, 0));
 }
 
+static unsigned long long	calc_think_block_us(const t_rules *rules)
+{
+	if (rules->num_of_philos < 2)
+		return (rules->time_to_die_ms * 1000ULL);
+	else
+		return (2ULL * rules->time_to_eat_ms * 1000
+			/ ft_round_down_even(rules->num_of_philos));
+}
+
 // Keep margin of think_time_us, but account for margin of initial_think_time_us
 unsigned long long	calc_initial_cycle_time_us(
 						const t_rules *rules, t_philo *philo)
@@ -71,13 +80,4 @@ unsigned long long	calc_cycle_time_us(const t_rules *rules, t_philo *philo)
 	if (philo->think_time_us)
 		cycle_time_us += get_think_margin_us();
 	return (cycle_time_us);
-}
-
-static unsigned long long	calc_think_block_us(const t_rules *rules)
-{
-	if (rules->num_of_philos < 2)
-		return (rules->time_to_die_ms * 1000ULL);
-	else
-		return (2ULL * rules->time_to_eat_ms * 1000
-			/ ft_round_down_even(rules->num_of_philos));
 }
