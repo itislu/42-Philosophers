@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 	if (!parse_rules(&rules, argc, argv))
 		return (INPUT_ERROR);
 	if (rules.num_of_philos == 0 || rules.num_each_philo_must_eat == 0)
-		return (print_nothing_to_do(&rules), 0);
+		return (print_nothing_to_do(&rules), SUCCESS);
 	if (!init_semaphores(&semaphores, rules.num_of_philos))
 		return (ft_putstr_fd(ERR_SEMAPHORE, STDERR_FILENO), SEMAPHORE_FAILURE);
 	if (!init_philos(&philos, &semaphores, &rules, &start_time))
