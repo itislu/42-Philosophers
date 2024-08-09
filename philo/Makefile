@@ -53,7 +53,7 @@ COLUMN1			?=	'""'
 COLUMN2			?=	'"                                   "'
 
 export				MACROS
-ifneq (,$(filter verbose%,$(MAKECMDGOALS) $(MODE)))
+ifneq (,$(filter verbose,$(MAKECMDGOALS) $(MODE)))
 MACROS			:=	-D VERBOSE=1
 endif
 ifneq (,$(filter columns,$(MAKECMDGOALS) $(MODE)))
