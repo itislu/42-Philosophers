@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/09 18:17:59 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:45:06 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "philo_pub.h"
 # include "rules_pub.h"
 # include "semaphores.h"
-# include "time_pub.h"
 # include "utils_pub.h"
 # include <fcntl.h>
 # include <semaphore.h>
@@ -27,6 +26,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+# define DEATH_MARGIN_MS	10
 
 unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id);
 unsigned long long	calc_think_time_us(const t_rules *rules);

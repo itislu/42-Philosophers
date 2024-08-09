@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 00:51:14 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/07 00:51:14 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:34:42 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ unsigned long long	get_initial_think_margin_us(const t_rules *rules)
 
 unsigned long long	get_think_margin_us(void)
 {
-	return (MARGIN_MS / 2 * 1000ULL);
+	return (DEATH_MARGIN_MS / 2 * 1000ULL);
 }
