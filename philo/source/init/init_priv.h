@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/07 00:52:50 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:32:08 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 # define INIT_PRIV_H
 
 # include "init_pub.h"
-# include "macros.h"
 # include "monitor_pub.h"
+# include "mutexes.h"
 # include "print_pub.h"
 # include "philo_pub.h"
-# include "typedefs.h"
+# include "rules_pub.h"
+# include "time_pub.h"
 # include "utils_pub.h"
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/time.h>
 
 unsigned long long	calc_initial_think_time_us(const t_rules *rules, int id);
 unsigned long long	calc_think_time_us(const t_rules *rules);

@@ -6,15 +6,23 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 09:04:05 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/06 04:43:23 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:17:10 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TIME_PUB_H
 # define TIME_PUB_H
 
-# include "typedefs.h"
+# include "philo_pub.h"
 # include <sys/time.h>
+
+/* Timing Configuration */
+# define MONITOR_INTERVAL_US		433
+# define USLEEP_LONG_US				1000
+# define USLEEP_SHORT_THRESHOLD_US	2000
+# define USLEEP_SHORT_US			100
+# define BUSY_WAIT_THRESHOLD_US		100
+# define MARGIN_MS					10
 
 unsigned long long	to_us(const struct timeval *time);
 unsigned long long	get_elapsed_time_ms(const struct timeval *start_time);

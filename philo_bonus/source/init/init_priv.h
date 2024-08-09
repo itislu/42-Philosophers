@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:01:32 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/07 01:00:48 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:17:59 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define INIT_PRIV_H
 
 # include "init_pub.h"
-# include "macros.h"
 # include "philo_pub.h"
-# include "typedefs.h"
+# include "rules_pub.h"
+# include "semaphores.h"
+# include "time_pub.h"
 # include "utils_pub.h"
 # include <fcntl.h>
 # include <semaphore.h>

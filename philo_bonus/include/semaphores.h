@@ -1,45 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   typedefs.h                                         :+:      :+:    :+:   */
+/*   semaphores.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 10:19:35 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/07 01:45:03 by ldulling         ###   ########.fr       */
+/*   Created: 2024/08/09 17:24:17 by ldulling          #+#    #+#             */
+/*   Updated: 2024/08/09 18:23:55 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPEDEFS_H
-# define TYPEDEFS_H
+#ifndef SEMAPHORES_H
+# define SEMAPHORES_H
 
 # include <semaphore.h>
-# include <stdbool.h>
-# include <sys/time.h>
-
-typedef enum e_exit_codes
-{
-	SUCCESS				=	0,
-	INPUT_ERROR			=	1,
-	SEMAPHORE_FAILURE	=	2,
-	MALLOC_FAILURE		=	3,
-	PROCESS_FAILURE		=	4,
-	THREAD_FAILURE		=	5
-}	t_exit;
-
-typedef struct s_rules
-{
-	int						num_of_philos;
-	int						time_to_die_ms;
-	int						time_to_eat_ms;
-	int						time_to_sleep_ms;
-	int						num_each_philo_must_eat;
-}	t_rules;
 
 typedef struct s_semaphore_named
 {
-	sem_t					*sem;
-	char					*name;
+	sem_t		*sem;
+	char		*name;
 }	t_sem_named;
 
 /**
@@ -70,46 +49,16 @@ typedef struct s_semaphore_named
  */
 typedef struct s_semaphores
 {
-	t_sem_named				forks;
-	t_sem_named				stop;
-	t_sem_named				dead;
-	t_sem_named				full;
-	t_sem_named				exit_ready;
-	t_sem_named				exit_allowed;
-	t_sem_named				forks_mutex;
-	t_sem_named				mon_mutex;
-	t_sem_named				philo_mutex;
-	t_sem_named				print_mutex;
+	t_sem_named	forks;
+	t_sem_named	stop;
+	t_sem_named	dead;
+	t_sem_named	full;
+	t_sem_named	exit_ready;
+	t_sem_named	exit_allowed;
+	t_sem_named	forks_mutex;
+	t_sem_named	mon_mutex;
+	t_sem_named	philo_mutex;
+	t_sem_named	print_mutex;
 }	t_semaphores;
-
-typedef struct s_philo	t_philo;
-struct s_philo
-{
-	t_philo					*base_ptr;
-	pid_t					pid;
-	int						id;
-	const struct timeval	*start_time;
-	const t_rules			*rules;
-	t_semaphores			*semaphores;
-	int						forks_taken;
-	bool					is_stopped;
-	bool					is_dead;
-	unsigned long long		initial_think_time_us;
-	unsigned long long		think_time_us;
-	struct timeval			cycle_target_time;
-	unsigned long long		initial_cycle_time_us;
-	unsigned long long		cycle_time_us;
-	unsigned long long		latest_timestamp_ms;
-	unsigned long long		last_meal_timestamp_ms;
-	unsigned long long		meals_eaten;
-};
-
-typedef struct s_monitor
-{
-	t_philo					*philos;
-	t_semaphores			*semaphores;
-	const t_rules			*rules;
-	bool					is_released;
-}	t_mon;
 
 #endif

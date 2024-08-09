@@ -6,15 +6,15 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:26:41 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/09 15:27:20 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:10:58 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_pub.h"
-#include "macros.h"
 #include "monitor_pub.h"
+#include "mutexes.h"
+#include "philo_pub.h"
 #include "rules_pub.h"
-#include "typedefs.h"
 #include "utils_pub.h"
 #include <pthread.h>
 #include <stdlib.h>

@@ -6,7 +6,7 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:09:47 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/07 01:59:55 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:18:30 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 # define PHILO_PRIV_H
 
 # include "init_pub.h"
-# include "macros.h"
 # include "print_pub.h"
 # include "philo_pub.h"
+# include "semaphores.h"
 # include "time_pub.h"
-# include "typedefs.h"
 # include "utils_pub.h"
 # include <pthread.h>
 # include <semaphore.h>
 # include <stdbool.h>
 # include <stdlib.h>
+# include <sys/time.h>
 # include <unistd.h>
 
 bool	philo_eat(t_philo *me);

@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_priv.h                                        :+:      :+:    :+:   */
+/*   mutexes.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 04:15:28 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/09 17:37:31 by ldulling         ###   ########.fr       */
+/*   Created: 2024/08/09 15:41:54 by ldulling          #+#    #+#             */
+/*   Updated: 2024/08/09 16:58:40 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIME_PRIV_H
-# define TIME_PRIV_H
+#ifndef MUTEXES_H
+# define MUTEXES_H
 
-# include "print_pub.h"
-# include <stddef.h>
-# include <sys/time.h>
+# include <pthread.h>
+
+typedef struct s_mutexes
+{
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	*state_mutexes;
+	pthread_mutex_t	*sync_mutex;
+	pthread_mutex_t	*print_mutex;
+}	t_mutexes;
 
 #endif

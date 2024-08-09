@@ -6,14 +6,14 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 04:49:36 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/09 15:26:36 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:38:38 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RULES_PRIV_H
 # define RULES_PRIV_H
 
-# include "typedefs.h"
+# include "rules_pub.h"
 # include "utils_pub.h"
 # include <stdbool.h>
 # include <stdio.h>
