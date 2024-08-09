@@ -6,11 +6,11 @@
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 04:40:10 by ldulling          #+#    #+#             */
-/*   Updated: 2024/08/07 02:26:56 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:26:58 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_priv.h"
+#include "rules_priv.h"
 
 void	print_nothing_to_do(t_rules *rules)
 {

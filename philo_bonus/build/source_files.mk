@@ -24,13 +24,6 @@ SRC		+=	$(addprefix $(DIR), \
             semaphores.c \
 )
 
-# User input:
-DIR		:=	input/
-SRC		+=	$(addprefix $(DIR), \
-            feedback.c \
-            rules.c \
-)
-
 # Monitor Process:
 DIR		:=	monitor/
 SRC		+=	$(addprefix $(DIR), \
@@ -53,6 +46,13 @@ DIR		:=	print/
 SRC		+=	$(addprefix $(DIR), \
             print.c \
             verbose.c \
+)
+
+# Simulation Rules:
+DIR		:=	rules/
+SRC		+=	$(addprefix $(DIR), \
+            feedback.c \
+            rules.c \
 )
 
 # Time:

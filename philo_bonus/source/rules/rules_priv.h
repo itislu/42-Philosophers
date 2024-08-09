@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_priv.h                                       :+:      :+:    :+:   */
+/*   rules_priv.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 04:49:36 by ldulling          #+#    #+#             */
-/*   Updated: 2024/06/10 16:30:28 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:26:36 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_PRIV_H
-# define INPUT_PRIV_H
+#ifndef RULES_PRIV_H
+# define RULES_PRIV_H
 
 # include "typedefs.h"
 # include "utils_pub.h"

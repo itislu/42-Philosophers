@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_pub.h                                        :+:      :+:    :+:   */
+/*   rules_pub.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldulling <ldulling@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 09:25:52 by ldulling          #+#    #+#             */
-/*   Updated: 2024/07/31 18:32:28 by ldulling         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:25:37 by ldulling         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_PUB_H
-# define INPUT_PUB_H
+#ifndef RULES_PUB_H
+# define RULES_PUB_H
 
 # include "typedefs.h"
 # include <stdbool.h>
