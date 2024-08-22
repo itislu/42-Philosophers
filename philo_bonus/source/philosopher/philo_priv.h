@@ -13,6 +13,8 @@
 #ifndef PHILO_PRIV_H
 # define PHILO_PRIV_H
 
+# define _DEFAULT_SOURCE
+
 # include "init_pub.h"
 # include "print_pub.h"
 # include "philo_pub.h"
