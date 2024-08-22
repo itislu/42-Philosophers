@@ -163,22 +163,22 @@ all				:
 
 
 help-verbose	:
-					echo "Build the project in verbose mode."
+					echo "Rebuild the project in verbose mode."
 					echo "Verbose mode prints extra information to see what each thread is doing."
 					echo "Printouts can be split into 2 columns with the MODE variable."
 					echo "Usage: make verbose MODE=columns"
 
 help-columns	:
-					echo "Build the project with printouts split into 2 columns."
+					echo "Rebuild the project with printouts split into 2 columns."
 					echo "  Column 1: The philosophers with uneven ID."
 					echo "  Column 2: The philosophers with even ID."
 
 help-nocolor	:
-					echo "Build the project without colors in printouts."
+					echo "Rebuild the project without colors in printouts."
 					echo "Useful for redirecting the output into a file and pasting it into the philosophers-visualizer."
 
 help-opt		:
-					echo "Build the project with the following compiler optimization flags:"
+					echo "Rebuild the project with the following compiler optimization flags:"
 					echo "  $(CFLAGS_OPT)"
 
 help-san		:
