@@ -125,7 +125,7 @@ HELP_TARGETS	:=	help help-print \
 PHONY_TARGETS	+=	$(HELP_TARGETS)
 export .PHONY	:	$(PHONY_TARGETS)
 
-REBUILD_TARGETS	:=	verbose	columns nocolor opt san re
+REBUILD_TARGETS	:=	verbose columns nocolor opt san re
 CLEAN_TARGETS	:=	clean fclean ffclean
 
 .DEFAULT		:
@@ -187,7 +187,7 @@ help-san		:
 
 opt				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
 san				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_DBG) $(CFLAGS_SAN)
-verbose	columns nocolor opt san: re
+verbose columns nocolor opt san: re
 					$(MAKE) clean
 					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
