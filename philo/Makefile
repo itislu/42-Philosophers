@@ -239,11 +239,10 @@ drd				:	$(MODE)
 
 
 help-clear		:
-					echo "Clear the terminal and build the project."
+					echo "Build the project and clear the terminal."
 
-clear			:
+clear			:	$(MODE)
 					clear
-					$(MAKE) $(MODE)
 					if [ "$(MAKECMDGOALS)" = "$@" ] && [ -n "$(ARGS)" ]; then \
 						"./$(NAME)" $(ARGS); \
 					fi
@@ -263,7 +262,7 @@ help			:
 					echo "  val              Build and run the project with valgrind"
 					echo "  hel              Build and run the project with helgrind"
 					echo "  drd              Build and run the project with DRD"
-					echo "  clear            Clear the terminal and build the project"
+					echo "  clear            Build the project and clear the terminal"
 					echo "  clean            Remove build artifacts"
 					echo "  fclean           Remove build artifacts and executable"
 					echo "  ffclean          Remove build artifacts and executable without checking for unknown files"
