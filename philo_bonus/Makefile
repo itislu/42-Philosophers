@@ -118,6 +118,8 @@ DEP_SUBDIRS		:=	$(sort $(dir $(DEP)))
 
 # ***************************** BUILD PROCESS ******************************** #
 
+#	Make variables
+
 export				CC CFLAGS MAKECMDGOALS MAKEFLAGS
 
 PHONY_TARGETS	:=	all verbose columns nocolor opt san run val hel drd clear clean fclean ffclean re
@@ -147,7 +149,7 @@ help-all		:
 
 all				:
 					if $(MAKE) --question $(NAME); then \
-						echo -n $(MSG_NO_CHNG); \
+						echo -n $(MSG_NO_CHANGE); \
 						echo -n $(MSG_HELP); \
 					else \
 						echo -n $(MSG_MODE); \
@@ -185,7 +187,7 @@ help-opt		:
 					echo "  $(CFLAGS_OPT)"
 
 help-san		:
-					echo "Rebuild the project with the following sanitizers enabled:"
+					echo "Rebuild the project with the following sanitizer flags:"
 					echo "  $(CFLAGS_SAN)"
 
 opt				:	CFLAGS := $(CFLAGS_STD) $(CFLAGS_OPT)
@@ -269,11 +271,11 @@ help			:
 					echo
 					echo "Targets:"
 					echo "  all              Build the project (default target)"
-					echo "  verbose          Build the project in verbose mode"
-					echo "  columns          Build the project with printouts in 2 columns"
-					echo "  nocolor          Build the project without colors in printouts"
-					echo "  opt              Build the project with optimizations"
-					echo "  san              Build the project with sanitizers"
+					echo "  verbose          Rebuild the project in verbose mode"
+					echo "  columns          Rebuild the project with printouts in 2 columns"
+					echo "  nocolor          Rebuild the project without colors in printouts"
+					echo "  opt              Rebuild the project with optimizations"
+					echo "  san              Rebuild the project with sanitizers"
 					echo "  run              Build and run the project"
 					echo "  val              Build and run the project with valgrind"
 					echo "  hel              Build and run the project with helgrind"
@@ -388,7 +390,7 @@ ifeq (,$(filter $(HELP_TARGETS) $(REBUILD_TARGETS) $(CLEAN_TARGETS),$(MAKECMDGOA
 endif
 
 
-# **************************** COLORS ******************************* #
+# ********************************* COLORS *********************************** #
 
 STY_RES			:=	"\e[0m"
 STY_BOL			:=	"\e[1m"
@@ -436,7 +438,7 @@ endif
 ################################################################################
 MSG_SUCCESS		:=	$(STY_BOL)$(STY_ITA)$(STY_WHI_BRI)"DONE!"$(STY_RES)"\n"
 ################################################################################
-MSG_NO_CHNG		:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)"\n"
+MSG_NO_CHANGE	:=	$(STY_ITA)$(STY_WHI)"Everything up-to-date!"$(STY_RES)"\n"
 ################################################################################
 MSG_FAILURE		:=	$(STY_BOL)$(STY_ITA)$(STY_RED)"BUILD FAILED!"$(STY_RES)"\n"
 ################################################################################
@@ -450,9 +452,9 @@ ifneq (,$(filter columns,$(MAKECMDGOALS) $(MODE)))
 MSG_MODE		:=	$(MSG_MODE)$(MSG_COLUMNS)
 endif
 ################################################################################
-MSG_NO_COLOR	:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_WHI_BRI)"------------- NO COLOR MODE --------------"$(STY_RES)"\n"
+MSG_NOCOLOR		:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_WHI_BRI)"------------- NO COLOR MODE --------------"$(STY_RES)"\n"
 ifneq (,$(filter nocolor,$(MAKECMDGOALS) $(MODE)))
-MSG_MODE		:=	$(MSG_MODE)$(MSG_NO_COLOR)
+MSG_MODE		:=	$(MSG_MODE)$(MSG_NOCOLOR)
 endif
 ################################################################################
 MSG_OPT			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_GRE)"----------- OPTIMIZATION MODE ------------"$(STY_RES)"\n"
@@ -465,12 +467,12 @@ ifneq (,$(filter san,$(MAKECMDGOALS) $(MODE)))
 MSG_MODE		:=	$(MSG_MODE)$(MSG_SAN)
 endif
 ################################################################################
-MSG_VAL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_CYA)"------------ VALGRIND MODE ---------------"$(STY_RES)"\n"
+MSG_VAL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_CYA)"------------- VALGRIND MODE --------------"$(STY_RES)"\n"
 ifneq (,$(filter val,$(MAKECMDGOALS) $(MODE)))
 MSG_MODE		:=	$(MSG_MODE)$(MSG_VAL)
 endif
 ################################################################################
-MSG_HEL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"------------ HELGRIND MODE ---------------"$(STY_RES)"\n"
+MSG_HEL			:=	$(STY_BOL)$(STY_ITA)$(STY_UND)$(STY_MAG)"------------- HELGRIND MODE --------------"$(STY_RES)"\n"
 ifneq (,$(filter hel,$(MAKECMDGOALS) $(MODE)))
 MSG_MODE		:=	$(MSG_MODE)$(MSG_HEL)
 endif
