@@ -13,6 +13,7 @@
 #ifndef MONITOR_PRIV_H
 # define MONITOR_PRIV_H
 
+# include "init_pub.h"
 # include "monitor_pub.h"
 # include "print_pub.h"
 # include <pthread.h>

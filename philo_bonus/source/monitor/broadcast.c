@@ -24,7 +24,9 @@ bool	broadcast_death(t_mon *monitor)
 	sem_post(monitor->semaphores->stop.sem);
 	wait_all_stopped(monitor, monitor->rules->num_of_philos);
 	pid = waitpid(0, &status, 0);
-	print_death(monitor->philos, get_philo_id_with_pid(monitor->philos, pid));
+	if (WIFEXITED(status) && WEXITSTATUS(status) == SUCCESS)
+		print_death(
+			monitor->philos, get_philo_id_with_pid(monitor->philos, pid));
 	sem_post(monitor->semaphores->exit_allowed.sem);
 	return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
 }
