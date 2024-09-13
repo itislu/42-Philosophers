@@ -41,11 +41,11 @@ bool	init_philos(
 
 void	cleanup(t_philo *philos, t_semaphores *semaphores, char *error_msg)
 {
-	if (error_msg)
-		ft_putstr_fd(error_msg, STDERR_FILENO);
 	stop_philo_processes(philos, philos->rules->num_of_philos);
 	free(philos);
 	destroy_semaphores(semaphores);
+	if (error_msg)
+		ft_putstr_fd(error_msg, STDERR_FILENO);
 }
 
 static void	init_philo(
