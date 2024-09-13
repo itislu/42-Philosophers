@@ -41,7 +41,11 @@ void	stop_philo_processes(t_philo *philos, int count)
 	i = 0;
 	while (i < count)
 	{
+		if (VERBOSE)
+			print_verbose(&philos[i], "will be waited for");
 		waitpid(philos[i].pid, NULL, 0);
+		if (VERBOSE)
+			print_verbose(&philos[i], "has been waited for");
 		i++;
 	}
 }

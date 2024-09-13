@@ -15,6 +15,7 @@
 
 # include "init_pub.h"
 # include "philo_pub.h"
+# include "print_pub.h"
 # include "rules_pub.h"
 # include "semaphores.h"
 # include "utils_pub.h"

@@ -19,16 +19,20 @@ static void	print_death(t_philo *philos, int dead_philo);
 bool	broadcast_death(t_mon *monitor)
 {
 	int		status;
+	bool	is_success;
 	pid_t	pid;
 
 	sem_post(monitor->semaphores->stop.sem);
 	wait_all_stopped(monitor, monitor->rules->num_of_philos);
 	pid = waitpid(0, &status, 0);
-	if (WIFEXITED(status) && WEXITSTATUS(status) == SUCCESS)
+	is_success = (WIFEXITED(status) && WEXITSTATUS(status) == SUCCESS);
+	if (is_success)
 		print_death(
 			monitor->philos, get_philo_id_with_pid(monitor->philos, pid));
+	else if (VERBOSE)
+		print_verbose_monitor(monitor, "detected error");
 	sem_post(monitor->semaphores->exit_allowed.sem);
-	return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
+	return (is_success);
 }
 
 static int	get_philo_id_with_pid(t_philo *philos, pid_t pid)
