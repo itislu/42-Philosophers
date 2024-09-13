@@ -65,7 +65,7 @@ static void	clean_exit(t_philo *me, pthread_t *monitor_thread, t_exit status)
 	if (monitor_thread)
 		pthread_join(*monitor_thread, NULL);
 	sem_post(me->semaphores->exit_ready.sem);
-	if (!me->is_dead)
+	if (!me->is_dead && status == SUCCESS)
 	{
 		sem_wait(me->semaphores->exit_allowed.sem);
 		sem_post(me->semaphores->exit_allowed.sem);
